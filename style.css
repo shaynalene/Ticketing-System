@@ -168,3 +168,214 @@ nav input {
 }
 
 /* NAVIGATION BAR ENDS HERE */
+
+/* LOGIN PAGE STARTS HERE */
+
+.login-height {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#yellow-slider::before {
+  position: absolute;
+  content: "";
+  width: 1200px;
+  height: 1200px;
+  top: -50%;
+  left: -20%;
+  width: 1000px;
+  height: 1000px;
+  background: linear-gradient(
+    -45deg,
+    #fdedb0 0%,
+    rgb(250, 250, 169) 25%,
+    #ebd997 51%,
+    #f2eacb 100%
+  );
+  border-radius: 50%;
+  will-change: border-radius, transform, opacity;
+  animation: sliderShape 5s linear infinite;
+  display: block;
+  z-index: -1;
+  -webkit-animation: sliderShape 5s linear infinite;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+#green-slider::before {
+  position: absolute;
+  content: "";
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: 70%;
+
+  background: linear-gradient(
+    -45deg,
+    #62a25e 0%,
+    #9ab898 25%,
+    #a4d7a0 51%,
+    #9ab898 100%
+  );
+  border-radius: 50%;
+  will-change: border-radius, transform, opacity;
+  animation: sliderShape 5s linear infinite;
+  display: block;
+  z-index: -1;
+  -webkit-animation: sliderShape 5s linear infinite;
+}
+@keyframes sliderShape {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotateZ(0.01deg);
+  }
+  34% {
+    transform: translate3d(0, 5px, 0) rotateZ(0.01deg);
+  }
+  50% {
+    transform: translate3d(0, 0, 0) rotateZ(0.01deg);
+  }
+  67% {
+    transform: translate3d(0, -5px, 0) rotateZ(0.01deg);
+  }
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+  height: 100vh;
+}
+
+.login-btn-ctr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+#lgn-logo-pic {
+  width: 18rem;
+  height: 18rem;
+}
+
+.btn {
+  background-color: #f2cf51;
+  color: #000000;
+  font-size: 30px;
+  font-weight: 900;
+  padding: 9px 40px;
+  border-radius: 10px;
+  margin: 10px;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+  border: none;
+  background-color: #ffe585;
+}
+
+#login-btn {
+  padding: 9px 65px;
+}
+
+.redirect {
+  text-decoration: none;
+  color: #365f32;
+  padding: 10px;
+}
+
+.lgn-input {
+  padding: 10px;
+  font-size: 24px;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+}
+
+.ipt-style {
+  background-color: #e9e8f9;
+  border: none;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 20px;
+  width: 300px;
+}
+
+#lgn-pass {
+  margin-bottom: 20px;
+}
+
+/* REGISTER FORM */
+
+.register-container {
+  background-color: #f2f2f2;
+  padding: 2em;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.rgs-input {
+  padding: 10px;
+  font-size: 1.2rem;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rgs-header {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  padding: 20px;
+}
+
+.rgs-ipt-style {
+  background-color: #e9e8f9;
+  border: none;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 20px;
+  width: 15rem;
+}
+
+#cancel-btn {
+  color: #000000;
+  background-color: #e57777;
+  font-size: 18px;
+}
+
+#cancel-btn:hover {
+  background-color: #ec9797;
+}
+
+#create-acc-btn {
+  color: #000000;
+  background-color: #54cc36;
+  font-size: 18px;
+}
+
+#create-acc-btn:hover {
+  background-color: #7ada62;
+}
+
+@media screen and (max-width: 600px) {
+  .rgs-input,
+  #cancel-btn,
+  #create-acc-btn {
+    font-size: 1rem;
+  }
+  .rgs-ipt-style {
+    width: 12rem;
+  }
+  .rgs-header {
+    font-size: 1.7rem;
+  }
+}
+
+/* REGISTRATION FORM ENDS HERE */
+
+/* LOGIN PAGE ENDS HERE */
