@@ -3,8 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bus Ticketing System</title>
+    <title>BTS | Bus Ticketing System</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="shortcut icon" type="image/jpg" href="./img/bts-logo.png" />
   </head>
-  <body></body>
+  <body>
+    <!-- NAVIGATION BAR -->
+    <nav>
+      <div class="wrapper">
+        <div class="logo">
+          <a href="#"
+            ><img src="img/bts-logo-nav.png" alt="BTS" class="logo-pic"
+          /></a>
+        </div>
+        <input type="radio" name="slider" id="menu-btn" />
+        <input type="radio" name="slider" id="close-btn" />
+        <ul class="nav-links">
+          <label for="close-btn" class="navbtn close-btn"
+            ><i class="fa fa-times"></i
+          ></label>
+          <li><a href="index.html" id="active-page">HOME</a></li>
+          <li><a href="#">BOOKING</a></li>
+          <li>
+            <a href="#">TRANSACTIONS</a>
+          </li>
+          <li>
+            <a href="#">ABOUT US</a>
+          </li>
+          <li><a href="#">PROFILE</a></li>
+          <div class="login">
+            <a href="pages/login-page.html" id="login-button">LOGIN</a>
+          </div>
+        </ul>
+        <label for="menu-btn" class="navbtn menu-btn"
+          ><i class="fa fa-bars"></i
+        ></label>
+      </div>
+    </nav>
+
+    <!-- FOOTER -->
+  </body>
 </html>
