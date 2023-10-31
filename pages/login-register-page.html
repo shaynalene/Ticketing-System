@@ -17,37 +17,30 @@
     <div class="slider-thumb" id="green-slider"></div>
     <!-- REGISTER SECTION -->
     <div class="login-container">
-      <form class="register-container">
+      <form action="../php/registration.php" method="post" class="register-container">
         <div class="rgs-header">REGISTRATION FORM</div>
         <div class="rgs-input">
-          Enter Username <input class="rgs-ipt-style" />
+          Enter Username <input class="rgs-ipt-style" type="text" name="username" />
         </div>
         <div class="rgs-input">
-          Enter First Name <input class="rgs-ipt-style" />
+          Enter First Name <input class="rgs-ipt-style" type="text" name="firstname" />
         </div>
         <div class="rgs-input">
-          Enter Last Name <input class="rgs-ipt-style" />
+          Enter Last Name <input class="rgs-ipt-style" type="text" name="lastname" />
         </div>
         <div class="rgs-input">
-          Enter Phone Number <input class="rgs-ipt-style" />
+          Enter Phone Number <input class="rgs-ipt-style" type="number" name="phonenumber" />
         </div>
-        <div class="rgs-input">Enter Email <input class="rgs-ipt-style" /></div>
-        <div class="rgs-input">
-          Enter Password <input class="rgs-ipt-style" />
+        <div class="rgs-input">Enter Email <input class="rgs-ipt-style" type="email" name="email" />
         </div>
         <div class="rgs-input">
-          <button class="btn" id="cancel-btn" formaction="login-page.html">
-            <!-- CHANGE FORMACTION AND INCLUDE A FUNCTION TO REDIRECT PARA DI MAHIRAPAN SA FORM SUBMIT -->
+          Enter Password <input class="rgs-ipt-style" type="password" name="password" />
+        </div>
+        <div class="rgs-input">
+          <button class="btn" type="button" id="cancel-btn" onclick="window.location.href='login-page.html'">
             Cancel
           </button>
-          <button
-            class="btn"
-            id="create-acc-btn"
-            formaction="login-usr-page.html"
-          >
-            <!-- CHANGE FORMACTION AND INCLUDE A FUNCTION TO REDIRECT PARA DI MAHIRAPAN SA FORM SUBMIT -->
-            Create Account
-          </button>
+          <input type="submit" value="Create Account" class="btn" id="create-acc-btn">
         </div>
       </form>
     </div>

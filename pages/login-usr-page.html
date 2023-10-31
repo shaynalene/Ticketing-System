@@ -19,15 +19,12 @@
     <div class="login-container">
       <img src="/img/bts-logo.png" id="lgn-logo-pic" />
       <div>
-        <form class="login-btn-ctr">
-          <div class="lgn-input">USERNAME: <input class="ipt-style" /></div>
+        <form action="../php/login.php" method="post" class="login-btn-ctr">
+          <div class="lgn-input">USERNAME: <input class="ipt-style" type="text" name="username"/></div>
           <div class="lgn-input" id="lgn-pass">
-            PASSWORD: <input class="ipt-style" />
+            PASSWORD: <input class="ipt-style" type="password" name="password"/>
           </div>
-          <button class="btn" id="login-btn" formaction="login-page.html">
-            <!-- CHANGE FORMACTION AND INCLUDE A FUNCTION TO REDIRECT PARA DI MAHIRAPAN SA FORM SUBMIT -->
-            LOGIN
-          </button>
+          <input type="submit" value="LOGIN" class="btn" id="login-btn">
           <a href="#" class="redirect">FORGOT PASSWORD?</a>
         </form>
       </div>
