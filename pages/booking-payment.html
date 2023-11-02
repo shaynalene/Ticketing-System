@@ -1,45 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BTS-Booking-Payment</title>
-  <link rel="stylesheet" href="booking-payment.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BTS | Bus Ticketing System</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="shortcut icon" type="image/jpg" href="../img/bts-logo.png" />
+<!-- Start of Style for booking-payment.html -------------------------------------------------------->
+    <style>
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Adjust the spacing between buttons */
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            background-color: #E57777;
+            padding: 10px 20px;
+        }
+    </style>
+<!-- End of Style for booking-payment.html -------------------------------------------------------->
+
 </head>
 <body>
-    <div class="background">
-        <div class="booking-form">
-            <center>
-                <h2 style="margin-top: 20px;">Payment</h2>
-                <h4>Online Payment Transaction</h4>
-            </center>
-            <div class="form-bg">
-                <form action="index.php" method="post">
-                    <h3>Payment Channels</h3>
-                    <h4>Bank of the Philippine Islands (BPI):     98765432112345</h4>
-                    <h4>Banco De Oro (BDO):                       98765432112345</h4>
-                    <h4>Gcash or PayMaya:                         09282828282</h4>
-                    <br><br>
-                    <h3>Total Fare for Your Trip:</h3>
-                    <textarea disabled></textarea>
-                    <br><br>
-                    <h3>Enter Reference Number: </h3>
-                    <input type="text" name="name" id="name" required>
-                    <h3>Upload Proof of Payment Screenshot: </h3>
-                    <input type="file" name="Screenshot" id="Screenshot" required>
-                    <h6>*You may upload .png, .jpeg, or pdf file</h6>
 
-                    
-                   
-                    
-                    
-
-            </div>
-            <button onclick="location.href='booking-form1.html'" type="button" style="background-color: #7788E5; padding-left: 34px; padding-right: 34px; margin-right: 70px;">Go Back</button>
-            <button type="reset" style="background-color: #E57777;padding-left: 34px; padding-right: 34px; margin-right: 70px">Reset</button>
-            <button type="submit" formaction="booking-process.html" style="background-color: #54CC36; padding-left: 34px; padding-right: 34px;">Submit</button>
-            </form>
+<!-- Start of Navigation Bar -------------------------------------------------------->
+<nav>
+    <div class="wrapper">
+      <div class="logo">
+        <a href="#"
+          ><img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic"
+        /></a>
+      </div>
+      <input type="radio" name="slider" id="menu-btn" />
+      <input type="radio" name="slider" id="close-btn" />
+      <ul class="nav-links">
+        <label for="close-btn" class="navbtn close-btn"
+          ><i class="fa fa-times"></i
+        ></label>
+        <li><a href="../index.html" id="active-page">HOME</a></li>
+        <li><a href="booking-form1.html">BOOKING</a></li>
+        <li>
+          <a href="#">TRANSACTIONS</a>
+        </li>
+        <li>
+          <a href="#">ABOUT US</a>
+        </li>
+        <li><a href="#">PROFILE</a></li>
+        <div class="login">
+          <a href="../pages/login-page.html" id="login-button">LOGIN</a>
         </div>
+      </ul>
+      <label for="menu-btn" class="navbtn menu-btn"
+        ><i class="fa fa-bars"></i
+      ></label>
     </div>
+  </nav>
+<!-- End of Navigation Bar -------------------------------------------------------->
+
+  <div class="background">
+    <div class="booking-form">
+        <center>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h1 style="color: #365F32;">Payment</h1>
+            <h4>Online Payment Transaction</h4>
+            <br>
+        </center>
+<!-- Start of Payment Form -------------------------------------------------------->
+    <div class="form-bg">
+        <form id="payment-form" action="booking-process.html" method="post">
+            <h3>Payment Channels</h3>
+            <p>Bank of the Philippine Islands (BPI): 98765432112345</p>
+            <p>Banco De Oro (BDO): 98765432112345</p>
+            <p>Gcash or PayMaya: 09282828282</p>
+            <br><br>
+            <h3>Total Fare for Your Trip:</h3>
+            <textarea disabled></textarea>
+            <br>
+            <hr>
+            <br>
+            <h3>Enter Reference Number: </h3>
+            <input type="text" name="name" id="name" required>
+            <h3>Upload Proof of Payment Screenshot: </h3>
+            <input type="file" name="Screenshot" id="Screenshot" accept=".png, .jpeg, .pdf" required>
+            <h6>*You may upload .png, .jpeg, or pdf file</h6>
+        </form>
+    </div>
+<!-- End of Payment Form -------------------------------------------------------->
+
+<!-- Start of Buttons -------------------------------------------------------->
+    <div class="button-container">
+    <button onclick="location.href='booking-form2.html'" type="button" style="background-color: #7788E5;">Go Back</button>
+    <button type="button" onclick="resetForm()" style="background-color: #E57777;">Clear Form</button>
+    <button onclick="validateForm()" type="submit" style="background-color: #54CC36;">Submit</button>
+</div>
+<!-- End of Buttons -------------------------------------------------------->
+</div>
+</div>
+
+<!-- FOOTER -->
+
+<!-- Start of Script (to reset and validate form) -------------------------------------------------------->
+    <script>
+        function resetForm() {
+            document.getElementById("payment-form").reset();
+        }
+
+        function validateForm() {
+            var form = document.getElementById("payment-form");
+            if (form.checkValidity()) {
+                location.href = 'booking-process.html';
+            } else {
+                alert("Please fill in all required fields.");
+            }
+        }
+    </script>
+<!-- End of Script (to reset and validate form) -------------------------------------------------------->
+
 </body>
 </html>
