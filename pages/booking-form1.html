@@ -1,73 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BTS | Bus Ticketing System</title>
     <link rel="stylesheet" href="../style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="shortcut icon" type="image/jpg" href="../img/bts-logo.png" />
-  </head>
-  <body>
-    <!-- NAVIGATION BAR -->
-    <nav>
-      <div class="wrapper">
-        <div class="logo">
-          <a href="#"
-            ><img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic"
-          /></a>
-        </div>
-        <input type="radio" name="slider" id="menu-btn" />
-        <input type="radio" name="slider" id="close-btn" />
-        <ul class="nav-links">
-          <label for="close-btn" class="navbtn close-btn"
-            ><i class="fa fa-times"></i
-          ></label>
-          <li><a href="../index.html" id="active-page">HOME</a></li>
-          <li><a href="booking-form1.html">BOOKING</a></li>
-          <li>
-            <a href="#">TRANSACTIONS</a>
-          </li>
-          <li>
-            <a href="#">ABOUT US</a>
-          </li>
-          <li><a href="#">PROFILE</a></li>
-          <div class="login">
-            <a href="../pages/login-page.html" id="login-button">LOGIN</a>
-          </div>
-        </ul>
-        <label for="menu-btn" class="navbtn menu-btn"
-          ><i class="fa fa-bars"></i
-        ></label>
-      </div>
-    </nav>
 
+<!-- Start of Style for booking-form1.html -------------------------------------------------------->
+    <style>
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            background-color: #E57777;
+            padding: 10px 20px;
+            margin: 0 10px;
+        }
+    </style>
+<!-- End of Style for booking-form1.html -------------------------------------------------------->
+
+</head>
+<body>
+
+<!-- Start of Navigation Bar -------------------------------------------------------->
+<nav>
+    <div class="wrapper">
+      <div class="logo">
+        <a href="#"
+          ><img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic"
+        /></a>
+      </div>
+      <input type="radio" name="slider" id="menu-btn" />
+      <input type="radio" name="slider" id="close-btn" />
+      <ul class="nav-links">
+        <label for="close-btn" class="navbtn close-btn"
+          ><i class="fa fa-times"></i
+        ></label>
+        <li><a href="../index.html" id="active-page">HOME</a></li>
+        <li><a href="booking-form1.html">BOOKING</a></li>
+        <li>
+          <a href="#">TRANSACTIONS</a>
+        </li>
+        <li>
+          <a href="#">ABOUT US</a>
+        </li>
+        <li><a href="#">PROFILE</a></li>
+        <div class="login">
+          <a href="../pages/login-page.html" id="login-button">LOGIN</a>
+        </div>
+      </ul>
+      <label for="menu-btn" class="navbtn menu-btn"
+        ><i class="fa fa-bars"></i
+      ></label>
+    </div>
+  </nav>
+ <!-- End of Navigation Bar -------------------------------------------------------->
+ 
     <div class="background">
         <div class="booking-form">
-            <h2>Booking Form</h2>
+            <br>
+            <br>
+            <br>
+            <h1 style="color: #365F32;">Booking Form</h1>
+ <!-- Start of Booking Form -------------------------------------------------------->
             <div class="form-bg">
-<!---Start of Form-->
-                <form action="index.php" method="post">
+                <form action="index.php" method="post" id="booking-form">
                     <label for="name">Customer's Name: </label>
                     <input type="text" name="name" id="name" required>
      
                     <label for="contact">Contact Number:</label>
-                    <input type="text" name="contact" id="contact" required>
+                    <input type="text" name ="contact" id="contact" required>
     
                     <label for="pickUp-destination">Pick-up Terminal:</label>
-                    <select id ="pickUp-destination">
-                        <option value="destination">Select Terminal</option>
+                    <select id ="pickUp-destination" required>
+                        <option value="" disabled selected>Select Terminal</option>
                         <option value="baguio">Cubao</option>
                         <option value="batangas">Gil Puyat</option>
                         <option value="bicol">Quezon City</option>
                     </select>
                
                     <label for="dropOff-destination">Drop-off Destination:</label>
-                    <select id ="dropOff-destination">
-                        <option value="destination">Select Destination</option>
+                    <select id ="dropOff-destination" required>
+                        <option value="" disabled selected>Select Destination</option>
                         <option value="baguio">Baguio</option>
                         <option value="batangas">Batangas</option>
                         <option value="bicol">Bicol</option>
@@ -83,24 +102,56 @@
 
     
                     <label for="passenger-count">Number of Passengers:</label>
-                    <select id ="passenger-count">
-                        <option value="destination">Select Number of Passengers</option>
+                    <select id ="passenger-count" required>
+                        <option value="" disabled selected>Select Number of Passengers </option>
                         <option value="baguio">1</option>
                         <option value="batangas">2</option>
                         <option value="bicol">3</option>
                     </select>
                 </form>
-                   
- <!---End of Form-->                
-
- <!---Form Buttons-->
             </div>
-            <button type="reset" style="background-color: #E57777; margin-right: 57%;">Clear Form</button>
-            <button onclick="location.href='booking-form2.html'" type="button" style="background-color: #E5CC77; padding-left: 34px; padding-right: 34px;">Next</button>
- <!---End of Form Buttons-->
+<!-- End of Booking Form -------------------------------------------------------->
+
+<!-- Start of Buttons -------------------------------------------------------->
+            <div class="button-container">
+                <button type="button" onclick="resetForm()" style="background-color: #E57777;">Clear Form</button>
+                <button onclick="validateForm()" type="submit" style="background-color: #E5CC77;">Next</button>
+            </div>
+<!-- End of Buttons -------------------------------------------------------->
         </div>
     </div>
 
+<!-- Start of Form Script (to reset, validate form, disable past time, and disable past dates) -------------------------------------------------------->
+    <script>
+        function resetForm() {
+            document.getElementById("booking-form").reset();
+        }
+
+        function validateForm() {
+            var form = document.getElementById("booking-form");
+            var selectedTime = form["departure-time"].value;
+            var currentTime = new Date().toTimeString().slice(0, 5);
+
+            if (form.checkValidity() && selectedTime >= currentTime) {
+                location.href = 'booking-form2.html';
+            } else {
+                if (selectedTime < currentTime) {
+                    alert("Please select a future time.");
+                } else {
+                    alert("Please fill in all required fields.");
+                }
+            }
+        }
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("departure-date").setAttribute("min", today);
+    </script>
+<!-- End of Form Script (to reset, validate form, disable past time, and disable past dates) -------------------------------------------------------->
+
     <!-- FOOTER -->
-  </body>
+</body>
 </html>

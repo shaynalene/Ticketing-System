@@ -399,7 +399,7 @@ justify-content: center;
     background-color: #F2EACB;
     padding: 20px;
     border-radius: 10px;
-    max-width: 500px;
+    max-width: 700px;
     width: 80%;
     margin: 0 auto;
 }
@@ -407,12 +407,15 @@ justify-content: center;
     background-color: rgba(255, 255, 255, 0.7);
     padding: 20px;
     border-radius: 10px;
-    max-width: 500px;
+    max-width: 700px;
     width: 100%;
     margin: 0 auto;
 }
 .booking-form h2{
     text-align: center;
+}
+.booking-form h1{
+  text-align: center;
 }
 .booking-form form{
     display: flex;
@@ -438,4 +441,17 @@ input[type=text],select{
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+/* button for booking form 2 */
+.button2{
+  margin-top:50px;
+  padding: 15px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+/* payment page */
+.booking-form h2{
+  text-align: center;
 }
