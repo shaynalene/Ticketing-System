@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BTS-BookingForm</title>
+  <link rel="stylesheet" href="booking-form1.css">
+</head>
+<body>
+    <div class="background">
+        <div class="booking-form">
+            <h2>Booking Form</h2>
+            <div class="form-bg">
+<!---Start of Form-->
+                <form action="index.php" method="post">
+                    <label for="name">Customer's Name: </label>
+                    <input type="text" name="name" id="name" required>
+     
+                    <label for="contact">Contact Number:</label>
+                    <input type="text" name="contact" id="contact" required>
+    
+                    <label for="pickUp-destination">Pick-up Terminal:</label>
+                    <select id ="pickUp-destination">
+                        <option value="destination">Select Terminal</option>
+                        <option value="baguio">Cubao</option>
+                        <option value="batangas">Gil Puyat</option>
+                        <option value="bicol">Quezon City</option>
+                    </select>
+               
+                    <label for="dropOff-destination">Drop-off Destination:</label>
+                    <select id ="dropOff-destination">
+                        <option value="destination">Select Destination</option>
+                        <option value="baguio">Baguio</option>
+                        <option value="batangas">Batangas</option>
+                        <option value="bicol">Bicol</option>
+                        <option value="bataan">Bataan</option>
+                        <option value="pampanga">La Union</option>
+                    </select>
+    
+                    <label for="departure-date">Choose Preferred Date:</label>
+                    <input type="date" name="departure-date" id="departure-date" required>      
+                    
+                    <label for="departure-time">Choose Preferred Time:</label>
+                    <input type="time" name="departure-time" id="departure-time" required>      
+
+    
+                    <label for="passenger-count">Number of Passengers:</label>
+                    <select id ="passenger-count">
+                        <option value="destination">Select Number of Passengers</option>
+                        <option value="baguio">1</option>
+                        <option value="batangas">2</option>
+                        <option value="bicol">3</option>
+                    </select>
+                </form>
+                   
+ <!---End of Form-->                
+
+ <!---Form Buttons-->
+            </div>
+            <button type="reset" style="background-color: #E57777; margin-right: 57%;">Clear Form</button>
+            <button onclick="location.href='bts-booking-form2.html'" type="button" style="background-color: #E5CC77; padding-left: 34px; padding-right: 34px;">Next</button>
+ <!---End of Form Buttons-->
+        </div>
+    </div>
+</body>
+</html>
