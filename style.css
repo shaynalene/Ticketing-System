@@ -167,6 +167,10 @@ nav input {
   color: #365f32;
 }
 
+#active-page:hover {
+  color: rgb(255, 255, 255);
+}
+
 /* NAVIGATION BAR ENDS HERE */
 
 /* LOGIN PAGE STARTS HERE */
