@@ -294,6 +294,7 @@ nav input {
   font-weight: 600;
 }
 
+input[type="text"].ipt-style,
 .ipt-style {
   background-color: #e9e8f9;
   border: none;
@@ -332,6 +333,7 @@ nav input {
   padding: 20px;
 }
 
+input[type="text"].rgs-ipt-style,
 .rgs-ipt-style {
   background-color: #e9e8f9;
   border: none;
@@ -380,78 +382,317 @@ nav input {
 
 /* LOGIN PAGE ENDS HERE */
 
+/* LANDING PAGE STARTS HERE*/
 
-
-/* BOOKING-FORM1 STARTS HERE */
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-.background{
-    background-image: url('bg.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 100%;
-    display: flex;
-align-items: center;
-justify-content: center;
+.pages-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  height: 100vh;
 }
 
-.form-bg{
-    background-color: #F2EACB;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 700px;
-    width: 80%;
-    margin: 0 auto;
+.main-content {
+  flex: 0 85vh;
+  width: 100%;
 }
-.booking-form{
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 700px;
+
+.navbar-ctr {
+  flex: 0 10vh;
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+  color: #365f32;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 3rem 8rem 0rem;
+  gap: 5rem;
+}
+
+.title-header {
+  font-size: 30px;
+  font-weight: 900;
+}
+
+/* table section */
+
+.table-wrapper {
+  margin: 1rem 8rem 3rem;
+  box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
+}
+
+.fl-table {
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: normal;
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  background-color: white;
+}
+
+.fl-table td,
+.fl-table th {
+  text-align: center;
+  padding: 8px;
+}
+
+.fl-table td {
+  border-right: 1px solid #f8f8f8;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.fl-table thead th {
+  color: #ffffff;
+  background: #e5cc77;
+  font-size: 18px;
+}
+
+.fl-table thead th:nth-child(odd) {
+  color: #ffffff;
+  background: #e5cc77;
+}
+
+.fl-table tr:nth-child(even) {
+  background: #f2eacb;
+}
+
+/* Responsive table */
+
+@media (max-width: 900px) {
+  .fl-table {
+    display: block;
     width: 100%;
-    margin: 0 auto;
-}
-.booking-form h2{
+  }
+  .header {
+    padding: 40px 40px 0px;
+  }
+  .table-wrapper {
+    margin: 10px 40px 30px;
+  }
+  .table-wrapper:before {
+    content: "Scroll horizontally >";
+    display: block;
+    text-align: right;
+    font-size: 11px;
+    color: white;
+    padding: 0 0 10px;
+  }
+  .fl-table thead,
+  .fl-table tbody,
+  .fl-table thead th {
+    display: block;
+  }
+  .fl-table thead th:nth-child(odd) {
+    color: #000000;
+    background: #f2eacb;
+  }
+  .fl-table thead th:last-child {
+    border-bottom: none;
+  }
+  .fl-table thead {
+    float: left;
+  }
+  .fl-table tbody {
+    width: auto;
+    position: relative;
+    overflow-x: auto;
+  }
+  .fl-table td,
+  .fl-table th {
+    padding: 20px 0.625em 0.625em 0.625em;
+    height: 60px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 120px;
+    font-size: 13px;
+    text-overflow: ellipsis;
+  }
+  .fl-table thead th {
+    text-align: left;
+    border-bottom: 1px solid #f7f7f9;
+  }
+  .fl-table tbody tr {
+    display: table-cell;
+  }
+  .fl-table tbody tr:nth-child(odd) {
+    background: none;
+  }
+  .fl-table tr:nth-child(even) {
+    background: transparent;
+  }
+  .fl-table tr td:nth-child(odd) {
+    background: #f8f8f8;
+    border-right: 1px solid #e6e4e4;
+  }
+  .fl-table tr td:nth-child(even) {
+    border-right: 1px solid #e6e4e4;
+  }
+  .fl-table tbody td {
+    display: block;
     text-align: center;
+  }
 }
-.booking-form h1{
+
+/* FOOTER STARTS HERE*/
+
+.footer {
+  display: flex;
+  flex: 0 5vh;
+  width: 100%;
+  background-color: #9ab898;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-content {
+  color: white;
+  font-weight: 800;
+  padding: 15px 25px;
   text-align: center;
 }
-.booking-form form{
-    display: flex;
-    flex-direction: column;
-}
-.booking-form input{
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-.booking-form button{
-    margin-top:50px;
-    padding: 15px;
-    color: rgb(0, 0, 0);
-    cursor: pointer;
+
+.social-footer li .social-button .fa {
+  color: #365f32;
 }
 
-input[type=text],select{
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+.social-footer {
+  display: flex;
+  width: 100%;
+}
+
+.social-footer li {
+  list-style: none;
+}
+
+.social-footer li .social-button {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  display: block;
+  text-align: center;
+  margin: 0 10px;
+  border-radius: 50%;
+  padding: 6px;
+  box-sizing: border-box;
+  text-decoration: none;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(0deg, #ddd, #fff);
+  transition: 0.5s;
+}
+
+.social-footer .social-button:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+
+.social-button .social-button .fa {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: linear-gradient(0deg, #fff, #ddd);
+  border-radius: 50%;
+  line-height: calc(60px - 12px);
+  font-size: 24px;
+  color: #262626;
+  transition: 0.5s;
+}
+
+.social-footer li:nth-child(1) .social-button:hover .fa {
+  color: #3b5998;
+}
+
+.social-footer li:nth-child(2) .social-button:hover .fa {
+  color: #00aced;
+}
+
+.social-footer li:nth-child(3) .social-button:hover .fa {
+  color: #dd4b39;
+}
+
+/* FOOTER ENDS HERE */
+
+/* LANDING PAGE ENDS HERE */
+
+/* BOOKING-FORM1 STARTS HERE */
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.background {
+  background-image: url("bg.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-bg {
+  background-color: #f2eacb;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 700px;
+  width: 80%;
+  margin: 0 auto;
+}
+.booking-form {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+}
+.booking-form h2 {
+  text-align: center;
+}
+.booking-form h1 {
+  text-align: center;
+}
+.booking-form form {
+  display: flex;
+  flex-direction: column;
+}
+.booking-form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.booking-form button {
+  margin-top: 50px;
+  padding: 15px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 /* button for booking form 2 */
-.button2{
-  margin-top:50px;
+.button2 {
+  margin-top: 50px;
   padding: 15px;
   color: rgb(0, 0, 0);
   cursor: pointer;
 }
 
 /* payment page */
-.booking-form h2{
+.booking-form h2 {
   text-align: center;
 }
