@@ -69,23 +69,23 @@
             <h1 style="color: #365F32;">Booking Form</h1>
  <!-- Start of Booking Form -------------------------------------------------------->
             <div class="form-bg">
-                <form action="../php/booking-form1.php" method="post" id="booking-form">
+                <form action="/ticketing-system/pages/booking-form2.php" method="post" id="booking-form">
                     <label for="name">Customer's Name: </label>
                     <input type="text" name="name" id="name" required>
      
                     <label for="contact">Contact Number:</label>
                     <input type="text" name ="contact" id="contact" required>
     
-                    <label for="pickUp-destination">Pick-up Terminal:</label>
-                    <select id ="pickUp-destination" required>
+                    <label for="pick-up">Pick-up Terminal:</label>
+                    <select name="pick-up" id ="pick-up" required>
                         <option value="" disabled selected>Select Terminal</option>
                         <option value="baguio">Cubao</option>
                         <option value="batangas">Gil Puyat</option>
                         <option value="bicol">Quezon City</option>
                     </select>
                
-                    <label for="dropOff-destination">Drop-off Destination:</label>
-                    <select id ="dropOff-destination" required>
+                    <label for="drop-off">Drop-off Destination:</label>
+                    <select name="drop-off" id ="drop-off" required>
                         <option value="" disabled selected>Select Destination</option>
                         <option value="baguio">Baguio</option>
                         <option value="batangas">Batangas</option>
@@ -102,22 +102,21 @@
 
     
                     <label for="passenger-count">Number of Passengers:</label>
-                    <select id ="passenger-count" required>
+                    <select name="passenger-count" id ="passenger-count" required>
                         <option value="" disabled selected>Select Number of Passengers </option>
-                        <option value="baguio">1</option>
-                        <option value="batangas">2</option>
-                        <option value="bicol">3</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                     </select>
+                    <!-- Start of Buttons -------------------------------------------------------->
+                    <div class="button-container">
+                        <button type="button" onclick="resetForm()" style="background-color: #E57777;">Clear Form</button>
+                        <button onclick="validateForm()" type="submit" style="background-color: #E5CC77;">Next</button>
+                    </div>
+                    <!-- End of Buttons -------------------------------------------------------->
                 </form>
             </div>
 <!-- End of Booking Form -------------------------------------------------------->
-
-<!-- Start of Buttons -------------------------------------------------------->
-            <div class="button-container">
-                <button type="button" onclick="resetForm()" style="background-color: #E57777;">Clear Form</button>
-                <button onclick="validateForm()" type="submit" style="background-color: #E5CC77;">Next</button>
-            </div>
-<!-- End of Buttons -------------------------------------------------------->
         </div>
     </div>
 
