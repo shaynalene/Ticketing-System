@@ -114,13 +114,14 @@ $time = $_POST['departure-time'];
 $passenger_number = $_POST['passenger-count'];
 
 //make the data available to all pages
+session_start();
 $_SESSION['pick-up'] = $pick_up;
 $_SESSION['drop-off'] = $drop_off;
 $_SESSION['departure-date'] = $date;
 $_SESSION['departure-time'] = $time;
 $_SESSION['passenger-count'] = $passenger_number;
 
-session_start();
+
 $username = $_SESSION['username'];
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
@@ -134,7 +135,7 @@ $conn = new mysqli('localhost','root','','ticket_system');
 if ($conn->connect_error) {
     die(''. $conn->connect_error);
 }
-/*else{
+else{
     //insert into the database
     $sql = "INSERT INTO booking_form (customer_name, number, pick_up, drop_off, date, time, passenger_number)
             VALUES (?, ?, ?, ?, ?, ?, ?)"; 
@@ -143,7 +144,7 @@ if ($conn->connect_error) {
     $stmt->execute();
     $stmt->close();
     $conn->close();
-}*/
+}
 ?>
 <!--End of php code-->
 
