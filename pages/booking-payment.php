@@ -84,6 +84,36 @@
 
 <!--Php Codes to display booking price-->
 
+<?php
+//get data from html form
+session_start();
+$pick_up = $_SESSION['pick-up'];
+$drop_off = $_SESSION['drop-off'];
+$passenger_number = $_SESSION['passenger-count'];
+$username = $_SESSION['username'];
+
+$conn = new mysqli('localhost','root','','ticket_system');
+
+if ($conn->connect_error) {
+    die(''. $conn->connect_error);
+}
+else{
+    //compute for the total booking price
+    $stmt = $conn->prepare("SELECT price FROM destinations WHERE pick_up=? AND drop_off=?");
+    $stmt->bind_param("ss", $pick_up, $drop_off);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+      $row = $result->fetch_assoc();
+      $price = $row["price"];
+      $total_price = $price * $passenger_number;
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
 <!--End of php code-->
 
   <div class="background">
@@ -106,7 +136,7 @@
             <p>Gcash or PayMaya: 09282828282</p>
             <br><br><hr><br>
               <span class="totalFare">Total Fare for your Trip:</span>
-              <span class="amount">PHP 300</span>
+              <span class="amount"><?php echo $total_price ?></span>
             <br>
             <hr>
             <br>
@@ -123,9 +153,9 @@
     <div class="button-container">
     <button onclick="location.href='booking-form1.html'" type="button" style="background-color: #7788E5;">Cancel</button>
     <button type="button" onclick="resetForm()" style="background-color: #E57777;">Clear Form</button>
-    <!--<form action="../php/generate-email.php" method="post">-->
+    <form action="../php/generate-email.php" method="post">
       <button onclick="validateForm()" type="submit" style="background-color: #54CC36;" name ="button_clicked">Submit</button>
-
+</form>
     
 </div>
 <!-- End of Buttons -------------------------------------------------------->
