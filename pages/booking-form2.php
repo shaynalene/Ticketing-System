@@ -80,8 +80,8 @@
         <label for="close-btn" class="navbtn close-btn"
           ><i class="fa fa-times"></i
         ></label>
-        <li><a href="../index.html" id="active-page">HOME</a></li>
-        <li><a href="booking-form2.php">BOOKING</a></li>
+        <li><a href="../index.html" >HOME</a></li>
+        <li><a href="booking-form2.php" id="active-page">BOOKING</a></li>
         <li>
           <a href="#">TRANSACTIONS</a>
         </li>
