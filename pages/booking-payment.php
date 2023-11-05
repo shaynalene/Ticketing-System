@@ -133,9 +133,9 @@ else{
     <div class="button-container">
     <button onclick="location.href='booking-form1.html'" type="button" style="background-color: #7788E5;">Cancel</button>
     <button type="button" onclick="resetForm()" style="background-color: #E57777;">Clear Form</button>
-    <!--<form action="../php/generate-email.php" method="post">-->
+    <form action="../php/generate-email.php" method="post">
       <button onclick="validateForm()" type="submit" style="background-color: #54CC36;" name ="button_clicked">Submit</button>
-
+</form>
     
 </div>
 <!-- End of Buttons -------------------------------------------------------->
