@@ -103,31 +103,65 @@
 <br>
 <br>
 <br>
+<!--Php Codes to display booking form details-->
+<?php
+//get data from html form
+$name = $_POST["name"];
+$number = $_POST["contact"];
+$pick_up = $_POST["pick-up"];
+$drop_off = $_POST["drop-off"];
+$date = $_POST["departure-date"];
+$time = $_POST['departure-time'];
+$passenger_number = $_POST['passenger-count'];
+
+session_start();
+$_SESSION['pick-up'] = $pick_up;
+$_SESSION['drop-off'] = $drop_off;
+$_SESSION['passenger-count'] = $passenger_number;
+
+$conn = new mysqli('localhost','root','','ticket_system');
+
+if ($conn->connect_error) {
+    die(''. $conn->connect_error);
+}
+else{
+    //insert into the database
+    $sql = "INSERT INTO booking_form (customer_name, number, pick_up, drop_off, date, time, passenger_number)
+            VALUES (?, ?, ?, ?, ?, ?, ?)"; 
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sissssi", $name, $number, $pick_up, $drop_off, $date, $time, $passenger_number);
+    $stmt->execute();
+    $stmt->close();
+    $conn->close();
+}
+?>
+<!--End of php code-->
+
 <!-- Start of booking-form2.html (confirmation part) -------------------------------------------------------->
 <center><h1 style="color: #365F32;">Confirm Details Below</h1></center>
 <br>
 <div class="confirmTable">
   <div class="details">
       <span class="question">Customer's Name:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $name ?></span>
       <br><br>
       <span class="question">Contact Number:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $number ?></span>
       <br><br>
       <span class="question">Pick-up Terminal:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $pick_up ?></span>
       <br><br>
       <span class="question">Drop-off Destination:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $drop_off ?></span>
       <br><br>
       <span class="question">Departure Date:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $date ?></span>
       <br><br>
       <span class="question">Departure Time:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $time ?></span>
       <br><br>
       <span class="question">Number of Passengers:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $passenger_number ?></span>
       <br><br>
       <center><p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: red;">(If you wish to edit your booking details, kindly go back to the previous page)</p></center>
   </div>
@@ -139,7 +173,7 @@
 
                 <div class="button-container">
                     <button onclick="location.href='booking-form1.html'" type="button" style="background-color: #7788E5;">Go Back</button>
-                    <button onclick="location.href='booking-payment.html'" type="button" style="background-color: #54CC36;">Confirm</button>
+                    <button onclick="location.href='booking-payment.php'" type="button" style="background-color: #54CC36;">Confirm</button>
                 </div>
 <!-- End of Buttons -------------------------------------------------------->
             </div>

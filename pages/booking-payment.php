@@ -63,6 +63,40 @@
   </nav>
 <!-- End of Navigation Bar -------------------------------------------------------->
 
+<!--Php Codes to display booking price-->
+<?php
+//get data from html form
+session_start();
+$pick_up = $_SESSION['pick-up'];
+$drop_off = $_SESSION['drop-off'];
+$passenger_number = $_SESSION['passenger-count'];
+
+echo $pick_up . ''. $drop_off .''. $passenger_number;
+
+$conn = new mysqli('localhost','root','','ticket_system');
+
+if ($conn->connect_error) {
+    die(''. $conn->connect_error);
+}
+else{
+    //compute for the total booking price
+    $stmt = $conn->prepare("SELECT price FROM destinations WHERE pick_up=? AND drop_off=?");
+    $stmt->bind_param("ss", $pick_up, $drop_off);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+      $row = $result->fetch_assoc();
+      $price = $row["price"];
+      $total_price = $price * $passenger_number;
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+<!--End of php code-->
+
   <div class="background">
     <div class="booking-form">
         <center>
@@ -83,7 +117,7 @@
             <p>Gcash or PayMaya: 09282828282</p>
             <br><br>
             <h3>Total Fare for Your Trip:</h3>
-            <textarea disabled></textarea>
+            <textarea disabled><?php echo $total_price ?></textarea>
             <br>
             <hr>
             <br>
@@ -98,7 +132,7 @@
 
 <!-- Start of Buttons -------------------------------------------------------->
     <div class="button-container">
-    <button onclick="location.href='booking-form2.html'" type="button" style="background-color: #7788E5;">Go Back</button>
+    <button onclick="location.href='booking-form2.php'" type="button" style="background-color: #7788E5;">Go Back</button>
     <button type="button" onclick="resetForm()" style="background-color: #E57777;">Clear Form</button>
     <button onclick="validateForm()" type="submit" style="background-color: #54CC36;">Submit</button>
 </div>
