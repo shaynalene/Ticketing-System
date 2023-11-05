@@ -10,15 +10,34 @@
 
 <!-- Start of Style for booking-form2.html -------------------------------------------------------->
 <style>
-  .confirmTable {
+  .title {
+        text-align: center;
+    }
+
+  .receiptTable {
             width: 100%;
             max-width: 500px; 
             margin: 0 auto;
             padding: 10px;
             background-color: #f2eacb;
-            border: 1px solid #365F32;
+            border: 2px dotted #365F32;
             font-family: 'Times New Roman', Times, serif;
-        }
+   }
+
+   .ticket{
+       text-align: center;
+   }
+
+  .ticketNumber {
+      font-weight: bold;
+      font-size: 25px;
+      color: #365F32;
+  }
+
+  .number {
+      font-weight: bold;
+      font-size: 25px;
+  }
 
   .details {
       margin: 10px 0;
@@ -80,13 +99,13 @@
         <label for="close-btn" class="navbtn close-btn"
           ><i class="fa fa-times"></i
         ></label>
-        <li><a href="../pages/landing-page.html" id="active-page">HOME</a></li>
-        <li><a href="booking-form2.php">BOOKING</a></li>
+        <li><a href="../index.html" id="active-page">HOME</a></li>
+        <li><a href="booking-form1.html">BOOKING</a></li>
         <li>
           <a href="#">TRANSACTIONS</a>
         </li>
         <li>
-          <a href="../pages/about-us.html">ABOUT US</a>
+          <a href="#">ABOUT US</a>
         </li>
         <li><a href="#">PROFILE</a></li>
         <div class="login">
@@ -104,68 +123,40 @@
 <br>
 <br>
 <br>
-<!--Php Codes to display booking form details-->
-<?php
-//get data from html form
-$name = $_POST["name"];
-$number = $_POST["contact"];
-$pick_up = $_POST["pick-up"];
-$drop_off = $_POST["drop-off"];
-$date = $_POST["departure-date"];
-$time = $_POST['departure-time'];
-$passenger_number = $_POST['passenger-count'];
-
-session_start();
-$_SESSION['pick-up'] = $pick_up;
-$_SESSION['drop-off'] = $drop_off;
-$_SESSION['passenger-count'] = $passenger_number;
-
-$conn = new mysqli('localhost','root','','ticket_system');
-
-if ($conn->connect_error) {
-    die(''. $conn->connect_error);
-}
-else{
-    //insert into the database
-    $sql = "INSERT INTO booking_form (customer_name, number, pick_up, drop_off, date, time, passenger_number)
-            VALUES (?, ?, ?, ?, ?, ?, ?)"; 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sissssi", $name, $number, $pick_up, $drop_off, $date, $time, $passenger_number);
-    $stmt->execute();
-    $stmt->close();
-    $conn->close();
-}
-?>
-<!--End of php code-->
-
 <!-- Start of booking-form2.html (confirmation part) -------------------------------------------------------->
-<center><h1 style="color: #365F32;">Confirm Details Below</h1></center>
+<div class="title">
+    <h1 style="color: #365F32;">Booking Confirmed!</h1>
+    <p>Here are your booking details:</p>
+</div>
 <br>
-<div class="confirmTable">
+<div class="receiptTable">
+    <div class="ticket">
+    <span class="ticketNumber">Bus Ticket #: </span>
+    <span class="number">number here</span>
+    </div>
+    <br><br>
   <div class="details">
       <span class="question">Customer's Name:</span>
-      <span class="answer"><?php echo $name ?></span>
+      <span class="answer">answer here</span>
       <br><br>
       <span class="question">Contact Number:</span>
-      <span class="answer"><?php echo $number ?></span>
+      <span class="answer">answer here</span>
       <br><br>
       <span class="question">Pick-up Terminal:</span>
-      <span class="answer"><?php echo $pick_up ?></span>
+      <span class="answer">answer here</span>
       <br><br>
       <span class="question">Drop-off Destination:</span>
-      <span class="answer"><?php echo $drop_off ?></span>
+      <span class="answer">answer here</span>
       <br><br>
       <span class="question">Departure Date:</span>
-      <span class="answer"><?php echo $date ?></span>
+      <span class="answer">answer here</span>
       <br><br>
       <span class="question">Departure Time:</span>
-      <span class="answer"><?php echo $time ?></span>
+      <span class="answer">answer here</span>
       <br><br>
       <span class="question">Number of Passengers:</span>
-      <span class="answer"><?php echo $passenger_number ?></span>
-      <br><br>
-      <center><p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: red;">(If you wish to edit your booking details, kindly go back to the previous page)</p></center>
-  </div>
+      <span class="answer">answer here</span>
+     </div>
 </div>
 
 <!-- End of booking-form2.html (confirmation part) -------------------------------------------------------->
@@ -173,8 +164,7 @@ else{
 <!-- Start of Buttons -------------------------------------------------------->
 
                 <div class="button-container">
-                    <button onclick="location.href='booking-form1.html'" type="button" style="background-color: #7788E5;">Go Back</button>
-                    <button onclick="location.href='booking-payment.php'" type="button" style="background-color: #54CC36;">Confirm</button>
+                    <button onclick="location.href='landing-page.html'" type="button" style="background-color: #54CC36;">Go to Home Page</button>
                 </div>
 <!-- End of Buttons -------------------------------------------------------->
             </div>
