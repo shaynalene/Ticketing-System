@@ -109,7 +109,7 @@
         </li>
         <li><a href="#">PROFILE</a></li>
         <div class="login">
-          <a href="../pages/login-page.html" id="login-button">LOGIN</a>
+          <a href="#" id="login-button">Your Account</a>
         </div>
       </ul>
       <label for="menu-btn" class="navbtn menu-btn"
@@ -118,6 +118,30 @@
     </div>
   </nav>
 <!-- End of Navigation Bar -------------------------------------------------------->
+
+<!--Php Codes to display booking price-->
+<?php
+//get data from html form
+session_start();
+$firstname = $_SESSION['firstname'];
+$lastname = $_SESSION['lastname'];
+$number = $_SESSION['number'];
+$pick_up = $_SESSION['pick-up'];
+$drop_off = $_SESSION['drop-off'];
+$date = $_SESSION['departure-date'];
+$time = $_SESSION['departure-time'];
+$passenger_number = $_SESSION['passenger-count'];
+
+$name = $firstname . ' ' . $lastname;
+
+$conn = new mysqli('localhost','root','','ticket_system');
+
+if ($conn->connect_error) {
+    die(''. $conn->connect_error);
+}
+?>
+<!--End of php code-->
+
 <br>
 <br>
 <br>
@@ -137,25 +161,25 @@
     <br><br>
   <div class="details">
       <span class="question">Customer's Name:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $name ?></span>
       <br><br>
       <span class="question">Contact Number:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $number ?></span>
       <br><br>
       <span class="question">Pick-up Terminal:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $pick_up ?></span>
       <br><br>
       <span class="question">Drop-off Destination:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $drop_off ?></span>
       <br><br>
       <span class="question">Departure Date:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $date ?></span>
       <br><br>
       <span class="question">Departure Time:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $time ?></span>
       <br><br>
       <span class="question">Number of Passengers:</span>
-      <span class="answer">answer here</span>
+      <span class="answer"><?php echo $passenger_number ?></span>
      </div>
 </div>
 
@@ -164,11 +188,35 @@
 <!-- Start of Buttons -------------------------------------------------------->
 
                 <div class="button-container">
-                    <button onclick="location.href='landing-page.html'" type="button" style="background-color: #54CC36;">Go to Home Page</button>
+                    <button onclick="location.href='../index.html'" type="button" style="background-color: #54CC36;">Go to Home Page</button>
                 </div>
 <!-- End of Buttons -------------------------------------------------------->
             </div>
         </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-content">Copyright © 2023 BTS Co.</div>
+      <div class="footer-content">
+        <ul class="social-footer">
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-facebook" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-twitter" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-google" aria-hidden="true"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
     </div>
 </body>
 </html>

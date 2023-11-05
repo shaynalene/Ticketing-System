@@ -1,7 +1,7 @@
 <?php
 //get data from html form
-$name = $_POST["name"];
-$number = $_POST["contact"];
+//$name = $_POST["name"];
+//$number = $_POST["contact"];
 $pick_up = $_POST["pick-up"];
 $drop_off = $_POST["drop-off"];
 $date = $_POST["departure-date"];

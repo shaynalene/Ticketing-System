@@ -96,8 +96,10 @@ hr{
 }
 .description-3 h3{
     font-size: 8vh;
+    
 }
-.description-3 h4{
+.description-3 p{
     font-size: 3vh;
     font-weight: 400;
+    color: white;
 }

@@ -43,7 +43,7 @@
         <label for="close-btn" class="navbtn close-btn"
           ><i class="fa fa-times"></i
         ></label>
-        <li><a href="../pages/landing-page.html" id="active-page">HOME</a></li>
+        <li><a href="../index.html" id="active-page">HOME</a></li>
         <li><a href="booking-payment.html">BOOKING</a></li>
         <li>
           <a href="#">TRANSACTIONS</a>
@@ -53,7 +53,7 @@
         </li>
         <li><a href="#">PROFILE</a></li>
         <div class="login">
-          <a href="../pages/login-page.html" id="login-button">LOGIN</a>
+          <a href="#" id="login-button">Your Account</a>
         </div>
       </ul>
       <label for="menu-btn" class="navbtn menu-btn"
@@ -70,8 +70,7 @@ session_start();
 $pick_up = $_SESSION['pick-up'];
 $drop_off = $_SESSION['drop-off'];
 $passenger_number = $_SESSION['passenger-count'];
-
-echo $pick_up . ''. $drop_off .''. $passenger_number;
+$username = $_SESSION['username'];
 
 $conn = new mysqli('localhost','root','','ticket_system');
 
@@ -132,15 +131,40 @@ else{
 
 <!-- Start of Buttons -------------------------------------------------------->
     <div class="button-container">
-    <button onclick="location.href='booking-form2.php'" type="button" style="background-color: #7788E5;">Go Back</button>
+    <button onclick="location.href='booking-form1.html'" type="button" style="background-color: #7788E5;">Cancel</button>
     <button type="button" onclick="resetForm()" style="background-color: #E57777;">Clear Form</button>
-    <button onclick="validateForm()" type="submit" style="background-color: #54CC36;">Submit</button>
+    <!--<form action="../php/generate-email.php" method="post">-->
+      <button onclick="validateForm()" type="submit" style="background-color: #54CC36;" name ="button_clicked">Submit</button>
+
+    
 </div>
 <!-- End of Buttons -------------------------------------------------------->
 </div>
 </div>
 
 <!-- FOOTER -->
+<div class="footer">
+      <div class="footer-content">Copyright © 2023 BTS Co.</div>
+      <div class="footer-content">
+        <ul class="social-footer">
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-facebook" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-twitter" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-google" aria-hidden="true"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
 <!-- Start of Script (to reset and validate form) -------------------------------------------------------->
     <script>

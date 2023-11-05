@@ -80,7 +80,7 @@
         <label for="close-btn" class="navbtn close-btn"
           ><i class="fa fa-times"></i
         ></label>
-        <li><a href="../pages/landing-page.html" id="active-page">HOME</a></li>
+        <li><a href="../index.html" id="active-page">HOME</a></li>
         <li><a href="booking-form2.php">BOOKING</a></li>
         <li>
           <a href="#">TRANSACTIONS</a>
@@ -90,7 +90,7 @@
         </li>
         <li><a href="#">PROFILE</a></li>
         <div class="login">
-          <a href="../pages/login-page.html" id="login-button">LOGIN</a>
+          <a href="#" id="login-button">Your Account</a>
         </div>
       </ul>
       <label for="menu-btn" class="navbtn menu-btn"
@@ -106,26 +106,35 @@
 <br>
 <!--Php Codes to display booking form details-->
 <?php
-//get data from html form
-$name = $_POST["name"];
-$number = $_POST["contact"];
+//get data from booking form
 $pick_up = $_POST["pick-up"];
 $drop_off = $_POST["drop-off"];
 $date = $_POST["departure-date"];
 $time = $_POST['departure-time'];
 $passenger_number = $_POST['passenger-count'];
 
-session_start();
+//make the data available to all pages
 $_SESSION['pick-up'] = $pick_up;
 $_SESSION['drop-off'] = $drop_off;
+$_SESSION['departure-date'] = $date;
+$_SESSION['departure-time'] = $time;
 $_SESSION['passenger-count'] = $passenger_number;
+
+session_start();
+$username = $_SESSION['username'];
+$firstname = $_SESSION['firstname'];
+$lastname = $_SESSION['lastname'];
+$number = $_SESSION['number'];
+$email = $_SESSION['email'];
+
+$name = $firstname . ' '. $lastname;
 
 $conn = new mysqli('localhost','root','','ticket_system');
 
 if ($conn->connect_error) {
     die(''. $conn->connect_error);
 }
-else{
+/*else{
     //insert into the database
     $sql = "INSERT INTO booking_form (customer_name, number, pick_up, drop_off, date, time, passenger_number)
             VALUES (?, ?, ?, ?, ?, ?, ?)"; 
@@ -134,7 +143,7 @@ else{
     $stmt->execute();
     $stmt->close();
     $conn->close();
-}
+}*/
 ?>
 <!--End of php code-->
 
@@ -179,6 +188,30 @@ else{
 <!-- End of Buttons -------------------------------------------------------->
             </div>
         </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-content">Copyright © 2023 BTS Co.</div>
+      <div class="footer-content">
+        <ul class="social-footer">
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-facebook" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-twitter" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-google" aria-hidden="true"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
     </div>
 </body>
 </html>
