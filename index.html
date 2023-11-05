@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BTS | Bus Ticketing System</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link rel="shortcut icon" type="image/jpg" href="../img/bts-logo.png" />
+    <link rel="shortcut icon" type="image/jpg" href="/img/bts-logo.png" />
   </head>
   <body class="pages-flex">
     <!-- NAVIGATION BAR -->
@@ -18,7 +18,7 @@
         <div class="wrapper">
           <div class="logo">
             <a href="#"
-              ><img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic"
+              ><img src="/img/bts-logo-nav.png" alt="BTS" class="logo-pic"
             /></a>
           </div>
           <input type="radio" name="slider" id="menu-btn" />
@@ -27,19 +27,19 @@
             <label for="close-btn" class="navbtn close-btn"
               ><i class="fa fa-times"></i
             ></label>
-            <li><a href="index.html" id="active-page">HOME</a></li>
             <li>
-              <a href="../pages/booking-form1.html">BOOKING</a>
+              <a href="../pages/landing-page.html" id="active-page">HOME</a>
             </li>
+            <li><a href="../pages/booking-form1.html">BOOKING</a></li>
             <li>
               <a href="#">TRANSACTIONS</a>
             </li>
             <li>
-              <a href="#">ABOUT US</a>
+              <a href="../pages/about-us.html">ABOUT US</a>
             </li>
             <li><a href="#">PROFILE</a></li>
             <div class="login">
-              <a href="pages/login-page.html" id="login-button">LOGIN</a>
+              <a href="/pages/login-page.html" id="login-button">LOGIN</a>
             </div>
           </ul>
           <label for="menu-btn" class="navbtn menu-btn"
@@ -49,7 +49,111 @@
       </nav>
     </div>
 
-    <div class="main-content"></div>
+    <!-- LANDING PAGE -->
+    <div class="main-content">
+      <div class="header">
+        <div class="title-header">ONLINE VIEWBOARD</div>
+        <div id="lastEditDate">UPDATED AS OF: 00/00/00 00:00 AM/PM</div>
+      </div>
+      <div class="table-wrapper">
+        <table id="editableTable" class="fl-table">
+          <thead>
+            <tr>
+              <th>DESTINATION</th>
+              <th>PRICE</th>
+              <th>BUS NO.</th>
+              <th>TRAVEL DATE</th>
+              <th>ARRIVAL TIME</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td contenteditable="false">PLACE</td>
+              <td contenteditable="false">###</td>
+              <td contenteditable="false">##</td>
+              <td contenteditable="false">00/00/00</td>
+              <td contenteditable="false">00:00:00 AM/PM</td>
+              <td contenteditable="false">ACTIVE</td>
+            </tr>
+            <tr>
+              <td contenteditable="false">PLACE</td>
+              <td contenteditable="false">###</td>
+              <td contenteditable="false">##</td>
+              <td contenteditable="false">00/00/00</td>
+              <td contenteditable="false">00:00:00 AM/PM</td>
+              <td contenteditable="false">ACTIVE</td>
+            </tr>
+            <tr>
+              <td contenteditable="false">PLACE</td>
+              <td contenteditable="false">###</td>
+              <td contenteditable="false">##</td>
+              <td contenteditable="false">00/00/00</td>
+              <td contenteditable="false">00:00:00 AM/PM</td>
+              <td contenteditable="false">ACTIVE</td>
+            </tr>
+            <tr>
+              <td contenteditable="false">PLACE</td>
+              <td contenteditable="false">###</td>
+              <td contenteditable="false">##</td>
+              <td contenteditable="false">00/00/00</td>
+              <td contenteditable="false">00:00:00 AM/PM</td>
+              <td contenteditable="false">ACTIVE</td>
+            </tr>
+            <tr>
+              <td contenteditable="false">PLACE</td>
+              <td contenteditable="false">###</td>
+              <td contenteditable="false">##</td>
+              <td contenteditable="false">00/00/00</td>
+              <td contenteditable="false">00:00:00 AM/PM</td>
+              <td contenteditable="false">ACTIVE</td>
+            </tr>
+            <tr>
+              <td contenteditable="false">PLACE</td>
+              <td contenteditable="false">###</td>
+              <td contenteditable="false">##</td>
+              <td contenteditable="false">00/00/00</td>
+              <td contenteditable="false">00:00:00 AM/PM</td>
+              <td contenteditable="false">ACTIVE</td>
+            </tr>
+            <tr>
+              <td contenteditable="false">PLACE</td>
+              <td contenteditable="false">###</td>
+              <td contenteditable="false">##</td>
+              <td contenteditable="false">00/00/00</td>
+              <td contenteditable="false">00:00:00 AM/PM</td>
+              <td contenteditable="false">ACTIVE</td>
+            </tr>
+            <tr>
+              <td contenteditable="false">PLACE</td>
+              <td contenteditable="false">###</td>
+              <td contenteditable="false">##</td>
+              <td contenteditable="false">00/00/00</td>
+              <td contenteditable="false">00:00:00 AM/PM</td>
+              <td contenteditable="false">ACTIVE</td>
+            </tr>
+            <tr>
+              <td contenteditable="false">PLACE</td>
+              <td contenteditable="false">###</td>
+              <td contenteditable="false">##</td>
+              <td contenteditable="false">00/00/00</td>
+              <td contenteditable="false">00:00:00 AM/PM</td>
+              <td contenteditable="false">ACTIVE</td>
+            </tr>
+            <tr>
+              <td contenteditable="false">PLACE</td>
+              <td contenteditable="false">###</td>
+              <td contenteditable="false">##</td>
+              <td contenteditable="false">00/00/00</td>
+              <td contenteditable="false">00:00:00 AM/PM</td>
+              <td contenteditable="false">ACTIVE</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button id="editButton" style="display: none">Edit</button>
+      <!-- HIDE UNLESS ITS ON ADMIN SIDE !! TO BE EDITED -->
+    </div>
 
     <!-- FOOTER -->
     <div class="footer">
@@ -75,4 +179,5 @@
       </div>
     </div>
   </body>
+  <script src="script.js"></script>
 </html>
