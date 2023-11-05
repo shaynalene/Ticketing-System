@@ -10,15 +10,34 @@
 
 <!-- Start of Style for booking-form2.html -------------------------------------------------------->
 <style>
-  .confirmTable {
+  .title {
+        text-align: center;
+    }
+
+  .receiptTable {
             width: 100%;
             max-width: 500px; 
             margin: 0 auto;
             padding: 10px;
             background-color: #f2eacb;
-            border: 1px solid #365F32;
+            border: 2px dotted #365F32;
             font-family: 'Times New Roman', Times, serif;
-        }
+   }
+
+   .ticket{
+       text-align: center;
+   }
+
+  .ticketNumber {
+      font-weight: bold;
+      font-size: 25px;
+      color: #365F32;
+  }
+
+  .number {
+      font-weight: bold;
+      font-size: 25px;
+  }
 
   .details {
       margin: 10px 0;
@@ -105,9 +124,17 @@
 <br>
 <br>
 <!-- Start of booking-form2.html (confirmation part) -------------------------------------------------------->
-<center><h1 style="color: #365F32;">Confirm Details Below</h1></center>
+<div class="title">
+    <h1 style="color: #365F32;">Booking Confirmed!</h1>
+    <p>Here are your booking details:</p>
+</div>
 <br>
-<div class="confirmTable">
+<div class="receiptTable">
+    <div class="ticket">
+    <span class="ticketNumber">Bus Ticket #: </span>
+    <span class="number">number here</span>
+    </div>
+    <br><br>
   <div class="details">
       <span class="question">Customer's Name:</span>
       <span class="answer">answer here</span>
@@ -129,9 +156,7 @@
       <br><br>
       <span class="question">Number of Passengers:</span>
       <span class="answer">answer here</span>
-      <br><br>
-      <center><p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: red;">(If you wish to edit your booking details, kindly go back to the previous page)</p></center>
-  </div>
+     </div>
 </div>
 
 <!-- End of booking-form2.html (confirmation part) -------------------------------------------------------->
@@ -139,8 +164,7 @@
 <!-- Start of Buttons -------------------------------------------------------->
 
                 <div class="button-container">
-                    <button onclick="location.href='booking-form1.html'" type="button" style="background-color: #7788E5;">Go Back</button>
-                    <button onclick="location.href='booking-payment.html'" type="button" style="background-color: #54CC36;">Confirm</button>
+                    <button onclick="location.href='landing-page.html'" type="button" style="background-color: #54CC36;">Go to Home Page</button>
                 </div>
 <!-- End of Buttons -------------------------------------------------------->
             </div>
