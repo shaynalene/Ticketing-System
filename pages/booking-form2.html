@@ -9,37 +9,56 @@
     <link rel="shortcut icon" type="image/jpg" href="../img/bts-logo.png" />
 
 <!-- Start of Style for booking-form2.html -------------------------------------------------------->
-    <style>
-        .form-bg2 {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+<style>
+  .confirmTable {
+            width: 100%;
+            max-width: 500px; 
+            margin: 0 auto;
+            padding: 10px;
+            background-color: #f2eacb;
+            border: 1px solid #365F32;
+            font-family: 'Times New Roman', Times, serif;
         }
 
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-        }
+  .details {
+      margin: 10px 0;
+  }
 
-        .button-container button {
-            background-color: #7788E5;
-            padding: 10px 20px;
-            margin: 10px;
-        }
+  .question {
+      font-weight: bold;
+  }
 
-        /* Responsiveness Code */
-        @media (max-width: 768px) {
-            .form-bg2 {
-                padding: 20px;
-            }
-            .button-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            .button-container button {
-                margin: 5px;
-            }
-        }
+  .answer {
+      float: right;
+  }
+
+  .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .button-container button {
+      padding: 10px 20px;
+      margin: 10px;
+  }
+
+  /* Responsiveness Code */
+  @media (max-width: 768px) {
+      .confirmTable {
+          padding: 20px;
+      }
+      .button-container {
+          flex-direction: column;
+          align-items: center;
+      }
+      .button-container button {
+          margin: 5px;
+      }
+  }
+
+
+       
     </style>
 <!-- End of Style for booking-form2.html -------------------------------------------------------->
 
@@ -79,62 +98,47 @@
     </div>
   </nav>
 <!-- End of Navigation Bar -------------------------------------------------------->
-
-    <div class="background">
-
-<!--php code-->
-<?php
-//get data from html form
-$name = $_POST["name"];
-$number = $_POST["contact"];
-$pick_up = $_POST["pick-up"];
-$drop_off = $_POST["drop-off"];
-$date = $_POST["departure-date"];
-$time = $_POST['departure-time'];
-$passenger_number = $_POST['passenger-count'];
-
-$conn = new mysqli('localhost','root','','ticket_system');
-
-if ($conn->connect_error) {
-    die(''. $conn->connect_error);
-}
-else{
-    //insert into the database
-    $sql = "INSERT INTO booking_form (customer_name, number, pick_up, drop_off, date, time, passenger_number)
-            VALUES (?, ?, ?, ?, ?, ?, ?)"; 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sissssi", $name, $number, $pick_up, $drop_off, $date, $time, $passenger_number);
-    $stmt->execute();
-    $stmt->close();
-    $conn->close();
-}
-?>
-<!--end of php code-->
-
+<br>
+<br>
+<br>
+<br>
+<br>
 <!-- Start of booking-form2.html (confirmation part) -------------------------------------------------------->
-        <div class="booking-form">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <div class="form-bg2">
-                <h1 style="color: #365F32;">Confirm Details</h1>
-                <textarea disabled id="confirmation-details" style="width: 100%; height: 400px;">
-                <h3>Name: <?php echo $name ?></h3>
-                <h3>Contact Number: <?php echo $number ?></h3>
-                <h3>Pick Up: <?php echo $pick_up ?></h3>
-                <h3>Drop Off: <?php echo $drop_off ?></h3>
-                <h3>Date: <?php echo $date ?></h3>
-                <h3>Time: <?php echo $time ?></h3>
-                <h3>Number of Passengers: <?php echo $passenger_number ?></h3>
-              </textarea>
+<center><h1 style="color: #365F32;">Confirm Details Below</h1></center>
+<br>
+<div class="confirmTable">
+  <div class="details">
+      <span class="question">Customer's Name:</span>
+      <span class="answer">answer here</span>
+      <br><br>
+      <span class="question">Contact Number:</span>
+      <span class="answer">answer here</span>
+      <br><br>
+      <span class="question">Pick-up Terminal:</span>
+      <span class="answer">answer here</span>
+      <br><br>
+      <span class="question">Drop-off Destination:</span>
+      <span class="answer">answer here</span>
+      <br><br>
+      <span class="question">Departure Date:</span>
+      <span class="answer">answer here</span>
+      <br><br>
+      <span class="question">Departure Time:</span>
+      <span class="answer">answer here</span>
+      <br><br>
+      <span class="question">Number of Passengers:</span>
+      <span class="answer">answer here</span>
+      <br><br>
+      <center><p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: red;">(If you wish to edit your booking details, kindly go back to the previous page)</p></center>
+  </div>
+</div>
+
 <!-- End of booking-form2.html (confirmation part) -------------------------------------------------------->
 
 <!-- Start of Buttons -------------------------------------------------------->
 
                 <div class="button-container">
-                    <button onclick="location.href='booking-form1.html'" type="button">Go Back</button>
+                    <button onclick="location.href='booking-form1.html'" type="button" style="background-color: #7788E5;">Go Back</button>
                     <button onclick="location.href='booking-payment.html'" type="button" style="background-color: #54CC36;">Confirm</button>
                 </div>
 <!-- End of Buttons -------------------------------------------------------->
