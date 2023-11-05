@@ -26,7 +26,7 @@ else{
         // Verify the provided password against the hashed password
         if ($password === $hashed_password) {
             //correct password
-            header("Location: ../user.html");
+            header("Location: ../pages/landing-page.html");
             //$_SESSION['user_id'] = $row["user_id"];
         } else {
             // Password is incorrect
