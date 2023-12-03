@@ -74,7 +74,7 @@
         <li><a href="../index.php" >HOME</a></li>
         <li><a href="booking-form2.php" id="active-page">BOOKING</a></li>
         <li>
-          <a href="#">TRANSACTIONS</a>
+          <a href="transaction.html">TRANSACTIONS</a>
         </li>
         <li>
           <a href="../pages/about-us.html">ABOUT US</a>
