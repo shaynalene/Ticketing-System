@@ -56,8 +56,8 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: #fff;
-            width: 80%; /* Adjusted width for smaller screens */
-            max-width: 400px; /* Set a maximum width */
+            width: 400px;
+            height: 600px;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -66,11 +66,11 @@
 
         /* Style to center the content of the pop-up containers */
         #popupContent {
-            text-align: center;
+        text-align: center;
         }
 
-        /* Style for the close button for the view details pop-up */
-        .close-button {
+       /* Style for the close button for the view details pop-up */
+       .close-button {
             background-color: #4CAF50;
             color: white;
             padding: 10px;
@@ -80,11 +80,11 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            z-index: 1001;
-            display: block;
+            z-index: 1001; 
+         display: block; 
         }
-
-        /* Style for the cancel confirmation container */
+        
+       /* Style for the cancel confirmation container */
         #cancelConfirmationContainer {
             display: none;
             position: fixed;
@@ -92,8 +92,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: #fff;
-            width: 80%; /* Adjusted width for smaller screens */
-            max-width: 300px; /* Set a maximum width */
+            width: 300px;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -116,23 +115,8 @@
             margin-top: 10px;
         }
 
-        /* Style for overall responsiveness */
-        @media only screen and (max-width: 600px) {
-            .container {
-                margin: 20px auto; /* Adjusted margin for smaller screens */
-            }
-
-            .popup-container {
-                width: 90%;
-                max-width: 300px;
-            }
-
-            #cancelConfirmationContainer {
-                width: 90%;
-                max-width: 250px;
-            }
-        }
     </style>
+
 </head>
 <body>
     <!-- Start of Navigation Bar -------------------------------------------------------->
@@ -203,6 +187,7 @@
         </table>
     </div>
 
+
     <!-- UPCOMING ACTIVITY -->
     <div class="container">
         <h3 style="color: #365F32;">UPCOMING ACTIVITY</h3>
@@ -223,6 +208,7 @@
             </tbody>
         </table>
     </div>
+
 
     <!-- PAST ACTIVITY -->
     <div class="container">
@@ -340,7 +326,7 @@
                     <td>${activity.bus}</td>
                     <td>${activity.seat}</td>
                     <td>${activity.status}</td>
-                    <td><button style="background-color: #4CAF50; color: white; padding: 5px; border: none; order-radius: 5px; cursor: pointer; position: center;" onclick="openOngoingPopup('${activity.ViewDetails}', '${activity.status}')">View Details</button></td>
+                    <td><button style="background-color: #4CAF50; color: white; padding: 5px; border: none; order-radius: 5px; cursor: pointer; position: ;" onclick="openOngoingPopup('${activity.ViewDetails}', '${activity.status}')">View Details</button></td>
                 `;
                 tableBody.appendChild(row); // to add a new table row (<tr>)
             });
