@@ -19,31 +19,25 @@
             border: 1px solid #365F32;
             font-family: 'Times New Roman', Times, serif;
         }
-
   .details {
       margin: 10px 0;
   }
-
   .question {
       font-weight: bold;
   }
-
   .answer {
       float: right;
   }
-
   .button-container {
       margin-top: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
   }
-
   .button-container button {
       padding: 10px 20px;
       margin: 10px;
   }
-
   /* Responsiveness Code */
   @media (max-width: 768px) {
       .confirmTable {
@@ -56,10 +50,7 @@
       .button-container button {
           margin: 5px;
       }
-  }
-
-
-       
+  }     
     </style>
 <!-- End of Style for booking-form2.html -------------------------------------------------------->
 
@@ -80,7 +71,7 @@
         <label for="close-btn" class="navbtn close-btn"
           ><i class="fa fa-times"></i
         ></label>
-        <li><a href="../index.html" >HOME</a></li>
+        <li><a href="../index.php" >HOME</a></li>
         <li><a href="booking-form2.php" id="active-page">BOOKING</a></li>
         <li>
           <a href="#">TRANSACTIONS</a>
@@ -88,9 +79,9 @@
         <li>
           <a href="../pages/about-us.html">ABOUT US</a>
         </li>
-        <li><a href="#">PROFILE</a></li>
+        <li><a href="#">FEEDBACK</a></li>
         <div class="login">
-          <a href="#" id="login-button">Your Account</a>
+          <a href="../pages/profile-page.php" id="login-button">Your Account</a>
         </div>
       </ul>
       <label for="menu-btn" class="navbtn menu-btn"
@@ -106,6 +97,7 @@
 <br>
 <!--Php Codes to display booking form details-->
 <?php
+include "../php/server.php";
 //get data from booking form
 $pick_up = $_POST["pick-up"];
 $drop_off = $_POST["drop-off"];
@@ -130,21 +122,14 @@ $email = $_SESSION['email'];
 
 $name = $firstname . ' '. $lastname;
 
-$conn = new mysqli('localhost','root','','ticket_system');
-
-if ($conn->connect_error) {
-    die(''. $conn->connect_error);
-}
-else{
-    //insert into the database
-    $sql = "INSERT INTO booking_form (customer_name, number, pick_up, drop_off, date, time, passenger_number)
-            VALUES (?, ?, ?, ?, ?, ?, ?)"; 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sissssi", $name, $number, $pick_up, $drop_off, $date, $time, $passenger_number);
-    $stmt->execute();
-    $stmt->close();
-    $conn->close();
-}
+//insert into the database
+$sql = "INSERT INTO booking_form (customer_name, number, pick_up, drop_off, date, time, passenger_number)
+        VALUES (?, ?, ?, ?, ?, ?, ?)"; 
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("sissssi", $name, $number, $pick_up, $drop_off, $date, $time, $passenger_number);
+$stmt->execute();
+$stmt->close();
+$conn->close();
 ?>
 <!--End of php code-->
 
@@ -183,7 +168,7 @@ else{
 <!-- Start of Buttons -------------------------------------------------------->
 
                 <div class="button-container">
-                    <button onclick="location.href='booking-form1.html'" type="button" style="background-color: #7788E5;">Go Back</button>
+                    <button onclick="location.href='booking-form1.php'" type="button" style="background-color: #7788E5;">Go Back</button>
                     <button onclick="location.href='booking-payment.php'" type="button" style="background-color: #54CC36;">Confirm</button>
                 </div>
 <!-- End of Buttons -------------------------------------------------------->

@@ -1,10 +1,6 @@
 <?php
 //connect to database
-$conn = new mysqli('localhost','root','','ticket_system');
-
-if ($conn->connect_error) {
-    die(''. $conn->connect_error);
-}
+include "server.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -17,6 +13,8 @@ session_start();
 $email = $_SESSION['email'];
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
+$pick_up = $_SESSION['pick-up'];
+$drop_off = $_SESSION['drop-off'];
 $name = $firstname . ' ' . ' ' . $lastname;
 
 
@@ -44,7 +42,7 @@ $name = $firstname . ' ' . ' ' . $lastname;
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'Booking Payment to be Confirmed';
-        $mail->Body    = 'You have just submitted your payment reference number. Please wait for your official ticket once we confirm your payment.' .  '<br>' .  '<br>' . 'Thank you for trusting BTS!';
+        $mail->Body    = 'Hi, ' . $firstname . " " . $lastname . '. ' . 'You have just submitted your payment reference number for your booking '. $pick_up . ' to ' . $drop_off . ' . Please wait for your official ticket once we confirm your payment.' .  '<br>' .  '<br>' . 'Thank you for trusting BTS!';
         //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         $mail->send();
         echo '<script type="text/javascript">

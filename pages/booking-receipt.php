@@ -99,17 +99,17 @@
         <label for="close-btn" class="navbtn close-btn"
           ><i class="fa fa-times"></i
         ></label>
-        <li><a href="../index.html">HOME</a></li>
-        <li><a href="booking-form1.html" id="active-page">BOOKING</a></li>
+        <li><a href="../index.php">HOME</a></li>
+        <li><a href="../pages/booking-form1.php" id="active-page">BOOKING</a></li>
         <li>
           <a href="#">TRANSACTIONS</a>
         </li>
         <li>
-          <a href="about-us.html">ABOUT US</a>
+          <a href="../pages/about-us.html">ABOUT US</a>
         </li>
-        <li><a href="#">PROFILE</a></li>
+        <li><a href="#">FEEDBACK</a></li>
         <div class="login">
-          <a href="#" id="login-button">Your Account</a>
+          <a href="../pages/profile-page.php" id="login-button">Your Account</a>
         </div>
       </ul>
       <label for="menu-btn" class="navbtn menu-btn"
@@ -121,6 +121,7 @@
 
 <!--Php Codes to display booking price-->
 <?php
+include "../php/server.php";
 //get data from html form
 session_start();
 $firstname = $_SESSION['firstname'];
@@ -133,12 +134,6 @@ $time = $_SESSION['departure-time'];
 $passenger_number = $_SESSION['passenger-count'];
 
 $name = $firstname . ' ' . $lastname;
-
-$conn = new mysqli('localhost','root','','ticket_system');
-
-if ($conn->connect_error) {
-    die(''. $conn->connect_error);
-}
 ?>
 <!--End of php code-->
 

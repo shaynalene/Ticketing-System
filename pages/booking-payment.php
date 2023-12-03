@@ -62,17 +62,17 @@
         <label for="close-btn" class="navbtn close-btn"
           ><i class="fa fa-times"></i
         ></label>
-        <li><a href="../index.html">HOME</a></li>
-        <li><a href="booking-payment.html" id="active-page">BOOKING</a></li>
+        <li><a href="../index.php">HOME</a></li>
+        <li><a href="booking-payment.php" id="active-page">BOOKING</a></li>
         <li>
           <a href="#">TRANSACTIONS</a>
         </li>
         <li>
           <a href="../pages/about-us.html">ABOUT US</a>
         </li>
-        <li><a href="#">PROFILE</a></li>
+        <li><a href="#">FEEDBACK</a></li>
         <div class="login">
-          <a href="#" id="login-button">Your Account</a>
+          <a href="../pages/profile-page.php" id="login-button">Your Account</a>
         </div>
       </ul>
       <label for="menu-btn" class="navbtn menu-btn"
@@ -85,6 +85,7 @@
 <!--Php Codes to display booking price-->
 
 <?php
+include "../php/server.php";
 //get data from html form
 session_start();
 $pick_up = $_SESSION['pick-up'];
@@ -92,27 +93,20 @@ $drop_off = $_SESSION['drop-off'];
 $passenger_number = $_SESSION['passenger-count'];
 $username = $_SESSION['username'];
 
-$conn = new mysqli('localhost','root','','ticket_system');
+//compute for the total booking price
+$stmt = $conn->prepare("SELECT price FROM destinations WHERE pick_up=? AND drop_off=?");
+$stmt->bind_param("ss", $pick_up, $drop_off);
+$stmt->execute();
+$result = $stmt->get_result();
 
-if ($conn->connect_error) {
-    die(''. $conn->connect_error);
-}
-else{
-    //compute for the total booking price
-    $stmt = $conn->prepare("SELECT price FROM destinations WHERE pick_up=? AND drop_off=?");
-    $stmt->bind_param("ss", $pick_up, $drop_off);
-    $stmt->execute();
-    $result = $stmt->get_result();
+  if ($result->num_rows === 1) {
+    $row = $result->fetch_assoc();
+    $price = $row["price"];
+    $total_price = $price * $passenger_number;
+  }
 
-    if ($result->num_rows === 1) {
-      $row = $result->fetch_assoc();
-      $price = $row["price"];
-      $total_price = $price * $passenger_number;
-    }
-
-    $stmt->close();
-    $conn->close();
-}
+  $stmt->close();
+  $conn->close();
 ?>
 <!--End of php code-->
 
@@ -136,7 +130,7 @@ else{
             <p>Gcash or PayMaya: 09282828282</p>
             <br><br><hr><br>
               <span class="totalFare">Total Fare for your Trip:</span>
-              <span class="amount"><?php echo $total_price ?></span>
+              <span class="amount"><?php echo $price . " * " . $passenger_number . " = " . $total_price ?></span>
             <br>
             <hr>
             <br>

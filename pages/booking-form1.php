@@ -18,7 +18,6 @@
         justify-content: center;
         margin-top: 20px;
       }
-
       .button-container button {
         background-color: #e57777;
         padding: 10px 20px;
@@ -42,9 +41,9 @@
           <label for="close-btn" class="navbtn close-btn"
             ><i class="fa fa-times"></i
           ></label>
-          <li><a href="../index.html">HOME</a></li>
+          <li><a href="../index.php">HOME</a></li>
           <li>
-            <a href="../pages/booking-form1.html" id="active-page">BOOKING</a>
+            <a href="../pages/booking-form1.php" id="active-page">BOOKING</a>
           </li>
           <li>
             <a href="#">TRANSACTIONS</a>
@@ -52,9 +51,9 @@
           <li>
             <a href="../pages/about-us.html">ABOUT US</a>
           </li>
-          <li><a href="#">PROFILE</a></li>
+          <li><a href="#">FEEDBACK</a></li>
           <div class="login">
-            <a href="#" id="login-button">Your Account</a>
+            <a href="../pages/profile-page.php" id="login-button">Your Account</a>
           </div>
         </ul>
         <label for="menu-btn" class="navbtn menu-btn"
@@ -63,6 +62,16 @@
       </div>
     </nav>
     <!-- End of Navigation Bar -------------------------------------------------------->
+
+<?php
+include "../php/server.php";
+session_start();
+// Check if the user is logged in
+if (!isset($_SESSION["username"])) {
+  header("Location: login-page.html");
+  exit();
+}
+?>
 
     <div class="background">
       <div class="booking-form">
@@ -130,6 +139,10 @@
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
             </select>
             <!-- Start of Buttons -------------------------------------------------------->
             <div class="button-container">
