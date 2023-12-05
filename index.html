@@ -48,7 +48,11 @@
             </li>
             <li><a href="#">FEEDBACK</a></li>
             <div class="login">
-              <a href="../Ticketing-System/pages/profile-page.php" id="login-button">Your Account</a>
+              <a
+                href="../Ticketing-System/pages/profile-page.php"
+                id="login-button"
+                >Your Account</a
+              >
             </div>
           </ul>
           <label for="menu-btn" class="navbtn menu-btn"
@@ -61,7 +65,14 @@
     <!-- LANDING PAGE -->
     <div class="main-content">
       <div class="header">
-        <div class="title-header">ONLINE VIEWBOARD</div>
+        <div class="left-header-lp">
+          <div class="title-header">ONLINE VIEWBOARD</div>
+          <button id="editButton" class="editButtonLP">Edit Trips</button>
+          <button id="addRowButton" class="editButtonLP" style="display: none">
+            Add Trip
+          </button>
+          <!-- HIDE UNLESS ITS ON ADMIN SIDE !! TO BE EDITED -->
+        </div>
         <div id="lastEditDate">UPDATED AS OF: 00/00/00 00:00 AM/PM</div>
       </div>
       <div class="table-wrapper">
@@ -78,6 +89,7 @@
             </tr>
           </thead>
           <tbody>
+            <!--
           <?php
           /*include "../Ticketing-System/php/server.php";
           $sql = "SELECT pick_up, drop_off, price FROM destinations";
@@ -98,6 +110,7 @@
               echo "<tr><td colspan='3'>No records found</td></tr>";
           }*/
           ?>
+          -->
             <tr>
               <td contenteditable="false">PLACE</td>
               <td contenteditable="false">###</td>
@@ -109,8 +122,6 @@
           </tbody>
         </table>
       </div>
-      <button id="editButton" style="display: none">Edit</button>
-      <!-- HIDE UNLESS ITS ON ADMIN SIDE !! TO BE EDITED -->
     </div>
 
     <!-- FOOTER -->

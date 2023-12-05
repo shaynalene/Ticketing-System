@@ -700,3 +700,135 @@ select {
 .booking-form h2 {
   text-align: center;
 }
+
+.editButtonLP {
+  padding: 5px 15px;
+  color: white;
+  background-color: #365f32;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.left-header-lp {
+  display: flex;
+  gap: 1.5em;
+}
+
+/* FEEDBACK PART */
+.feedback-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #d5e5d4;
+  width: 60%;
+  padding: 1.5em;
+  box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.18);
+}
+.feedback-form {
+  padding-bottom: 3em;
+}
+.feedback-input {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  border-radius: 5px;
+  line-height: 22px;
+  background-color: transparent;
+  border: 2px solid #365f32;
+  transition: all 0.3s;
+  padding: 13px;
+  margin-bottom: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: 0;
+}
+.feedback-input:focus {
+  border: 2px solid #9ab898;
+}
+input.feedback-input {
+  border: 2px solid #365f32;
+  color: black;
+}
+textarea.feedback-input {
+  height: 150px;
+}
+[type="submit"] {
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  width: 100%;
+  background: #365f32;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  transition: all 0.3s;
+  margin-top: -4px;
+  font-weight: 700;
+}
+[type="submit"]:hover {
+  background: #9ab898;
+}
+#comments p {
+  border: 2px solid #402b09;
+  padding: 18px;
+  font-size: 18px;
+  font-weight: 600px;
+}
+#comments h4 {
+  padding-bottom: 10px;
+  font-size: 23px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0px;
+}
+#comments i {
+  background-image: url("https://www.pngkit.com/png/full/925-9259399_pattern-patterns-background-tumblr-doddle-black-free-memphis.png");
+}
+.pages-flex-feedback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+.main-content-feedback {
+  flex: 0 85vh;
+  width: 100%;
+  padding: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+h4 span {
+  font-size: 15px;
+}
+
+.feedback-header {
+  color: #365f32;
+  font-size: 30px;
+  font-weight: 800;
+}
+.comment-section {
+  padding: 0.5em;
+  width: 100%;
+}
+.feedback-title {
+  padding: 1.5em;
+  display: flex;
+  justify-content: start;
+  flex-flow: column;
+  align-items: center;
+}
+.subheader {
+  font-size: 18px;
+}
+.comment-header {
+  font-size: 20px;
+}
+label.label.required {
+  font-size: 20px;
+  font-weight: 500;
+}
