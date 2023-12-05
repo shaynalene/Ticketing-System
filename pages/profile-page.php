@@ -49,7 +49,7 @@
       </div>
     </nav>
 
-<?php
+    <?php
 include "../php/server.php";
 session_start();
 // Check if the user is logged in
@@ -76,6 +76,7 @@ if (isset($_POST['logout'])){
   exit();
 }
     ?>
+
 
     <!--BODY-->
     <div class="account-page">
