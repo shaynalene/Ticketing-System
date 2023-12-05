@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST["username"];
     $password = $_POST['password'];
 }
-
+$hashed_password = password_hash($password, PASSWORD_BCRYPT);
 // validate if there is an existing account with the login credentials
 $stmt = $conn->prepare("SELECT user_id, username, firstname, lastname, number, email, password FROM user_accounts WHERE username=?");
 $stmt->bind_param("s", $username);
@@ -28,7 +28,7 @@ if ($result->num_rows === 1) {
         $_SESSION['number'] = $row["number"];
         $_SESSION['email'] = $row["email"];
 
-        header("Location: ../index.php");
+        header("Location: ../index.html");
         exit();
     } else {
         // Password is incorrect

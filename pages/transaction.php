@@ -4,8 +4,8 @@ include "../php/server.php";
 
 // Check if the user is logged in
 if (empty($_SESSION["user_id"])) {
-    //header("Location: login-page.html");
-    //exit();
+    header("Location: login-page.html");
+    exit();
 }
 
 //get data from other pages
@@ -37,7 +37,7 @@ $stmt->close();
 if (isset($_POST['cancel'])){
     $status = "CancelRequest";
 
-    $selected_booking = "7";
+    $selected_booking = $_POST["variable"];
 
     $sql = "UPDATE booking_form SET status=? WHERE user_id = ? AND booking_id = ?";
     $stmt = $conn->prepare($sql);
@@ -167,7 +167,7 @@ if (isset($_POST['cancel'])){
             <input type="radio" name="slider" id="close-btn" />
             <ul class="nav-links">
               <label for="close-btn" class="navbtn close-btn"><i class="fa fa-times"></i></label>
-              <li><a href="../index.php">HOME</a></li>
+              <li><a href="../index.html">HOME</a></li>
               <li><a href="../pages/booking-form1.php">BOOKING</a></li>
               <li><a href="transaction.php" id="active-page">TRANSACTIONS</a></li>
               <li><a href="about-us.html">ABOUT US</a></li>
@@ -262,6 +262,9 @@ if (isset($_POST['cancel'])){
             ?>
             </tbody>
         </table>
+
+        <!-- TESTING --->
+
     </div>
 
     <!-- PAST ACTIVITY TABLE -->
@@ -382,15 +385,16 @@ if (isset($_POST['cancel'])){
         <h3>Confirm Cancellation</h3>
         <p>Are you sure you want to cancel this booking?</p>
         <form method="POST" action="">
-        <button name="cancel" onclick="confirmCancellation(${booking_id})">Yes, Cancel</button>
+        <input type ="hidden" name="variable" id="variable" value="${booking_id}"> 
+        <button id="cancel" name="cancel" onclick="confirmCancellation(${booking_id})">Yes, Cancel</button>
         </form>
         <button style="background-color: #4CAF50; color: white;" onclick="closePopup()">No, Keep Booking</button>
         `;
         var selected_booking = booking_id;
 
-        
-
+    
         cancelConfirmationContainer.style.display = 'block';
+
     };
 
     // Function to confirm the cancellation and update the status

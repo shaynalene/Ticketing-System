@@ -57,7 +57,7 @@ if (isset($_POST['logout'])){
         <input type="radio" name="slider" id="close-btn" />
         <ul class="nav-links">
           <label for="close-btn" class="navbtn close-btn"><i class="fa fa-times"></i></label>
-          <li><a href="../index.php">HOME</a></li>
+          <li><a href="../index.html">HOME</a></li>
           <li><a href="../pages/booking-form1.php">BOOKING</a></li>
           <li><a href="../pages/transaction.php">TRANSACTIONS</a></li>
           <li><a href="..pages/about-us.html">ABOUT US</a></li>
