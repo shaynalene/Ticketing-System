@@ -1,7 +1,4 @@
 <?php
-//connect to database
-include "server.php";
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require '../php/PHPMailer-master/src/Exception.php';
@@ -9,14 +6,13 @@ require '../php/PHPMailer-master/src/PHPMailer.php';
 require '../php/PHPMailer-master/src/SMTP.php';
 $mail = new PHPMailer(true);
 
-session_start();
+/*session_start();
 $email = $_SESSION['email'];
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
 $pick_up = $_SESSION['pick-up'];
 $drop_off = $_SESSION['drop-off'];
 $name = $firstname . ' ' . ' ' . $lastname;
-
 
     try {
         // Server settings
@@ -49,7 +45,7 @@ $name = $firstname . ' ' . ' ' . $lastname;
            window.location = "../pages/booking-receipt.php";
       </script>';
     }
-catch (Exception $e) {}
+catch (Exception $e) {}*/
 
 
 // OPTIONAL STARTS HERE

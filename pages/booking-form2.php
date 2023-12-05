@@ -1,3 +1,42 @@
+<?php
+session_start();
+include "../php/server.php";
+
+//get data from booking form
+$pick_up = $_POST["pick-up"];
+$drop_off = $_POST["drop-off"];
+$date = $_POST["departure-date"];
+$time = $_POST['departure-time'];
+$passenger_number = $_POST['passenger-count'];
+
+//make data available to other pages
+$_SESSION['pick-up'] = $pick_up;
+$_SESSION['drop-off'] = $drop_off;
+$_SESSION['departure-date'] = $date;
+$_SESSION['departure-time'] = $time;
+$_SESSION['passenger-count'] = $passenger_number;
+
+//get data from other pages
+$user_id = $_SESSION['user_id'];
+$firstname = $_SESSION['firstname'];
+$lastname = $_SESSION['lastname'];
+$number = $_SESSION['number'];
+$email = $_SESSION['email'];
+$status = "Upcoming";
+$name = $firstname . ' '. $lastname;
+
+//insert into the database
+$sql = "INSERT INTO booking_form (user_id, pick_up, drop_off, date, time, passenger_number, status)
+        VALUES (?, ?, ?, ?, ?, ?, ?)"; 
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("issssis", $user_id, $pick_up, $drop_off, $date, $time, $passenger_number, $status);
+$stmt->execute();
+$previous_booking_id = $stmt->insert_id;
+$_SESSION['booking_id'] = $previous_booking_id;
+$stmt->close();
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,32 +100,24 @@
 <nav>
     <div class="wrapper">
       <div class="logo">
-        <a href="#"
-          ><img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic"
-        /></a>
+        <a href="#">
+          <img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic"/>
+        </a>
       </div>
       <input type="radio" name="slider" id="menu-btn" />
       <input type="radio" name="slider" id="close-btn" />
       <ul class="nav-links">
-        <label for="close-btn" class="navbtn close-btn"
-          ><i class="fa fa-times"></i
-        ></label>
+        <label for="close-btn" class="navbtn close-btn"><i class="fa fa-times"></i></label>
         <li><a href="../index.php" >HOME</a></li>
         <li><a href="booking-form2.php" id="active-page">BOOKING</a></li>
-        <li>
-          <a href="transaction.html">TRANSACTIONS</a>
-        </li>
-        <li>
-          <a href="../pages/about-us.html">ABOUT US</a>
-        </li>
+        <li><a href="../pages/transaction.php">TRANSACTIONS</a></li>
+        <li><a href="../pages/about-us.html">ABOUT US</a></li>
         <li><a href="#">FEEDBACK</a></li>
         <div class="login">
-          <a href="../pages/profile-page.php" id="login-button">Your Account</a>
+          <a href="../pages/profile-page.php" id="login-button">Account</a>
         </div>
       </ul>
-      <label for="menu-btn" class="navbtn menu-btn"
-        ><i class="fa fa-bars"></i
-      ></label>
+      <label for="menu-btn" class="navbtn menu-btn"><i class="fa fa-bars"></i></label>
     </div>
   </nav>
 <!-- End of Navigation Bar -------------------------------------------------------->
@@ -95,55 +126,18 @@
 <br>
 <br>
 <br>
-<!--Php Codes to display booking form details-->
-<?php
-include "../php/server.php";
-//get data from booking form
-$pick_up = $_POST["pick-up"];
-$drop_off = $_POST["drop-off"];
-$date = $_POST["departure-date"];
-$time = $_POST['departure-time'];
-$passenger_number = $_POST['passenger-count'];
-
-//make the data available to all pages
-session_start();
-$_SESSION['pick-up'] = $pick_up;
-$_SESSION['drop-off'] = $drop_off;
-$_SESSION['departure-date'] = $date;
-$_SESSION['departure-time'] = $time;
-$_SESSION['passenger-count'] = $passenger_number;
-
-
-$username = $_SESSION['username'];
-$firstname = $_SESSION['firstname'];
-$lastname = $_SESSION['lastname'];
-$number = $_SESSION['number'];
-$email = $_SESSION['email'];
-
-$name = $firstname . ' '. $lastname;
-
-//insert into the database
-$sql = "INSERT INTO booking_form (customer_name, number, pick_up, drop_off, date, time, passenger_number)
-        VALUES (?, ?, ?, ?, ?, ?, ?)"; 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("sissssi", $name, $number, $pick_up, $drop_off, $date, $time, $passenger_number);
-$stmt->execute();
-$stmt->close();
-$conn->close();
-?>
-<!--End of php code-->
 
 <!-- Start of booking-form2.html (confirmation part) -------------------------------------------------------->
 <center><h1 style="color: #365F32;">Confirm Details Below</h1></center>
 <br>
 <div class="confirmTable">
   <div class="details">
-      <span class="question">Customer's Name:</span>
-      <span class="answer"><?php echo $name ?></span>
+      <!--<span class="question">Customer's Name:</span>
+      <span class="answer"><?php //echo $name ?></span>
       <br><br>
       <span class="question">Contact Number:</span>
-      <span class="answer"><?php echo $number ?></span>
-      <br><br>
+      <span class="answer"><?php //echo $number ?></span>
+      <br><br>-->
       <span class="question">Pick-up Terminal:</span>
       <span class="answer"><?php echo $pick_up ?></span>
       <br><br>

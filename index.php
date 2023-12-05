@@ -41,7 +41,7 @@
               <a href="../Ticketing-System/pages/booking-form1.php">BOOKING</a>
             </li>
             <li>
-              <a href="#">TRANSACTIONS</a>
+              <a href="../Ticketing-System/pages/transaction.php">TRANSACTIONS</a>
             </li>
             <li>
               <a href="../Ticketing-System/pages/about-us.html">ABOUT US</a>
@@ -72,8 +72,7 @@
               <th>DROP OFF</th>
               <th>PRICE</th>
               <th>BUS NO.</th>
-              <th>TRAVEL DATE</th>
-              <th>ARRIVAL TIME</th>
+              <!--<th>TRAVEL DATE</th>-->
               <th>STATUS</th>
             </tr>
           </thead>
@@ -103,7 +102,7 @@
               <td contenteditable="false">###</td>
               <td contenteditable="false">##</td>
               <td contenteditable="false">00/00/00</td>
-              <td contenteditable="false">00:00:00 AM/PM</td>
+              <!--<td contenteditable="false">00:00:00 AM/PM</td>-->
               <td contenteditable="false">ACTIVE</td>
             </tr>
           </tbody>

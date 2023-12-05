@@ -1,3 +1,19 @@
+<?php
+session_start();
+include "../php/server.php";
+
+//get data from other pages
+$firstname = $_SESSION['firstname'];
+$lastname = $_SESSION['lastname'];
+$number = $_SESSION['number'];
+$pick_up = $_SESSION['pick-up'];
+$drop_off = $_SESSION['drop-off'];
+$date = $_SESSION['departure-date'];
+$time = $_SESSION['departure-time'];
+$passenger_number = $_SESSION['passenger-count'];
+$name = $firstname . ' ' . $lastname;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +29,6 @@
   .title {
         text-align: center;
     }
-
   .receiptTable {
             width: 100%;
             max-width: 500px; 
@@ -23,46 +38,37 @@
             border: 2px dotted #365F32;
             font-family: 'Times New Roman', Times, serif;
    }
-
    .ticket{
        text-align: center;
    }
-
   .ticketNumber {
       font-weight: bold;
       font-size: 25px;
       color: #365F32;
   }
-
   .number {
       font-weight: bold;
       font-size: 25px;
   }
-
   .details {
       margin: 10px 0;
   }
-
   .question {
       font-weight: bold;
   }
-
   .answer {
       float: right;
   }
-
   .button-container {
       margin-top: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
   }
-
   .button-container button {
       padding: 10px 20px;
       margin: 10px;
   }
-
   /* Responsiveness Code */
   @media (max-width: 768px) {
       .confirmTable {
@@ -75,13 +81,9 @@
       .button-container button {
           margin: 5px;
       }
-  }
-
-
-       
+  }    
     </style>
 <!-- End of Style for booking-form2.html -------------------------------------------------------->
-
 </head>
 <body>
 
@@ -89,59 +91,27 @@
 <nav>
     <div class="wrapper">
       <div class="logo">
-        <a href="#"
-          ><img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic"
-        /></a>
+        <a href="#"><img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic"/></a>
       </div>
       <input type="radio" name="slider" id="menu-btn" />
       <input type="radio" name="slider" id="close-btn" />
       <ul class="nav-links">
-        <label for="close-btn" class="navbtn close-btn"
-          ><i class="fa fa-times"></i
-        ></label>
+        <label for="close-btn" class="navbtn close-btn"><i class="fa fa-times"></i></label>
         <li><a href="../index.php">HOME</a></li>
         <li><a href="../pages/booking-form1.php" id="active-page">BOOKING</a></li>
-        <li>
-          <a href="transaction.html">TRANSACTIONS</a>
-        </li>
-        <li>
-          <a href="../pages/about-us.html">ABOUT US</a>
-        </li>
+        <li><a href="../pages/transaction.php">TRANSACTIONS</a></li>
+        <li><a href="../pages/about-us.html">ABOUT US</a></li>
         <li><a href="#">FEEDBACK</a></li>
         <div class="login">
-          <a href="../pages/profile-page.php" id="login-button">Your Account</a>
+          <a href="../pages/profile-page.php" id="login-button">Account</a>
         </div>
       </ul>
-      <label for="menu-btn" class="navbtn menu-btn"
-        ><i class="fa fa-bars"></i
-      ></label>
+      <label for="menu-btn" class="navbtn menu-btn"><i class="fa fa-bars"></i></label>
     </div>
   </nav>
 <!-- End of Navigation Bar -------------------------------------------------------->
 
-<!--Php Codes to display booking price-->
-<?php
-include "../php/server.php";
-//get data from html form
-session_start();
-$firstname = $_SESSION['firstname'];
-$lastname = $_SESSION['lastname'];
-$number = $_SESSION['number'];
-$pick_up = $_SESSION['pick-up'];
-$drop_off = $_SESSION['drop-off'];
-$date = $_SESSION['departure-date'];
-$time = $_SESSION['departure-time'];
-$passenger_number = $_SESSION['passenger-count'];
-
-$name = $firstname . ' ' . $lastname;
-?>
-<!--End of php code-->
-
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br><br>
 <!-- Start of booking-form2.html (confirmation part) -------------------------------------------------------->
 <div class="title">
     <h1 style="color: #365F32;">Booking Confirmed!</h1>
@@ -183,7 +153,7 @@ $name = $firstname . ' ' . $lastname;
 <!-- Start of Buttons -------------------------------------------------------->
 
                 <div class="button-container">
-                    <button onclick="location.href='../index.html'" type="button" style="background-color: #54CC36;">Go to Home Page</button>
+                    <button onclick="location.href='../index.php'" type="button" style="background-color: #54CC36;">Go to Home Page</button>
                 </div>
 <!-- End of Buttons -------------------------------------------------------->
             </div>

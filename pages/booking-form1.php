@@ -1,3 +1,12 @@
+<?php
+session_start();
+include "../php/server.php";
+if (!isset($_SESSION["user_id"])) {
+  //header("Location: login-page.html");
+  //exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,8 +16,7 @@
     <link rel="stylesheet" href="../style.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="shortcut icon" type="image/jpg" href="../img/bts-logo.png" />
 
     <!-- Start of Style for booking-form1.html -------------------------------------------------------->
@@ -31,48 +39,29 @@
     <nav>
       <div class="wrapper">
         <div class="logo">
-          <a href="#"
-            ><img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic"
-          /></a>
+          <a href="#">
+            <img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic"/>
+          </a>
         </div>
         <input type="radio" name="slider" id="menu-btn" />
         <input type="radio" name="slider" id="close-btn" />
         <ul class="nav-links">
-          <label for="close-btn" class="navbtn close-btn"
-            ><i class="fa fa-times"></i
-          ></label>
+          <label for="close-btn" class="navbtn close-btn"><i class="fa fa-times"></i></label>
           <li><a href="../index.php">HOME</a></li>
-          <li>
-            <a href="../pages/booking-form1.php" id="active-page">BOOKING</a>
-          </li>
-          <li>
-            <a href="transaction.html">TRANSACTIONS</a>
-          </li>
-          <li>
-            <a href="../pages/about-us.html">ABOUT US</a>
-          </li>
+          <li><a href="../pages/booking-form1.php" id="active-page">BOOKING</a></li>
+          <li><a href="../pages/transaction.php">TRANSACTIONS</a></li>
+          <li><a href="../pages/about-us.html">ABOUT US</a></li>
           <li><a href="#">FEEDBACK</a></li>
           <div class="login">
-            <a href="../pages/profile-page.php" id="login-button">Your Account</a>
+            <a href="../pages/profile-page.php" id="login-button">Account</a>
           </div>
         </ul>
-        <label for="menu-btn" class="navbtn menu-btn"
-          ><i class="fa fa-bars"></i
-        ></label>
+        <label for="menu-btn" class="navbtn menu-btn"><i class="fa fa-bars"></i></label>
       </div>
     </nav>
     <!-- End of Navigation Bar -------------------------------------------------------->
 
-<?php
-include "../php/server.php";
-session_start();
-// Check if the user is logged in
-if (!isset($_SESSION["username"])) {
-  header("Location: login-page.html");
-  exit();
-}
-?>
-
+    <!--BOOKING FORM-->
     <div class="background">
       <div class="booking-form">
         <br />
@@ -81,11 +70,7 @@ if (!isset($_SESSION["username"])) {
         <h1 style="color: #365f32">Booking Form</h1>
         <!-- Start of Booking Form -------------------------------------------------------->
         <div class="form-bg">
-          <form
-            action="../pages/booking-form2.php"
-            method="post"
-            id="booking-form"
-          >
+          <form action="../pages/booking-form2.php" method="post" id="booking-form">
             <!--<label for="name">Customer's Name: </label>
                     <input type="text" name="name" id="name" required>
      
@@ -112,25 +97,19 @@ if (!isset($_SESSION["username"])) {
             </select>
 
             <label for="departure-date">Choose Preferred Date:</label>
-            <input
-              type="date"
-              name="departure-date"
-              id="departure-date"
-              required
-            />
+            <input type="date" name="departure-date" id="departure-date" required/>
 
             <label for="departure-time">Choose Preferred Time:</label>
             <select name="departure-time" id="departure-time" required>
               <option value="" disabled selected>Select Time</option>
-              <option value="4:00 AM">4:00 AM</option>
-              <option value="7:00 AM">7:00 AM</option>
-              <option value="9:00 AM">9:00 AM</option>
-              <option value="1:00 PM">1:00 PM</option>
-              <option value="3:00 PM">3:00 PM</option>
-              <option value="5:00 PM">5:00 PM</option>
+              <option value="4:00:00">4:00 AM</option>
+              <option value="7:00:00">7:00 AM</option>
+              <option value="9:00:00">9:00 AM</option>
+              <option value="13:00:00">1:00 PM</option>
+              <option value="15:00:00">3:00 PM</option>
+              <option value="17:00:00">5:00 PM</option>
             </select>
            
-
             <label for="passenger-count">Number of Passengers:</label>
             <select name="passenger-count" id="passenger-count" required>
               <option value="" disabled selected>
@@ -146,18 +125,10 @@ if (!isset($_SESSION["username"])) {
             </select>
             <!-- Start of Buttons -------------------------------------------------------->
             <div class="button-container">
-              <button
-                type="button"
-                onclick="resetForm()"
-                style="background-color: #e57777"
-              >
+              <button type="button" onclick="resetForm()" style="background-color: #e57777">
                 Clear Form
               </button>
-              <button
-                onclick="validateForm()"
-                type="submit"
-                style="background-color: #e5cc77"
-              >
+              <button onclick="validateForm()" type="submit" style="background-color: #e5cc77">
                 Next
               </button>
             </div>

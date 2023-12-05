@@ -1,48 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BTS | Bus Ticketing System</title>
-    <link rel="stylesheet" href="../style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="shortcut icon" type="image/jpg" href="../img/bts-logo.png" />
-  </head>
-  <body class="login-height">
-    <!-- LOGIN PAGE -->
-    <div class="slider-thumb" id="yellow-slider"></div>
-    <div class="slider-thumb" id="green-slider"></div>
-    <!-- REGISTER SECTION -->
-    <div class="login-container">
-      <form action="../php/registration.php" method="post" class="register-container">
-        <div class="rgs-header">REGISTRATION FORM</div>
-        <div class="rgs-input">
-          Enter Username <input class="rgs-ipt-style" type="text" name="username" />
-        </div>
-        <div class="rgs-input">
-          Enter First Name <input class="rgs-ipt-style" type="text" name="firstname" />
-        </div>
-        <div class="rgs-input">
-          Enter Last Name <input class="rgs-ipt-style" type="text" name="lastname" />
-        </div>
-        <div class="rgs-input">
-          Enter Phone Number <input class="rgs-ipt-style" type="number" name="phonenumber" />
-        </div>
-        <div class="rgs-input">Enter Email <input class="rgs-ipt-style" type="email" name="email" />
-        </div>
-        <div class="rgs-input">
-          Enter Password <input class="rgs-ipt-style" type="password" name="password" />
-        </div>
-        <div class="rgs-input">
-          <button class="btn" type="button" id="cancel-btn" onclick="window.location.href='login-page.html'">
-            Cancel
-          </button>
-          <input type="submit" value="Create Account" class="btn" id="create-acc-btn">
-        </div>
-      </form>
-    </div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BTS | Bus Ticketing System</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <link rel="shortcut icon" type="image/jpg" href="../img/bts-logo.png" />
+</head>
+<body class="login-height">
+  <!-- LOGIN PAGE -->
+  <div class="slider-thumb" id="yellow-slider"></div>
+  <div class="slider-thumb" id="green-slider"></div>
+  <!-- REGISTER SECTION -->
+  <div class="login-container">
+    <form action="../php/registration.php" method="post" class="register-container">
+      <div class="rgs-header">REGISTRATION FORM</div>
+      <div class="rgs-input">
+        Enter Username <input class="rgs-ipt-style" type="text" name="username" />
+      </div>
+      <div class="rgs-input">
+        Enter First Name <input class="rgs-ipt-style" type="text" name="firstname" />
+      </div>
+      <div class="rgs-input">
+        Enter Last Name <input class="rgs-ipt-style" type="text" name="lastname" />
+      </div>
+      <div class="rgs-input">
+        Enter Phone Number <input class="rgs-ipt-style" type="number" name="phonenumber" />
+      </div>
+      <div class="rgs-input">Enter Email <input class="rgs-ipt-style" type="email" name="email" />
+      </div>
+      <div class="rgs-input">
+        Enter Password <input class="rgs-ipt-style" type="password" name="password" />
+      </div>
+      <div class="rgs-input">
+        Confirm Password <input class="rgs-ipt-style" type="password" name="confirm_password" />
+      </div>
+      <div class="rgs-input">
+        <button class="btn" type="button" id="cancel-btn" onclick="window.location.href='login-page.html'">
+          Cancel
+        </button>
+        <input type="submit" value="Create Account" class="btn" id="create-acc-btn">
+      </div>
+    </form>
+  </div>
+</body>
 </html>
