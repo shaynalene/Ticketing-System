@@ -69,7 +69,7 @@ if (isset($_POST['logout'])){
         <label for="menu-btn" class="navbtn menu-btn"><i class="fa fa-bars"></i></label>
       </div>
     </nav>
-    
+
     <!--BODY-->
     <div class="account-page">
         <h1>GUEST/USERNAME</h1>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>BTS | Bus Ticketing System</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      type="image/jpg"
+      href="../Ticketing-System/img/bts-logo.png"
+    />
+    
+  </head>
+  <body class="pages-flex-feedback">
+    
+    <!-- NAVIGATION BAR -->
+    <div class="navbar-ctr">
+      <nav class="navbar">
+        <div class="wrapper">
+          <div class="logo">
+            <a href="#"
+              ><img src="/img/bts-logo-nav.png" alt="BTS" class="logo-pic"
+            /></a>
+          </div>
+          <input type="radio" name="slider" id="menu-btn" />
+          <input type="radio" name="slider" id="close-btn" />
+          <ul class="nav-links">
+            <label for="close-btn" class="navbtn close-btn"
+              ><i class="fa fa-times"></i
+            ></label>
+            <li>
+              <a href="index.html">HOME</a>
+            </li>
+            <li>
+              <a href="../Ticketing-System/pages/booking-form1.html">BOOKING</a>
+            </li>
+            <li>
+              <a href="#">TRANSACTIONS</a>
+            </li>
+            <li>
+              <a href="../Ticketing-System/pages/about-us.html">ABOUT US</a>
+            </li>
+            <li><a href="#" id="active-page">FEEDBACK</a></li>
+            <div class="login">
+              <a href="#" id="login-button">Your Account</a>
+            </div>
+          </ul>
+          <label for="menu-btn" class="navbtn menu-btn"
+            ><i class="fa fa-bars"></i
+          ></label>
+        </div>
+      </nav>
+    </div>
+    <!-- FEEDBACK SECTION -->
+
+<div class="main-content-feedback">
+        
+  <div class="feedback-section">
+      <div class="feedback-title">
+          <div class="feedback-header">FEEDBACK FORM</div>
+           <div class="subheader"><i>Note: Comments are monitored and filtered.</i></div>
+          </div>
+    <div class="feedback-form">
+
+      <form name="form1" onsubmit="event.preventDefault(); postComment() ">
+  <input type="hidden" name="_template" value="table"></input>
+        <div> 
+          <label class='label required' for='name'>Full Name</label><br>
+          <input type="text" name="name" id="name" placeholder="Enter your full name." required/ class="feedback-input"></input>
+        </div>
+        <div>
+          <label class='label required' for='name'>Email</label><br>
+          <input type="text" name="email" id="email" placeholder="Enter your email."  required/ class="feedback-input"></input>
+        </div>
+        <div>
+          <label class='label required' for='name' >Comment</label><br>
+        </div>
+          <textarea type ="text" name="text" class="feedback-input"  id="comment" placeholder="Enter your comment." rows="5" cols="30" onClick="select_area()"> </textarea>
+        <button class="custom-btn btn-14" type="submit" onClick="validate_text()">COMMENT</button>
+      </form>  
+    </div>
+    <div class="comment-section">
+      <h4 class="feedback-header">COMMENTS</h4>
+      <div id="comments"></div>
+    </div>
+  </div>
+</div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-content">Copyright © 2023 BTS Co.</div>
+      <div class="footer-content">
+        <ul class="social-footer">
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-facebook" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-twitter" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-google" aria-hidden="true"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
+  <script src="/script.js"></script>
+</html>
