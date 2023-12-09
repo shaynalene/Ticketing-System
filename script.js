@@ -107,11 +107,7 @@ function displayRecord() {
 
   document.getElementById("editpopupContainer").style.display = "block";
 
-  document
-    .getElementById("cancelButton")
-    .addEventListener("click", function () {
-      cancelUpcoming(booking_id);
-    });
+  updateLastEditDate();
 }
 
 window.closePopup = function () {
