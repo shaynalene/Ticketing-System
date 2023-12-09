@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
     <title>BTS | Bus Ticketing System</title>
     <link rel="stylesheet" href="../style.css" />
     <link
@@ -20,7 +23,6 @@
     <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-storage.js"></script>
   </head>
   <body class="pages-flex-feedback">
-    
     <!-- NAVIGATION BAR -->
     <div class="navbar-ctr">
       <nav class="navbar">
@@ -61,43 +63,23 @@
     </div>
     <!-- FEEDBACK SECTION -->
 
-<div class="main-content-feedback">
-        
-  <div class="feedback-section">
-      <div class="feedback-title">
-          <div class="feedback-header">FEEDBACK FORM</div>
-           <div class="subheader"><i>Note: Comments are monitored and filtered.</i></div>
+    <div class="main-content-feedback">
+      <div class="feedback-section">
+        <div class="feedback-title">
+          <div class="feedback-header">FEEDBACK MONITOR</div>
+          <div class="subheader">
+            <i
+              >Note: Comments are monitored and filtered. All deleted comments
+              will be sent to archive.</i
+            >
           </div>
-    <div class="feedback-form">
-
-      <form name="form1" onsubmit="event.preventDefault(); postComment(event)">
-  <input type="hidden" name="_template" value="table"></input>
-        <div> 
-          <label class='label required' for='name'>Full Name</label><br>
-          <input type="text" name="name" id="name" placeholder="Enter your full name." required/ class="feedback-input"></input>
         </div>
-        <div>
-          <label class='label required' for='name'>Email</label><br>
-          <input type="text" name="email" id="email" placeholder="Enter your email."  required/ class="feedback-input"></input>
+        <div class="comment-section">
+          <h4 class="feedback-header">COMMENTS</h4>
+          <div id="comments"></div>
         </div>
-        <div>
-          <label class='label required' for='name' >Comment</label><br>
-          <textarea type ="text" name="text" class="feedback-input"  id="comment" placeholder="Enter your comment." rows="5" cols="30" onClick="select_area()"> </textarea>
-        </div>
-        <div class = "upload">
-            <label class='label required' for="file-input">Upload Photo/Video (optional)</label><br>
-            <label for="file-input">Note: The site only accepts up to 7mb</label>
-            <input type="file" name="file" id="file-input" accept="image/*,video/*" />
-          </div>
-        <button id="submit-btn" class="custom-btn btn-14" type="submit">COMMENT</button>
-      </form>  
+      </div>
     </div>
-    <div class="comment-section">
-      <h4 class="feedback-header">COMMENTS</h4>
-      <div id="comments"></div>
-    </div>
-  </div>
-</div>
 
     <!-- FOOTER -->
     <div class="footer">
@@ -125,6 +107,5 @@
   </body>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-    
   <script src="../feedbackadmin.js"></script>
 </html>

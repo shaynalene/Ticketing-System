@@ -721,9 +721,9 @@ select {
   align-items: center;
   flex-direction: column;
   background-color: #d5e5d4;
-  width: 60%;
   padding: 1.5em;
   box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.18);
+  width: 70%;
 }
 .feedback-form {
   padding-bottom: 3em;
@@ -792,6 +792,7 @@ textarea.feedback-input {
   padding: 5px;
   color: #e9e8f9;
   background-color: #365f32;
+  font-size: 18px;
 }
 
 input#file-input {
