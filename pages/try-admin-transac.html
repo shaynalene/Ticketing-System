@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Your existing head content -->
+    <!-- ... -->
+</head>
+<body>
+    <!-- Your existing body content -->
+    <!-- ... -->
+
+    <!-- Separate buttons for the "Pending Bookings" table -->
+    <button id="approveButton1" class="actionButton" onclick="approvePendingBooking()">Approve Request</button>
+    <button id="rejectButton1" class="actionButton" onclick="rejectPendingBooking()">Reject Request</button>
+
+    <!-- Separate buttons for the "Cancellation" table -->
+    <button id="approveButton2" class="actionButton" onclick="approveCancellation()">Approve Cancellation</button>
+    <button id="rejectButton2" class="actionButton" onclick="rejectCancellation()">Reject Cancellation</button>
+
+    <!-- Your existing script content -->
+    <script>
+        // Your existing script content
+        // ...
+
+        // Functions for the "Pending Bookings" table
+        window.approvePendingBooking = function() {
+            const tableBody = document.querySelector('#pendingTable tbody');
+            // Code to update the status from "pending" to "approved" in the pending bookings table
+            const row = tableBody.firstElementChild;
+            if (row) {
+                row.children[5].textContent = 'approved';
+            }
+            alert('Request Approved! An automated email will be sent to the user.');
+            closePopup(); // Code to close the pop-up after approving
+        };
+
+        window.rejectPendingBooking = function() {
+            const rejectConfirmationContainer = document.getElementById('rejectConfirmationContainer');
+            rejectConfirmationContainer.style.display = 'block';
+        };
+
+        // Functions for the "Cancellation" table
+        window.approveCancellation = function() {
+            const tableBody = document.querySelector('#cancelTable tbody');
+            // Code to update the status from "for processing" to "approved" in the cancellation table
+            const row = tableBody.firstElementChild;
+            if (row) {
+                row.children[5].textContent = 'approved';
+            }
+            alert('Cancellation Approved! An automated email will be sent to the user.');
+            closePopup(); // Code to close the pop-up after approving
+        };
+
+        window.rejectCancellation = function() {
+            const rejectConfirmationContainer = document.getElementById('rejectConfirmationContainer');
+            rejectConfirmationContainer.style.display = 'block';
+        };
+
+        // Your existing script content
+        // ...
+    </script>
+</body>
+</html>

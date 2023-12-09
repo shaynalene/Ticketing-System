@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BTS | Bus Ticketing System</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../about-us.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="shortcut icon" type="image/jpg" href="../img/bts-logo.png" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Style for the 3 table containers (ongoing, upcoming, & past) */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Style for the pop-up containers for view details button */
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            width: 400px;
+            height: 600px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        /* Style to center the content of the pop-up containers */
+        #popupContent {
+        text-align: center;
+        }
+
+       /* Style for the close button for the view details pop-up */
+       .close-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1001; 
+         display: block; 
+        }
+        
+       /* Style for the reject confirmation container */
+        #rejectConfirmationContainer {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            width: 300px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            text-align: center;
+        }
+
+        #rejectConfirmationContainer h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #rejectConfirmationContainer button {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .actionButton {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        position: absolute;
+        bottom: 20px;
+        z-index: 1001;
+    }
+
+    #approveButton {
+        background-color: #4CAF50;
+        color: white;
+        left: calc(50% + 70px);
+        transform: translateX(-50%);
+    }
+
+    #rejectButton {
+        background-color: #e74c3c;
+        color: white;
+        left: calc(50% - 70px);
+        transform: translateX(-50%);
+    }
+
+    </style>
+
+</head>
+<body>
+    <!-- Start of Navigation Bar -------------------------------------------------------->
+    <nav>
+        <div class="wrapper">
+            <div class="logo">
+              <a href="#"
+                ><img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic"
+              /></a>
+            </div>
+            <input type="radio" name="slider" id="menu-btn" />
+            <input type="radio" name="slider" id="close-btn" />
+            <ul class="nav-links">
+              <label for="close-btn" class="navbtn close-btn"
+                ><i class="fa fa-times"></i
+              ></label>
+              <li><a href="../index.html">HOME</a></li>
+              <li>
+                <a href="../pages/booking-form1.html">BOOKING</a>
+              </li>
+              <li>
+                <a href="transaction.html" id="active-page">TRANSACTIONS</a>
+              </li>
+              <li>
+                <a href="about-us.html">ABOUT US</a>
+              </li>
+              <li><a href="#">PROFILE</a></li>
+              <div class="login">
+                <a href="#" id="login-button">Your Account</a>
+                <!--redirect to user accounts page-->
+              </div>
+            </ul>
+            <label for="menu-btn" class="navbtn menu-btn"
+              ><i class="fa fa-bars"></i
+            ></label>
+          </div>
+        </nav>
+    <!-- End of Navigation Bar -------------------------------------------------------->
+
+    <!-- Start of Transaction History (BODY)-------------------------------------------------------->
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h1 style="color: #365F32;">Transaction History</h1>
+
+    <!-- ONGOING ACTIVITY -->
+    <div class="container">
+        <h3 style="color: #365F32;">ONGOING/APPROVED ACTIVITY</h3>
+        <table id="ongoingTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Pick up</th>
+                    <th>Destination</th>
+                    <th>Bus #</th>
+                    <th>Seat #</th>
+                    <th>Status</th>
+                    <th>View Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Ongoing/Approved activity data will be displayed here using JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- PENDING BOOKINGS -->
+    <div class="container">
+        <h3 style="color: #365F32;">PENDING BOOKINGS</h3>
+        <table id="pendingTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Pick up</th>
+                    <th>Destination</th>
+                    <th>Bus #</th>
+                    <th>Seat #</th>
+                    <th>Status</th>
+                    <th>View Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Pending activity data will be displayed here using JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- FOR CANCELLATION -->
+    <div class="container">
+        <h3 style="color: #365F32;">FOR CANCELLATION</h3>
+        <table id="cancelTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Pick up</th>
+                    <th>Destination</th>
+                    <th>Bus #</th>
+                    <th>Seat #</th>
+                    <th>Status</th>
+                    <th>View Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- For Cancellation data will be displayed here using JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- FOR CANCELLATION -->
+    <div class="container">
+        <h3 style="color: #365F32;">PAST ACTIVITY</h3>
+        <table id="pastTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Pick up</th>
+                    <th>Destination</th>
+                    <th>Bus #</th>
+                    <th>Seat #</th>
+                    <th>Status</th>
+                    <th>View Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- For Cancellation data will be displayed here using JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+
+   <!-- POP-UP CONTAINER -->
+   <!-- NOTE: The Receipt Details codes below are just based from the previous "booking-receipt" page. Just modified some of its content. -->
+    <div class="popup-container" id="popupContainer">
+    <h3>Receipt Details</h3>
+    <br>
+    <div class="details">
+        <span class="question">Transaction Number:</span>
+        <span class="answer"><?php echo $tNumber ?></span>
+        <br><br>
+        <span class="question">Customer's Name:</span>
+        <span class="answer"><?php echo $name ?></span>
+        <br><br>
+        <span class="question">Contact Number:</span>
+        <span class="answer"><?php echo $number ?></span>
+        <br><br>
+        <span class="question">Pick-up Terminal:</span>
+        <span class="answer"><?php echo $pick_up ?></span>
+        <br><br>
+        <span class="question">Drop-off Destination:</span>
+        <span class="answer"><?php echo $drop_off ?></span>
+        <br><br>
+        <span class="question">Departure Date:</span>
+        <span class="answer"><?php echo $date ?></span>
+        <br><br>
+        <span class="question">Departure Time:</span>
+        <span class="answer"><?php echo $time ?></span>
+        <br><br>
+        <span class="question">Number of Passengers:</span>
+        <span class="answer"><?php echo $passenger_number ?></span>
+        <br><br>
+        <span class="question">Trip Fare:</span>
+        <span class="answer"><?php echo $tripFare ?></span>
+        <br><br>
+    </div>
+    <hr>
+    <div id="popupContent">
+        <!-- Receipt details here -->
+    </div>
+    <hr>
+    <button style="background-color: #4CAF50; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; position: absolute; top: 10px; right: 10px; z-index: 1001;" onclick="closePopup()">Close</button>
+    <button id="approveButton" class="actionButton" onclick="approveBooking()">Approve Request</button>
+    <button id="rejectButton" class="actionButton" onclick="rejectUpcoming()">Reject Request</button>
+</div>
+
+<!-- Reject Confirmation Container -->
+<div id="rejectConfirmationContainer">
+    <h3>Confirm Rejection</h3>
+    <p>Are you sure you want to reject this booking?</p>
+    <button onclick="confirmReject()">Yes, Reject</button>
+    <button style="background-color: #4CAF50; color: white;" onclick="closePopup()">Go Back</button>
+</div>
+
+<!-- End of Transaction History (BODY)-------------------------------------------------------->
+
+<!-- Start of Transaction History (SCRIPT/FUNCTIONS)-------------------------------------------------------->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Sample transaction data only, you may connect this to the php code
+        const ongoingActivities = [
+            { date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'ongoing', ViewDetails: 'Ongoing Details'},
+            // see code below to add more rows to this table
+            // date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'ongoing', ViewDetails: 'Ongoing Details'},
+        ];
+
+        const pendingActivities = [
+            { date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'pending', ViewDetails: 'Pending Details'},
+            // see code below to add more rows to this table
+            // date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'ongoing', ViewDetails: 'Pending Details'},
+        ];
+
+        const cancelActivities = [
+            { date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'for processing', ViewDetails: 'Cancel Details'},
+            // see code below to add more rows to this table
+            // date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'ongoing', ViewDetails: 'Past Details'},
+        ];
+
+        const pastActivities = [
+            { date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'completed', ViewDetails: 'Past Details'},
+            // see code below to add more rows to this table
+            // date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'ongoing', ViewDetails: 'Past Details'},
+        ];
+
+
+        // Function to display activities in the corresponding tables
+        function displayActivities(tableId, activities) {
+            const tableBody = document.querySelector(`#${tableId} tbody`);
+
+        // Clear existing rows
+            tableBody.innerHTML = '';
+
+        // Loop through activities and append rows to the table
+            activities.forEach(activity => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${activity.date}</td>
+                    <td>${activity.Pickup}</td>
+                    <td>${activity.destination}</td>
+                    <td>${activity.bus}</td>
+                    <td>${activity.seat}</td>
+                    <td>${activity.status}</td>
+                    <td><button style="background-color: #4CAF50; color: white; padding: 5px; border: none; order-radius: 5px; cursor: pointer; position: ;" onclick="openOngoingPopup('${activity.ViewDetails}', '${activity.status}')">View Details</button></td>
+                `;
+                tableBody.appendChild(row); // to add a new table row (<tr>)
+            });
+        }
+
+        // Initial display of ongoing, past, & upcoming activities
+        displayActivities('ongoingTable', ongoingActivities);
+        displayActivities('pendingTable', pendingActivities);
+        displayActivities('cancelTable', cancelActivities);
+        displayActivities('pastTable', pastActivities);
+
+        // Function to open the pop-up container for ongoing & past activity
+        window.openOngoingPopup = function(details, status) {
+            const popupContainer = document.getElementById('popupContainer');
+            const popupContent = document.getElementById('popupContent');
+            const approveButton = document.getElementById('approveButton'); 
+            const rejectButton = document.getElementById('rejectButton'); 
+        // Receipt Content code below
+            const receiptContent = `
+                <p><strong>Date:</strong> ${details.date}</p>
+                <p><strong>Pick up:</strong> ${details.Pickup}</p>
+                <p><strong>Destination:</strong> ${details.destination}</p>
+                <p><strong>Bus #:</strong> ${details.bus}</p>
+                <p><strong>Seat #:</strong> ${details.seat}</p>
+                <p><strong>Status:</strong> ${details.status}</p>
+            `;
+            popupContent.innerHTML = receiptContent;
+
+            // Code below to hide the "Reject Booking" button inside the pop-up container of ongoingTable or pastTable
+            rejectButton.style.display = status !== 'ongoing' && status !== 'completed' ? 'block' : 'none';
+            
+            // Code below to hide the "Approve Booking" button for ongoingTable or pastTable
+            approveButton.style.display = status !== 'ongoing' && status !== 'completed' ? 'block' : 'none';
+
+            popupContainer.style.display = 'block';
+        };
+
+        // Function to start the rejection process
+        window.rejectUpcoming = function() {
+                const rejectConfirmationContainer = document.getElementById('rejectConfirmationContainer');
+                rejectConfirmationContainer.style.display = 'block';
+            };
+
+/////////////////////// START OF PENDING BOOKING (REJECT BUTTON)
+        // Function to confirm the rejection and update the status
+            window.confirmReject = function() {
+            const tableBody = document.querySelector('#pendingTable tbody');
+            const rejectButton = document.getElementById('rejectButton');
+
+        // Code to update the status from "pending" to "rejected" in the upcoming activity table
+            const row = tableBody.firstElementChild; 
+            if (row) {
+                row.children[5].textContent = 'rejected'; 
+            }
+                alert('Request Rejected! An automated email will be sent to the user.');
+                closePopup(); // Code to close the pop-up after rejecting
+            };
+/////////////////////// END OF PENDING BOOKING (REJECT BUTTON)
+
+/////////////////////// START OF PENDING BOOKING (APPROVE BUTTON)
+        window.approveBooking = function() {
+        const tableBody = document.querySelector('#pendingTable tbody');
+        const approveButton = document.getElementById('approveButton');
+        // Code to update the status from "pending" to "approved" in the upcoming activity table
+        const row = tableBody.firstElementChild;
+        if (row) {
+            row.children[5].textContent = 'approved';
+        }
+        alert('Request Approved! An automated email will be sent to the user.');
+        closePopup(); // Code to close the pop-up after approving
+    };
+    
+/////////////////////// END OF PENDING BOOKING (APPROVE BUTTON)
+
+// Function to close the pop-up container
+window.closePopup = function() {
+            const popupContainer = document.getElementById('popupContainer');
+            const rejectConfirmationContainer = document.getElementById('rejectConfirmationContainer');
+            popupContainer.style.display = 'none';
+            rejectConfirmationContainer.style.display = 'none';
+        };
+
+       
+    });
+</script>
+
+<!-- End of Transaction History (SCRIPT/FUNCTIONS)-------------------------------------------------------->
+
+</body>
+</html>
+
+
+
