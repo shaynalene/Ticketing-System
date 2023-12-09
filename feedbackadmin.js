@@ -1,139 +1,3 @@
-function addTrip() {
-  // Get the table body
-  var tableBody = document.querySelector("#editableTable tbody");
-
-  // Create a new row
-  var newRow = tableBody.insertRow();
-
-  // Define the cell content
-  var cellContent = ["", "", "", "", "", "", ""];
-
-  // Insert cells into the row
-  for (var i = 0; i < cellContent.length; i++) {
-    var cell = newRow.insertCell(i);
-    cell.contentEditable = "false"; // Set to false initially
-    cell.innerText = cellContent[i];
-  }
-
-  // Add an "EDIT" button
-  var editButtonCell = newRow.insertCell(cellContent.length);
-  editButtonCell.innerHTML =
-    '<button class="editButtonLP" onclick="editRow(this)">EDIT</button>';
-}
-
-function addRecord() {
-  // Get the table body
-  var tableBody = document.querySelector("#userTable tbody");
-
-  // Create a new row
-  var newRow = tableBody.insertRow();
-
-  // Define the cell content
-
-  var cellContent = ["PLACE", "PLACE", "00/00/00", "---"];
-
-  // Insert cells into the row
-  for (var i = 0; i < cellContent.length; i++) {
-    var cell = newRow.insertCell(i);
-    cell.contentEditable = "false"; // Set to false initially
-    cell.innerText = cellContent[i];
-  }
-
-  // Add an "EDIT" button
-  var editButtonCell = newRow.insertCell(cellContent.length);
-  editButtonCell.innerHTML =
-    '<button class="editButtonLP" onclick="editRow(this)">EDIT</button><button id="modifyButton" class="editButtonLP">VIEW</button>';
-}
-
-function editRow(button) {
-  // Get the row containing the clicked button
-  var row = button.closest("tr");
-
-  // Toggle the contentEditable property for each cell in the row
-  var cells = row.cells;
-  for (var i = 0; i < cells.length - 1; i++) {
-    cells[i].contentEditable =
-      cells[i].contentEditable === "false" ? "true" : "false";
-  }
-
-  // Toggle the button text between "EDIT" and "SAVE"
-  button.innerText = button.innerText === "EDIT" ? "SAVE" : "EDIT";
-
-  updateLastEditDate();
-}
-
-function updateLastEditDate() {
-  const lastEditDateCell = document.getElementById("lastEditDate");
-  const editDate = new Date();
-  lastEditDateCell.textContent = "Last Edit: " + editDate.toLocaleString();
-}
-
-function displayReceipt(
-  booking_id,
-  user_id,
-  pick_up,
-  drop_off,
-  date,
-  time,
-  passenger_number,
-  status
-) {
-  document.getElementById("popupContent").innerHTML = `
-      <div class="details">
-      <span class="question">Transaction Number:</span>
-      <span class="answer">${booking_id}</span>
-      <br><br>
-      <span class="question">Customer's Name:</span>
-      <span class="answer">${user_id}</span>
-      <br><br>
-      <span class="question">Contact Number:</span>
-      <span class="answer">${user_id}</span>
-      <br><br>
-      <span class="question">Pick-up Terminal:</span>
-      <span class="answer">${pick_up}</span>
-      <br><br>
-      <span class="question">Drop-off Destination:</span>
-      <span class="answer">${drop_off}</span>
-      <br><br>
-      <span class="question">Departure Date:</span>
-      <span class="answer">${date}</span>
-      <br><br>
-      <span class="question">Departure Time:</span>
-      <span class="answer">${time}</span>
-      <br><br>
-      <span class="question">Number of Passengers:</span>
-      <span class="answer">${passenger_number}</span>
-      <br><br>
-      <span class="question">Trip Fare:</span>
-      <span class="answer">${status}</span>
-      <br><br>
-  </div>
-  <hr>
-  `;
-
-  document.getElementById("popupContainer").style.display = "block";
-  if (status == "Upcoming") {
-    document.getElementById("cancelButton").style.display = "block";
-  } else {
-    document.getElementById("cancelButton").style.display = "none";
-  }
-
-  document
-    .getElementById("cancelButton")
-    .addEventListener("click", function () {
-      cancelUpcoming(booking_id);
-    });
-}
-
-window.closePopup = function () {
-  const popupContainer = document.getElementById("popupContainer");
-  const cancelConfirmationContainer = document.getElementById(
-    "cancelConfirmationContainer"
-  );
-  popupContainer.style.display = "none";
-  cancelConfirmationContainer.style.display = "none";
-};
-
 var firebaseConfig = {
   apiKey: "AIzaSyDZYKEAdoUO_6aI1O-HN7tHR_JZicxCQVs",
   authDomain: "feedback-comment-32724.firebaseapp.com",
@@ -276,6 +140,14 @@ function addComment(commentKey, name, email, comment, timeStamp, mediaData) {
     }
   }
 
+  // Add the delete button to the new comment
+  var deleteButton = document.createElement("button");
+  deleteButton.innerHTML = "Delete";
+  deleteButton.onclick = function () {
+    deleteComment(commentKey);
+  };
+
+  newComment.appendChild(deleteButton);
   newComment.setAttribute("data-comment-key", commentKey);
 
   // Insert the new comment at the beginning of the comments container
@@ -288,4 +160,40 @@ function isImage(dataUrl) {
 
 function isVideo(dataUrl) {
   return /^data:video\//.test(dataUrl);
+}
+
+function deleteComment(commentKey) {
+  if (commentKey) {
+    // Retrieve the comment from the original database
+    var ref = firebase.database().ref("comments");
+    ref.child(commentKey).once("value", function (snapshot) {
+      var deletedComment = snapshot.val();
+
+      // Push the deleted comment to the "archived" database
+      var archivedRef = firebaseApp2.database().ref("archived-comments");
+      archivedRef.push(deletedComment);
+
+      // Remove the comment from the original database
+      ref.child(commentKey).remove(function (error) {
+        if (error) {
+          console.error("Error removing comment:", error);
+        } else {
+          // If the comment is successfully removed from the database, remove it from the page
+          removeCommentFromPage(commentKey);
+        }
+      });
+    });
+  } else {
+    console.error("Invalid commentKey:", commentKey);
+  }
+}
+
+function removeCommentFromPage(commentKey) {
+  // Find the comment element based on the custom attribute
+  var commentElement = document.querySelector(
+    "[data-comment-key='" + commentKey + "']"
+  );
+  if (commentElement) {
+    commentElement.remove();
+  }
 }

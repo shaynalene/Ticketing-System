@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>BTS | Bus Ticketing System</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      type="image/jpg"
+      href="../Ticketing-System/img/bts-logo.png"
+    />
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-storage.js"></script>
+  </head>
+  <body class="pages-flex-feedback">
+    
+    <!-- NAVIGATION BAR -->
+    <div class="navbar-ctr">
+      <nav class="navbar">
+        <div class="wrapper">
+          <div class="logo">
+            <a href="#"
+              ><img src="/img/bts-logo-nav.png" alt="BTS" class="logo-pic"
+            /></a>
+          </div>
+          <input type="radio" name="slider" id="menu-btn" />
+          <input type="radio" name="slider" id="close-btn" />
+          <ul class="nav-links">
+            <label for="close-btn" class="navbtn close-btn"
+              ><i class="fa fa-times"></i
+            ></label>
+            <li>
+              <a href="index.html">HOME</a>
+            </li>
+            <li>
+              <a href="../pages/booking-form1.php">BOOKING</a>
+            </li>
+            <li>
+              <a href="../pages/transaction.php">TRANSACTIONS</a>
+            </li>
+            <li>
+              <a href="../pages/about-us.php">ABOUT US</a>
+            </li>
+            <li><a href="#" id="active-page">FEEDBACK</a></li>
+            <div class="login">
+              <a href="../pages/profile-page.php" id="login-button">Account</a>
+            </div>
+          </ul>
+          <label for="menu-btn" class="navbtn menu-btn"
+            ><i class="fa fa-bars"></i
+          ></label>
+        </div>
+      </nav>
+    </div>
+    <!-- FEEDBACK SECTION -->
+
+<div class="main-content-feedback">
+        
+  <div class="feedback-section">
+      <div class="feedback-title">
+          <div class="feedback-header">FEEDBACK FORM</div>
+           <div class="subheader"><i>Note: Comments are monitored and filtered.</i></div>
+          </div>
+    <div class="feedback-form">
+
+      <form name="form1" onsubmit="event.preventDefault(); postComment(event)">
+  <input type="hidden" name="_template" value="table"></input>
+        <div> 
+          <label class='label required' for='name'>Full Name</label><br>
+          <input type="text" name="name" id="name" placeholder="Enter your full name." required/ class="feedback-input"></input>
+        </div>
+        <div>
+          <label class='label required' for='name'>Email</label><br>
+          <input type="text" name="email" id="email" placeholder="Enter your email."  required/ class="feedback-input"></input>
+        </div>
+        <div>
+          <label class='label required' for='name' >Comment</label><br>
+          <textarea type ="text" name="text" class="feedback-input"  id="comment" placeholder="Enter your comment." rows="5" cols="30"> </textarea>
+        </div>
+        <div class = "upload">
+            <label class='label required' for="file-input">Upload Photo/Video (optional)</label><br>
+            <label for="file-input">Note: The site only accepts up to 7mb</label>
+            <input type="file" name="file" id="file-input" accept="image/*,video/*" />
+          </div>
+        <button id="submit-btn" class="custom-btn btn-14" type="submit">COMMENT</button>
+      </form>  
+    </div>
+    <div class="comment-section">
+      <h4 class="feedback-header">COMMENTS</h4>
+      <div id="comments"></div>
+    </div>
+  </div>
+</div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-content">Copyright © 2023 BTS Co.</div>
+      <div class="footer-content">
+        <ul class="social-footer">
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-facebook" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-twitter" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-google" aria-hidden="true"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    
+  <script src="../script.js"></script>
+</html>

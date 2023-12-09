@@ -15,7 +15,9 @@
       type="image/jpg"
       href="../Ticketing-System/img/bts-logo.png"
     />
-    
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-storage.js"></script>
   </head>
   <body class="pages-flex-feedback">
     
@@ -68,7 +70,7 @@
           </div>
     <div class="feedback-form">
 
-      <form name="form1" onsubmit="event.preventDefault(); postComment() ">
+      <form name="form1" onsubmit="event.preventDefault(); postComment(event)">
   <input type="hidden" name="_template" value="table"></input>
         <div> 
           <label class='label required' for='name'>Full Name</label><br>
@@ -80,9 +82,14 @@
         </div>
         <div>
           <label class='label required' for='name' >Comment</label><br>
-        </div>
           <textarea type ="text" name="text" class="feedback-input"  id="comment" placeholder="Enter your comment." rows="5" cols="30" onClick="select_area()"> </textarea>
-        <button class="custom-btn btn-14" type="submit" onClick="validate_text()">COMMENT</button>
+        </div>
+        <div class = "upload">
+            <label class='label required' for="file-input">Upload Photo/Video (optional)</label><br>
+            <label for="file-input">Note: The site only accepts up to 7mb</label>
+            <input type="file" name="file" id="file-input" accept="image/*,video/*" />
+          </div>
+        <button id="submit-btn" class="custom-btn btn-14" type="submit">COMMENT</button>
       </form>  
     </div>
     <div class="comment-section">
@@ -117,6 +124,7 @@
     </div>
   </body>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
-  <script src="../script.js"></script>
+
+    
+  <script src="../feedbackadmin.js"></script>
 </html>
