@@ -397,7 +397,7 @@ input[type="text"].rgs-ipt-style,
 }
 
 .main-content {
-  flex: 0 85vh;
+  flex: 0 81vh;
   width: 100%;
 }
 
@@ -721,9 +721,9 @@ select {
   align-items: center;
   flex-direction: column;
   background-color: #d5e5d4;
-  width: 60%;
   padding: 1.5em;
   box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.18);
+  width: 70%;
 }
 .feedback-form {
   padding-bottom: 3em;
@@ -792,6 +792,7 @@ textarea.feedback-input {
   padding: 5px;
   color: #e9e8f9;
   background-color: #365f32;
+  font-size: 18px;
 }
 
 input#file-input {
@@ -847,4 +848,84 @@ h4 span {
 label.label.required {
   font-size: 20px;
   font-weight: 500;
+}
+
+/* Style for the pop-up containers for view details button */
+.addpopup-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  width: 400px;
+  height: 600px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+/* Style to center the content of the pop-up containers */
+#addpopupContent {
+  text-align: center;
+}
+
+.editpopup-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  width: 400px;
+  height: 600px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+/* Style to center the content of the pop-up containers */
+#editpopupContent {
+  text-align: center;
+}
+
+/* Style for the close button for the view details pop-up */
+.close-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1001;
+  display: block;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.detail-value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.detail-value input[type="text"] {
+  width: auto;
+  padding: 0.5em;
+}
+
+.addRecordBtn {
+  margin: 0.5em;
+}
+
+.recordtitle {
+  color: #365f32;
+  font-size: 30px;
 }

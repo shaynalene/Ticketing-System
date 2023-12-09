@@ -142,7 +142,7 @@ function addComment(commentKey, name, email, comment, timeStamp, mediaData) {
 
   // Add the delete button to the new comment
   var deleteButton = document.createElement("button");
-  deleteButton.innerHTML = "Delete";
+  deleteButton.innerHTML = "DELETE";
   deleteButton.onclick = function () {
     deleteComment(commentKey);
   };
