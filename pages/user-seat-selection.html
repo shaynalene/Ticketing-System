@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BTS | Bus Ticketing System</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="shortcut icon" type="image/jpg" href="../img/bts-logo.png" />
+
+<!-- Start of Style for user-seat-selection.html -------------------------------------------------------->
+<style>
+   .seatTable {
+    display: flex;
+    align-items: flex-start;
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f2eacb;
+    border: 1px solid #365F32;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.seat-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* Apply specific colors based on the legend */
+.seat-row .seat {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #365F32;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #fff;
+}
+.seat:hover {
+    background-color: #d9e8c9;
+}
+
+.legend {
+        margin-left: 10px; 
+        font-weight: bold;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+}
+
+h4 {
+        font-weight: normal; 
+    }
+
+.color-box {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px; 
+}
+
+
+.button-container {
+        margin-top: 20px;
+        text-align: center;
+}
+
+.button-container button {
+        padding: 10px 20px;
+        margin: 10px;
+        background-color: #365F32;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+    .button-container button:hover {
+        background-color: #4caf50;
+    }
+
+    /* Responsiveness Code for Seat Selection */
+    @media (max-width: 768px) {
+        .confirmTable {
+            padding: 10px;
+        }
+        .seat {
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+        }
+    }
+</style>
+
+<!-- End of Style for user-seat-selection.html -------------------------------------------------------->
+
+</head>
+<body>
+
+<!-- Start of Navigation Bar -------------------------------------------------------->
+<nav>
+    <div class="wrapper">
+      <div class="logo">
+        <a href="#">
+          <img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic"/>
+        </a>
+      </div>
+      <input type="radio" name="slider" id="menu-btn" />
+      <input type="radio" name="slider" id="close-btn" />
+      <ul class="nav-links">
+        <label for="close-btn" class="navbtn close-btn"><i class="fa fa-times"></i></label>
+        <li><a href="../index.php" >HOME</a></li>
+        <li><a href="booking-form2.php" id="active-page">BOOKING</a></li>
+        <li><a href="../pages/transaction.php">TRANSACTIONS</a></li>
+        <li><a href="../pages/about-us.html">ABOUT US</a></li>
+        <li><a href="#">FEEDBACK</a></li>
+        <div class="login">
+          <a href="../pages/profile-page.php" id="login-button">Account</a>
+        </div>
+      </ul>
+      <label for="menu-btn" class="navbtn menu-btn"><i class="fa fa-bars"></i></label>
+    </div>
+  </nav>
+<!-- End of Navigation Bar -------------------------------------------------------->
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- Start of booking-form2.html (confirmation part) -------------------------------------------------------->
+<center><h1 style="color: #365F32;">Bus Seat Selection</h1></center>
+<br>
+
+
+<center><h4>Click your desired seat(s)</h4></center><br>
+<!-- Seat Selection Container starts here---------------------------------------------------------->
+<!------<form action="your_form_action.php" method="post">   ------>
+<div class="seatTable">
+    <div id="seat-map" class="details"></div>
+<!-- Legend -->
+<div class="legend">
+    <h3>Legend:</h3>
+    <!-- Window Seats -->
+    <div class="legend-item">
+        <div class="color-box" style="background-color: rgb(194, 144, 194);"></div>
+        <h4>Window Seats</h4>
+    </div>
+    <!-- Front Seats -->
+    <div class="legend-item">
+        <div class="color-box" style="background-color: yellow;"></div>
+        <h4>Front Seats</h4>
+    </div>
+    <!-- Back Seats -->
+    <div class="legend-item">
+        <div class="color-box" style="background-color: rgb(78, 146, 255);"></div>
+        <h4>Back Seats</h4>
+    </div>
+    <!-- Aisle (Not Available) -->
+    <div class="legend-item">
+        <div class="color-box" style="background-color: black;"></div>
+        <h4>Aisle (Not Available)</h4>
+    </div>
+    <br><br>
+    <hr><br>
+    <!-- Insert backend code here (bus number and bus seat based from the booking form) -->
+    <h4>You are currently selecting seat(s) from Bus# </h4><br>
+    <hr><br>
+    <h4>Number of Seats to select: </h4><br>
+    <hr><br><br><br><br><br>
+    <!-- Buttons for the seat selection CODE STARTS HERE) -->    
+    <div class="button-container">
+        <button onclick="location.href='booking-form2.php'" type="button" style="background-color: #7788E5;">Go Back</button>
+        <button style="background-color: #ffdd44; color: black;" onclick="location.reload();">Reset Seats</button>
+        <button onclick="confirmBooking()">Proceed to Payment >>></button>
+    </div>
+    <!-- Buttons for the seat selection CODE ENDS HERE) -->        
+</div>
+
+<!--------</form>-->
+
+</div>
+<!-- Seat Selection Container ends here---------------------------------------------------------->
+
+ <!-- Script for Seat Selection -->
+<script>
+  // seats (10 rows , 5 columns, additional back row )
+  let seatData = [
+    ['A1', 'A2', '', 'A3', 'A4'],
+    ['B1', 'B2', '', 'B3', 'B4'],
+    ['C1', 'C2', '', 'C3', 'C4'],
+    ['D1', 'D2', '', 'D3', 'D4'],
+    ['E1', 'E2', '', 'E3', 'E4'],
+    ['F1', 'F2', '', 'F3', 'F4'],
+    ['G1', 'G2', '', 'G3', 'G4'],
+    ['H1', 'H2', '', 'H3', 'H4'],
+    ['I1', 'I2', '', 'I3', 'I4'],
+    ['J1', 'J2', '', 'J3', 'J4'],
+    ['K1', 'K2', 'K3', 'K4', 'K5'],
+  ];
+
+    // Function to initialize seat map
+    function initializeSeatMap() {
+    const seatMapElement = document.getElementById("seat-map");
+
+    // Add labels for rows
+    const rowLabels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
+
+    // Create a row for labels
+    const labelRow = document.createElement("div");
+    labelRow.classList.add("seat-row");
+
+    // Add an empty space for the corner
+    labelRow.appendChild(document.createElement("div"));
+
+    // Append the label row to the seat map
+    seatMapElement.appendChild(labelRow);
+
+    // Create seat rows
+    for (let i = 0; i < seatData.length; i++) {
+        const row = document.createElement("div");
+        row.classList.add("seat-row");
+
+        // Add row label
+        const rowLabel = document.createElement("div");
+        rowLabel.classList.add("seat-label");
+        rowLabel.textContent = rowLabels[i];
+        row.appendChild(rowLabel);
+        
+        //// CODES for the seat colors/legend starts here
+        for (let j = 0; j < seatData[i].length; j++) {
+            const seat = document.createElement("div");
+            seat.classList.add("seat");
+            seat.textContent = seatData[i][j];
+            seat.addEventListener("click", () => toggleSeat(i, j));
+
+            // Set background color based on seat position
+            if (j === 0 || j === seatData[i].length - 1) {
+                seat.style.backgroundColor = "rgb(194, 144, 194)"; // First and last column seats
+            } else if (j === 2 && i !== seatData.length - 1) {
+                seat.style.backgroundColor = "black"; // All 3rd column, except the last row
+            } else if (i === 0 && (j === 1 || j === 3)) {
+                seat.style.backgroundColor = "yellow"; // First row, 2nd and 4th column
+            } else if (i === seatData.length - 1 && (j === 1 || j === 2 || j === 3)) {
+                seat.style.backgroundColor = "rgb(78, 146, 255)"; // Last row, 2nd, 3rd, and 4th column
+            } else {
+                seat.style.backgroundColor = "#fff"; // Default background color
+            }
+            row.appendChild(seat);
+        }
+        //// CODES for the seat colors/legend ends here
+
+        // Append the row to the seat map
+        seatMapElement.appendChild(row);
+    }
+}
+
+  // Function to toggle seat selection
+function toggleSeat(row, col) {
+    const seatMapElement = document.getElementById("seat-map");
+    const seat = seatData[row][col];
+
+    if (seat) {
+      seatData[row][col] = seat === '✔️' ? '✔️' : '✔️';
+      seatMapElement.children[row + 1].children[col + 1].textContent = seatData[row][col];
+    }
+  }
+
+  // Function to confirm booking
+  function confirmBooking() {
+    location.href = 'booking-payment.html';    
+    alert("Booking Confirmed!");
+  }
+
+  // Initialize seat map on page load
+  window.onload = initializeSeatMap;
+</script>
+<br>
+<br>
+<br>
+<br>
+<br>
+        </div>
+    </div>
+</div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-content">Copyright © 2023 BTS Co.</div>
+      <div class="footer-content">
+        <ul class="social-footer">
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-facebook" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-twitter" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="social-button"
+              ><i class="fa fa-google" aria-hidden="true"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</body>
+</html>
