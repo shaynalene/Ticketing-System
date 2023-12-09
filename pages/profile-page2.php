@@ -95,12 +95,12 @@ if (isset($_POST['logout'])){
             <ul class="nav-links">
               <label for="close-btn" class="navbtn close-btn"><i class="fa fa-times"></i></label>
               <li><a href="../index.php">HOME</a></li>
-              <li><a href="../pages/booking-form1.php">BOOKING</a></li>
+              <li><a href="../pages/booking.php">BOOKING</a></li>
               <li><a href="../pages/transaction.php">TRANSACTIONS</a></li>
               <li><a href="..pages/about-us.html">ABOUT US</a></li>
               <li><a href="#">FEEDBACK</a></li>
               <div class="login">
-                <a href="profile-page.php" id="login-button">Account</a>
+                <a href="profile-page2.php" id="login-button">Account</a>
               </div>
             </ul>
             <label for="menu-btn" class="navbtn menu-btn"><i class="fa fa-bars"></i></label>
@@ -128,13 +128,11 @@ if (isset($_POST['logout'])){
             <div class="rgs-input">
               Enter Email <input class="rgs-ipt-style" type="email" name="email" value="<?php echo $email ? htmlspecialchars($email) : ''; ?>" required readonly style="background-color: #e5e5e5;" />
             </div>
-            <div class="rgs-input">
-              Password <input class="rgs-ipt-style" type="password" name="password" />
-            </div>
   
             <div class="form-buttons">
                 <form method="post" action="">
                   <button type="submit" name="edit">EDIT DETAILS</button>
+                  <button type="submit" name="logout">LOG OUT</button>
                 </form>
               </div>
               </div>

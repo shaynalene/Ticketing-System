@@ -1,6 +1,48 @@
 <?php
 session_start();
-include "../Ticketing-System/php/server.php"; 
+include "../php/server.php";
+
+// Check if the user is logged in
+if (!isset($_SESSION["user_id"])) {
+  header("Location: login-page.html");
+  exit();
+}
+
+//get data from session
+$user_id = $_SESSION['user_id'];
+$email = $_SESSION['email'];
+$username = $_SESSION['username'];
+$firstname = $_SESSION['firstname'];
+$lastname = $_SESSION['lastname'];
+$number = $_SESSION['number'];
+$name = $firstname . ' ' . ' ' . $lastname;
+
+//if confirm button is clicked
+if (isset($_POST['confirm'])){
+    $bus_number = $_POST["bus_number"];
+    $pick_up = $_POST["pick_up"];
+    $drop_off = $_POST["drop_off"];
+    $price = $_POST["price"];
+    $date = $_POST["date"];
+    $time = $_POST["departure_time"];
+    $passenger_number= $_POST["passenger_count"];
+    $status = "Upcoming";
+
+    $total_price = $price * $passenger_number;
+
+    $_SESSION['total_price'] = $total_price;
+  
+    $sql = "INSERT INTO booking_form (user_id, bus_number, pick_up, drop_off, date, time, passenger_number, status, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('iissssisi', $user_id, $bus_number, $pick_up, $drop_off, $date, $time,  $passenger_number, $status, $total_price);
+    $stmt->execute();
+    $previous_booking_id = $stmt->insert_id;
+    $_SESSION['booking_id'] = $previous_booking_id;
+    $stmt->close();
+
+    //redirect to next page
+    header("Location: ../pages/booking-payment.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +51,7 @@ include "../Ticketing-System/php/server.php";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BTS | Bus Ticketing System</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -17,7 +59,7 @@ include "../Ticketing-System/php/server.php";
     <link
       rel="shortcut icon"
       type="image/jpg"
-      href="../Ticketing-System/img/bts-logo.png"
+      href="../img/bts-logo.png"
     />
   </head>
   <body class="pages-flex-feedback">
@@ -28,7 +70,7 @@ include "../Ticketing-System/php/server.php";
           <div class="logo">
             <a href="#"
               ><img
-                src="../Ticketing-System/img/bts-logo-nav.png"
+                src="../img/bts-logo-nav.png"
                 alt="BTS"
                 class="logo-pic"
             /></a>
@@ -40,23 +82,23 @@ include "../Ticketing-System/php/server.php";
               ><i class="fa fa-times"></i
             ></label>
             <li>
-              <a href="index.php" id="active-page">HOME</a>
+              <a href="index.php">HOME</a>
             </li>
             <li>
-              <a href="../Ticketing-System/pages/booking.php">BOOKING</a>
+              <a href="../pages/booking-form1.php" id="active-page">BOOKING</a>
             </li>
             <li>
-              <a href="../Ticketing-System/pages/transaction.php">TRANSACTIONS</a>
+              <a href="#">TRANSACTIONS</a>
             </li>
             <li>
-              <a href="../Ticketing-System/pages/about-us.html">ABOUT US</a>
+              <a href="../pages/useraccounts.html">USERS</a>
             </li>
-            <li><a href="../Ticketing-System/pages/feedback-user.html">FEEDBACK</a></li>
+            <li><a href="#">FEEDBACK</a></li>
             <div class="login">
               <a
-                href="../Ticketing-System/pages/profile-page2.php"
+                href="../pages/profile-page.php"
                 id="login-button"
-                >Account</a
+                >Your Account</a
               >
             </div>
           </ul>
@@ -71,8 +113,7 @@ include "../Ticketing-System/php/server.php";
     <div class="main-content">
       <div class="header">
         <div class="left-header-lp">
-          <div class="title-header">ONLINE VIEWBOARD</div>
-          <!-- HIDE UNLESS ITS ON ADMIN SIDE !! TO BE EDITED -->
+          <div class="title-header">BOOK A TRIP HERE</div>
         </div>
         <!--<div id="lastEditDate">UPDATED AS OF: 00/00/00 00:00 AM/PM</div>-->
       </div>
@@ -85,8 +126,8 @@ include "../Ticketing-System/php/server.php";
               <th>PRICE</th>
               <th>BUS NO.</th>
               <th>TRAVEL DATE</th>
-              <th>TRAVEL TIME</th>
-              <th>STATUS</th>
+              <th>-</th>
+              <th>BOOK</th>
             </tr>
           </thead>
           <tbody>
@@ -102,16 +143,40 @@ include "../Ticketing-System/php/server.php";
                         <td>{$row['price']}</td>
                         <td>{$row['bus_number']}</td>
                         <td>{$row['date']}</td>
-                        <td>{$row['time']}</td>
-                        <td><button id=\"modifyButton\" class=\"editButtonLP\">Book</button></td>
-                        </tr>";
+                        <td>{$row['schedule_id']}</td>
+                        <td><button id='modifyButton' class='editButtonLP' name='book' onclick=\"booking('{$row['schedule_id']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['price']}', '{$row['bus_number']}', '{$row['date']}')\">Book</button></td>
+                    </tr>";
                 }
             }
-          ?>
+            ?>
           </tbody>
         </table>
       </div>
     </div>
+
+    <div class="addpopup-container" id="addpopupContainer">
+          <h3 class="recordtitle">BOOKING FORM</h3>
+          <br />
+          <div class="details" id="addpopupContent"></div>
+          <button
+            style="
+              background-color: #4caf50;
+              color: white;
+              padding: 10px;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              z-index: 1001;
+            "
+            onclick="closePopup()"
+          >
+            Close
+          </button>
+        </div>
+        
 
     <!-- FOOTER -->
     <div class="footer">
@@ -137,5 +202,5 @@ include "../Ticketing-System/php/server.php";
       </div>
     </div>
   </body>
-  <script src="script.js"></script>
+  <script src="../script.js"></script>
 </html>

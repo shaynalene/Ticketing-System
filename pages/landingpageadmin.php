@@ -21,10 +21,13 @@ if (isset($_POST['save'])){
   $pick_up = $_POST["pickup"];
   $drop_off = $_POST["dropoff"];
   $price = $_POST["price"];
+  $bus_number = $_POST["busnumber"];
+  $date = $_POST["date"];
+  //$time = $_POST["time"];
 
-  $sql = "INSERT INTO bus_schedule (pick_up, drop_off, price) VALUES (?, ?, ?)";
+  $sql = "INSERT INTO bus_schedule (pick_up, drop_off, price, bus_number, date/*, time*/) VALUES (?, ?, ?, ?, ?/*, ?*/)";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param('ssi', $pick_up, $drop_off, $price);
+$stmt->bind_param('ssiis', $pick_up, $drop_off, $price, $bus_number, $date/*, $time*/);
   $stmt->execute();
   $stmt->close();
 }
@@ -35,10 +38,13 @@ if (isset($_POST['edit'])){
   $pick_up = $_POST["pick_up"];
   $drop_off = $_POST["drop_off"];
   $price = $_POST["price"];
+  $bus_number = $_POST["bus_number"];
+  $date = $_POST["date"];
+  //$time = $_POST["time"];
 
-  $sql = "UPDATE bus_schedule SET pick_up = ?, drop_off = ?, price = ? WHERE schedule_id = ?";
+  $sql = "UPDATE bus_schedule SET pick_up = ?, drop_off = ?, price = ?, bus_number = ?, date = ?/*, time = ?*/ WHERE schedule_id = ?";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param('ssii', $pick_up, $drop_off, $price, $schedule_id);
+  $stmt->bind_param('ssiisi', $pick_up, $drop_off, $price, $bus_number, $date/*, $time*/, $schedule_id);
   $stmt->execute();
   $stmt->close();
 }
@@ -95,18 +101,18 @@ if (isset($_POST['remove'])){
               <a href="index.php" id="active-page">HOME</a>
             </li>
             <li>
-              <a href="../Ticketing-System/pages/booking-form1.php">BOOKING</a>
+              <a href="../pages/booking-form1.php">BOOKING</a>
             </li>
             <li>
               <a href="#">TRANSACTIONS</a>
             </li>
             <li>
-              <a href="../Ticketing-System/pages/about-us.html">ABOUT US</a>
+              <a href="../pages/useraccounts.html">USERS</a>
             </li>
             <li><a href="#">FEEDBACK</a></li>
             <div class="login">
               <a
-                href="../Ticketing-System/pages/profile-page.php"
+                href="../pages/profile-page.php"
                 id="login-button"
                 >Your Account</a
               >
@@ -139,8 +145,8 @@ if (isset($_POST['remove'])){
               <th>PRICE</th>
               <th>BUS NO.</th>
               <th>TRAVEL DATE</th>
-              <th>TRAVEL TIME</th>
-              <th>STATUS</th>
+              <th>-</th>
+              <th>MODIFY</th>
             </tr>
           </thead>
           <tbody>
@@ -154,10 +160,10 @@ if (isset($_POST['remove'])){
                         <td>{$row['pick_up']}</td>
                         <td>{$row['drop_off']}</td>
                         <td>{$row['price']}</td>
-                        <td>bus_number</td>
-                        <td>seat_number</td>
-                        <td>status</td>
-                        <td><button id=\"modifyButton\" class=\"editButtonLP\" onclick=\"displayRecord('{$row['schedule_id']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['price']}')\">Edit</button></td>
+                        <td>{$row['bus_number']}</td>
+                        <td>{$row['date']}</td>
+                        <td>-</td>
+                        <td><button id=\"modifyButton\" class=\"editButtonLP\" onclick=\"displayRecord('{$row['schedule_id']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['price']}', {$row['bus_number']}, {$row['date']},{$row['time']})\">Edit</button></td>
                         </tr>";
                 }
             }

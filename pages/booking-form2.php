@@ -3,11 +3,11 @@ session_start();
 include "../php/server.php";
 
 //get data from booking form
-$pick_up = $_POST["pick-up"];
-$drop_off = $_POST["drop-off"];
-$date = $_POST["departure-date"];
-$time = $_POST['departure-time'];
-$passenger_number = $_POST['passenger-count'];
+//$pick_up = $_POST["pick-up"];
+//$drop_off = $_POST["drop-off"];
+//$date = $_POST["departure-date"];
+//$time = $_POST['departure-time'];
+//$passenger_number = $_POST['passenger-count'];
 
 //make data available to other pages
 $_SESSION['pick-up'] = $pick_up;

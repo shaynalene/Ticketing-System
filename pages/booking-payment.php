@@ -11,8 +11,9 @@ $pick_up = $_SESSION['pick-up'];
 $drop_off = $_SESSION['drop-off'];
 $passenger_number = $_SESSION['passenger-count'];
 $username = $_SESSION['username'];
+$total_price = $_SESSION['total_price'];
 
-//compute for the total booking price
+/*compute for the total booking price
 $stmt = $conn->prepare("SELECT price FROM destinations WHERE pick_up=? AND drop_off=?");
 $stmt->bind_param("ss", $pick_up, $drop_off);
 $stmt->execute();
@@ -23,7 +24,7 @@ $result = $stmt->get_result();
     $price = $row["price"];
     $total_price = $price * $passenger_number;
   }
-  $stmt->close();
+  $stmt->close();*/
 
   //store reference number, proof of payment, and send email 
   if (isset($_POST['submit'])){
@@ -157,7 +158,7 @@ $result = $stmt->get_result();
         <li><a href="../pages/about-us.html">ABOUT US</a></li>
         <li><a href="#">FEEDBACK</a></li>
         <div class="login">
-          <a href="../pages/profile-page.php" id="login-button">Account</a>
+          <a href="../pages/profile-page2.php" id="login-button">Account</a>
         </div>
       </ul>
       <label for="menu-btn" class="navbtn menu-btn"><i class="fa fa-bars"></i></label>
@@ -182,7 +183,7 @@ $result = $stmt->get_result();
             <p>Gcash or PayMaya: 09282828282</p>
             <br><br><hr><br>
               <span class="totalFare">Total Fare for your Trip:</span>
-              <span class="amount"><?php echo $price . " * " . $passenger_number . " = " . $total_price ?></span>
+              <span class="amount"><?php echo $total_price ?></span>
             <br>
             <hr>
             <br>

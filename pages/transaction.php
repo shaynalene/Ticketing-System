@@ -150,12 +150,12 @@ if (isset($_POST['cancel'])){
             <ul class="nav-links">
               <label for="close-btn" class="navbtn close-btn"><i class="fa fa-times"></i></label>
               <li><a href="../index.php">HOME</a></li>
-              <li><a href="../pages/booking-form1.php">BOOKING</a></li>
+              <li><a href="../pages/booking.php">BOOKING</a></li>
               <li><a href="transaction.php" id="active-page">TRANSACTIONS</a></li>
               <li><a href="about-us.html">ABOUT US</a></li>
               <li><a href="#">FEEDBACK</a></li>
               <div class="login">
-                <a href="profile-page.php" id="login-button">Account</a>
+                <a href="profile-page2.php" id="login-button">Account</a>
               </div>
             </ul>
             <label for="menu-btn" class="navbtn menu-btn"

@@ -11,7 +11,7 @@ function addRecord() {
   <form method="POST" action="">
       <div class="details">
       <div class="detail-value">
-      <span class="question">Pickup:</span>
+      <span class="question">Pick Up:</span>
       <input type="text" name="pickup" value="" required>
       </div>
 
@@ -22,27 +22,17 @@ function addRecord() {
 
       <div class="detail-value">
       <span class="question">Price:</span>
-      <input type="text" name="price" value="" required>
+      <input type="number" name="price" value="" required>
       </div>
 
       <div class="detail-value">
       <span class="question">Bus Number:</span>
-      <input type="text" name="number" value="" required>
+      <input type="number" name="busnumber" value="" required>
       </div>
 
       <div class="detail-value">
       <span class="question">Travel Date:</span>
-      <input type="text" name="date" value="" required>
-      </div>
-
-      <div class="detail-value">
-      <span class="question">Arrival Time:</span>
-      <input type="text" name="date" value="" required>
-      </div>
- 
-      <div class="detail-value">
-      <span class="question">Status:</span>
-      <input type="text" name="status" value="" required>
+      <input type="date" name="date" value="" required>
       </div>
  
       <div class="detail-value">
@@ -54,58 +44,163 @@ function addRecord() {
 
   document.getElementById("addpopupContainer").style.display = "block";
 
-  updateLastEditDate();
+  //updateLastEditDate();
 }
 
-function displayRecord(schedule_id, pick_up, drop_off, price) {
+
+function booking(schedule_id, pick_up, drop_off, price, bus_number, date) {
+  //alert('success');
+  document.getElementById("addpopupContent").innerHTML = `
+    <form method="POST" action="">
+      <input type="hidden" name="schedule_id" id="schedule_id" value="${schedule_id}">
+      <input type="hidden" name="pick_up" id="pick_up" value="${pick_up}">
+      <input type="hidden" name="drop_off" id="drop_off" value="${drop_off}"> 
+      <input type="hidden" name="price" id="price" value="${price}"> 
+      <input type="hidden" name="bus_number" id="bus_number" value="${bus_number}"> 
+      <input type="hidden" name="date" id="date" value="${date}"> 
+      <div class="details">
+        <div class="detail-value">
+          <span class="question">Pickup:</span>
+          <input type="text" name="pick_up" value="${pick_up}" required readonly>
+        </div>
+
+        <div class="detail-value">
+          <span class="question">Drop Off:</span>
+          <input type="text" name="drop_off" value="${drop_off}" required readonly>
+        </div>
+
+        <div class="detail-value">
+          <span class="question">Travel Date:</span>
+          <input type="text" name="date" value="${date}" required readonly>
+        </div>
+
+        <label for="departure-time">Choose Preferred Time:</label>
+        <select name="departure-time" id="departure-time" required>
+          <option value="" disabled selected>Select Time</option>
+          <option value="4:00:00">4:00 AM</option>
+          <option value="7:00:00">7:00 AM</option>
+          <option value="9:00:00">9:00 AM</option>
+          <option value="13:00:00">1:00 PM</option>
+          <option value="15:00:00">3:00 PM</option>
+          <option value="17:00:00">5:00 PM</option>
+        </select>
+       
+        <label for="passenger-count">Number of Passengers:</label>
+        <select name="passenger-count" id="passenger-count" required>
+          <option value="" disabled selected>
+          Select Number of Passengers
+              </option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+
+        <div class="detail-value">
+          <button id="next" name="next" type="submit" style="background-color: #e5cc77">
+            Next
+          </button>
+        </div>
+      </div>
+    </form>
+  `;
+
+  document.getElementById("next").onclick = function() {
+    var departureTime = document.getElementById("departure-time").value;
+    var passengerCount = document.getElementById("passenger-count").value;
+    displayBooking(schedule_id, pick_up, drop_off, price, bus_number, date, departureTime, passengerCount);
+  };
+
+  document.getElementById("addpopupContainer").style.display = "block";
+}
+
+function displayBooking(schedule_id, pick_up, drop_off, price, bus_number, date, departure_time, passenger_count) {
+  document.getElementById("addpopupContent").innerHTML = `
+    <form method="POST" action="">
+      <input type="hidden" name="schedule_id" id="schedule_id" value="${schedule_id}">
+      <input type="hidden" name="pick_up" id="pick_up" value="${pick_up}">
+      <input type="hidden" name="drop_off" id="drop_off" value="${drop_off}"> 
+      <input type="hidden" name="price" id="price" value="${price}"> 
+      <input type="hidden" name="bus_number" id="bus_number" value="${bus_number}"> 
+      <input type="hidden" name="date" id="date" value="${date}"> 
+      <input type="hidden" name="departure_time" id="departure_time" value="${departure_time}"> 
+      <input type="hidden" name="passenger_count" id="passenger_count" value="${passenger_count}"> 
+      <div class="details">
+        <div class="detail-value">
+          <span class="question">Pickup:</span>
+          <input type="text" name="pick_up" value="${pick_up}" required readonly>
+        </div>
+
+        <div class="detail-value">
+          <span class="question">Drop Off:</span>
+          <input type="text" name="drop_off" value="${drop_off}" required readonly>
+        </div>
+
+        <div class="detail-value">
+          <span class="question">Travel Date:</span>
+          <input type="text" name="date" value="${date}" required readonly>
+        </div>
+
+        <label for="departure-time">Choose Preferred Time:</label>
+        <input type="text" name="departure_time" value="${departure_time}" required readonly>
+
+        <label for="passenger-count">Number of Passengers:</label>
+        <input type="text" name="passenger_count" value="${passenger_count}" required readonly>
+
+        <div class="detail-value">
+          <button name="confirm" type="submit" style="background-color: #e5cc77">
+            Confirm
+          </button>
+        </div>
+      </div>
+    </form>
+  `;
+  document.getElementById("addpopupContainer").style.display = "block";
+}
+
+
+function displayRecord(schedule_id, pick_up, drop_off, price, bus_number, date, time) {
   document.getElementById("editpopupContent").innerHTML = `
   <form method="POST" action="">
     <input type ="hidden" name="schedule_id" id="schedule_id" value="${schedule_id}">
       <input type ="hidden" name="pick_up" id="pick_up" value="${pick_up}">
       <input type ="hidden" name="drop_off" id="drop_off" value="${drop_off}"> 
-      <input type ="hidden" name="price" id="price" value="${price}">  
+      <input type ="hidden" name="price" id="price" value="${price}"> 
+      <input type ="hidden" name="bus_number" id="bus_number" value="${bus_number}"> 
+      <input type ="hidden" name="date" id="date" value="${date}"> 
       <div class="details">
       
       <div class="detail-value">
       <span class="question">Pickup:</span>
-      <input type="text" name="pickup" value="${pick_up}" required>
+      <input type="text" name="pick_up" value="${pick_up}" required>
       </div>
 
       <div class="detail-value">
       <span class="question">Drop Off:</span>
-      <input type="text" name="dropoff" value="${drop_off}" required>
+      <input type="text" name="drop_off" value="${drop_off}" required>
       </div>
 
       <div class="detail-value">
       <span class="question">Price:</span>
-      <input type="text" name="price" value="${price}" required>
+      <input type="number" name="price" value="${price}" required>
       </div>
 
       <div class="detail-value">
       <span class="question">Bus Number:</span>
-      <input type="text" name="number" value="" required>
+      <input type="number" name="bus_number" value="${bus_number}" required>
       </div>
 
       <div class="detail-value">
       <span class="question">Travel Date:</span>
-      <input type="text" name="date" value="" required>
-      </div>
-
-      <div class="detail-value">
-      <span class="question">Arrival Time:</span>
-      <input type="text" name="date" value="" required>
+      <input type="date" name="date" value="${date}">
       </div>
  
       <div class="detail-value">
-      <span class="question">Status:</span>
-      <input type="text" name="status" value="" required>
-      </div>
- 
-      <div class="detail-value">
-      <form method="post" action="">
         <button type="submit" name="edit" class="addRecordBtn">EDIT</button>
         <button type="submit" name="remove" class="addRecordBtn">REMOVE</button>
-      </form>
       </div>
   </form>
   </div>
@@ -114,7 +209,7 @@ function displayRecord(schedule_id, pick_up, drop_off, price) {
 
   document.getElementById("editpopupContainer").style.display = "block";
 
-  updateLastEditDate();
+  //updateLastEditDate();
 }
 
 window.closePopup = function () {
@@ -127,51 +222,49 @@ window.closePopup = function () {
 
 /* START USER ACCOUNTS PAGE */
 
-function displayUserAccount() {
+function displayUserAccount(user_id, user_type, username, firstname, lastname, number, email, account_status) {
   document.getElementById("editpopupContent").innerHTML = `
+  <form method="POST" action="">
+    <input type ="hidden" name="user_type" id="user_type" value="${user_type}">
+    <input type ="hidden" name="firstname" id="firstname" value="${firstname}"> 
+    <input type ="hidden" name="lastname" id="lastname" value="${lastname}">  
+    <input type ="hidden" name="number" id="number" value="${number}">
+    <input type ="hidden" name="email" id="email" value="${email}">
+    <input type ="hidden" name="account_status" id="account_status" value="${account_status}"> 
+    <input type ="hidden" name="user_id" id="user_id" value="${user_id}">  
+    <input type ="hidden" name="username" id="username" value="${username}">
       <div class="details">
 
-      <div class="details">
       <div class="detail-value">
-      <span class="question">Role:</span>
-      <input type="text" name="pickup" value="" required>
+      <span class="question">Username:</span>
+      <input type="text" name="username" value="${username}" required>
       </div>
 
       <div class="detail-value">
       <span class="question">First Name:</span>
-      <input type="text" name="dropoff" value="" required>
+      <input type="text" name="firstname" value="${firstname}" required>
       </div>
 
       <div class="detail-value">
       <span class="question">Last Name:</span>
-      <input type="text" name="price" value="" required>
-      </div>
-
-      <div class="detail-value">
-      <span class="question">Username:</span>
-      <input type="text" name="number" value="" required>
+      <input type="text" name="lastname" value="${lastname}" required>
       </div>
 
       <div class="detail-value">
       <span class="question">Phone Number:</span>
-      <input type="text" name="date" value="" required>
+      <input type="text" name="number" value="${number}" required>
       </div>
 
       <div class="detail-value">
       <span class="question">Email:</span>
-      <input type="text" name="date" value="" required>
+      <input type="text" name="email" value="${email}" required>
       </div>
  
       <div class="detail-value">
-      <span class="question">Status:</span>
-      <input type="text" name="status" value="" required>
-      </div>
- 
-      <div class="detail-value">
-      <button type="submit" name="edit" class="addRecordBtn">EDIT</button>
+      <button type="submit" name="edit" class="addRecordBtn">SAVE</button>
       <button type="submit" name="remove" class="addRecordBtn">REMOVE</button>
       </div>
-
+    </form>
   </div>
 
   `;

@@ -3,15 +3,35 @@ session_start();
 include "../php/server.php";
 
 //get data from other pages
+$email = $_SESSION['email'];
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
 $number = $_SESSION['number'];
-$pick_up = $_SESSION['pick-up'];
-$drop_off = $_SESSION['drop-off'];
-$date = $_SESSION['departure-date'];
-$time = $_SESSION['departure-time'];
 $passenger_number = $_SESSION['passenger-count'];
-$name = $firstname . ' ' . $lastname;
+$username = $_SESSION['username'];
+$total_price = $_SESSION['total_price'];
+$booking_id = $_SESSION['booking_id'];
+
+$sql = "SELECT * FROM booking_form WHERE booking_id = $booking_id";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Fetch the data from the result set
+    $row = $result->fetch_assoc();
+
+    // Assign values to variables
+    $pick_up = $row['pick_up'];
+    $drop_off = $row['drop_off'];
+    $date = $row['date'];
+    $time = $row['time'];
+    $passenger_number = $row['passenger_number'];
+    $bus_number = $row['bus_number'];
+}
+
+// Close the database connection if needed
+$conn->close();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -103,7 +123,7 @@ $name = $firstname . ' ' . $lastname;
         <li><a href="../pages/about-us.html">ABOUT US</a></li>
         <li><a href="#">FEEDBACK</a></li>
         <div class="login">
-          <a href="../pages/profile-page.php" id="login-button">Account</a>
+          <a href="../pages/profile-page2.php" id="login-button">Account</a>
         </div>
       </ul>
       <label for="menu-btn" class="navbtn menu-btn"><i class="fa fa-bars"></i></label>
@@ -121,28 +141,28 @@ $name = $firstname . ' ' . $lastname;
 <div class="receiptTable">
     <div class="ticket">
     <span class="ticketNumber">Bus Ticket #: </span>
-    <span class="number">number here</span>
+    <span class="number"><?php echo $bus_number ?></span>
     </div>
     <br><br>
   <div class="details">
       <span class="question">Customer's Name:</span>
-      <span class="answer"><?php echo $name ?></span>
-      <br><br>
+      <span class="answer"><?php echo $firstname . ' ' . $lastname ?></span>
+      <br>
       <span class="question">Contact Number:</span>
       <span class="answer"><?php echo $number ?></span>
-      <br><br>
+      <br>
       <span class="question">Pick-up Terminal:</span>
       <span class="answer"><?php echo $pick_up ?></span>
-      <br><br>
+      <br>
       <span class="question">Drop-off Destination:</span>
       <span class="answer"><?php echo $drop_off ?></span>
-      <br><br>
+      <br>
       <span class="question">Departure Date:</span>
       <span class="answer"><?php echo $date ?></span>
-      <br><br>
+      <br>
       <span class="question">Departure Time:</span>
       <span class="answer"><?php echo $time ?></span>
-      <br><br>
+      <br>
       <span class="question">Number of Passengers:</span>
       <span class="answer"><?php echo $passenger_number ?></span>
      </div>

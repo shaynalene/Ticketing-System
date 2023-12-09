@@ -69,7 +69,7 @@ if (!isset($_SESSION["user_id"])) {
         <br />
         <h1 style="color: #365f32">Booking Form</h1>
         <!-- Start of Booking Form -------------------------------------------------------->
-        <div class="form-bg">
+        <div class="form-bg" id="booking">
           <form action="../pages/booking-form2.php" method="post" id="booking-form">
             <!--<label for="name">Customer's Name: </label>
                     <input type="text" name="name" id="name" required>
@@ -78,14 +78,16 @@ if (!isset($_SESSION["user_id"])) {
                     <input type="text" name ="contact" id="contact" required>-->
 
             <label for="pick-up">Pick-up Terminal:</label>
-            <select name="pick-up" id="pick-up" required>
+            <input type="text" name="pick-up" value="pick up" required readonly>
+            <!--<select name="pick-up" id="pick-up" required>
               <option value="" disabled selected>Select Terminal</option>
               <option value="Cubao">Cubao</option>
               <option value="Gil Puyat">Gil Puyat</option>
-            </select>
+            </select>-->
 
             <label for="drop-off">Drop-off Destination:</label>
-            <select name="drop-off" id="drop-off" required>
+            <input type="text" name="drop-off" value="drop off" required readonly>
+            <!--<select name="drop-off" id="drop-off" required>
               <option value="" disabled selected>Select Destination</option>
               <option value="Baguio">Baguio</option>
               <option value="Batangas">Batangas</option>
@@ -94,11 +96,13 @@ if (!isset($_SESSION["user_id"])) {
               <option value="La Union">La Union</option>
               <option value="Pampanga">Pampanga</option>
               <option value="Tagaytay">Tagaytay</option>
-            </select>
+            </select>-->
 
             <label for="departure-date">Choose Preferred Date:</label>
-            <input type="date" name="departure-date" id="departure-date" required/>
+            <input type="text" name="date" value="date" required readonly>
 
+
+            <!--BAWASAN TO-->
             <label for="departure-time">Choose Preferred Time:</label>
             <select name="departure-time" id="departure-time" required>
               <option value="" disabled selected>Select Time</option>
@@ -194,4 +198,5 @@ if (!isset($_SESSION["user_id"])) {
       </div>
     </div>
   </body>
+  <script src="../script.js"></script>
 </html>

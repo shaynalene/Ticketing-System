@@ -13,7 +13,7 @@ $username = $_SESSION['username'];
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
 $number = $_SESSION['number'];
-$password = $_SESSION['password'];
+//$password = $_SESSION['password'];
 
 //replace the data in the database
 if (isset($_POST['save'])){
@@ -39,7 +39,7 @@ if (isset($_POST['save'])){
   $_SESSION['number'] = $newnumber;
   $_SESSION['email'] = $newemail;
   $_SESSION['password'] = $newpassword;
-  header("Location: profile-page.php");
+  header("Location: profile-page2.php");
   $conn->close();
   exit();
 }
@@ -72,12 +72,12 @@ if (isset($_POST['save'])){
       <ul class="nav-links">
         <label for="close-btn" class="navbtn close-btn"><i class="fa fa-times"></i></label>
         <li><a href="../index.php">HOME</a></li>
-        <li><a href="../pages/booking-form1.php">BOOKING</a></li>
+        <li><a href="../pages/booking.php">BOOKING</a></li>
         <li><a href="../pages/transaction.php">TRANSACTIONS</a></li>
-        <li><a href="..pages/about-us.html">ABOUT US</a></li>
+        <li><a href="../pages/about-us.html">ABOUT US</a></li>
         <li><a href="#">FEEDBACK</a></li>
         <div class="login">
-          <a href="profile-page.php" id="login-button">Account</a>
+          <a href="profile-page2.php" id="login-button">Account</a>
         </div>
       </ul>
       <label for="menu-btn" class="navbtn menu-btn"><i class="fa fa-bars"></i></label>
@@ -105,9 +105,9 @@ if (isset($_POST['save'])){
         <span class="question">Email:</span>
         <input type="text" name="email" value="<?php echo $email ? htmlspecialchars($email) : ''; ?>" required>
         <br><br>
-        <span class="question">Password:</span>
+        <!--<span class="question">Password:</span>
         <input type="text" name="password" value="<?php echo $password ? htmlspecialchars($password) : ''; ?>" required>
-        <br><br>
+        <br><br>-->
         <button type="submit" name="save">SAVE</button>
       </form>
     </div>
