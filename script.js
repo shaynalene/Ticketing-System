@@ -125,6 +125,68 @@ window.closePopup = function () {
   updateLastEditDate();
 };
 
+/* START USER ACCOUNTS PAGE */
+
+function displayUserAccount() {
+  document.getElementById("editpopupContent").innerHTML = `
+      <div class="details">
+
+      <div class="details">
+      <div class="detail-value">
+      <span class="question">Role:</span>
+      <input type="text" name="pickup" value="" required>
+      </div>
+
+      <div class="detail-value">
+      <span class="question">First Name:</span>
+      <input type="text" name="dropoff" value="" required>
+      </div>
+
+      <div class="detail-value">
+      <span class="question">Last Name:</span>
+      <input type="text" name="price" value="" required>
+      </div>
+
+      <div class="detail-value">
+      <span class="question">Username:</span>
+      <input type="text" name="number" value="" required>
+      </div>
+
+      <div class="detail-value">
+      <span class="question">Phone Number:</span>
+      <input type="text" name="date" value="" required>
+      </div>
+
+      <div class="detail-value">
+      <span class="question">Email:</span>
+      <input type="text" name="date" value="" required>
+      </div>
+ 
+      <div class="detail-value">
+      <span class="question">Status:</span>
+      <input type="text" name="status" value="" required>
+      </div>
+ 
+      <div class="detail-value">
+      <button type="submit" name="edit" class="addRecordBtn">EDIT</button>
+      <button type="submit" name="remove" class="addRecordBtn">REMOVE</button>
+      </div>
+
+  </div>
+
+  `;
+
+  document.getElementById("editpopupContainer").style.display = "block";
+
+  updateLastEditDate();
+}
+
+window.closePopupUA = function () {
+  const popupContainer = document.getElementById("editpopupContainer");
+  popupContainer.style.display = "none";
+  updateLastEditDate();
+};
+
 /* START OF FEEDBACK PAGE */
 
 var firebaseConfig = {
