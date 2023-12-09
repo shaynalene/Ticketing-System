@@ -738,7 +738,6 @@ select {
   border: 2px solid #365f32;
   transition: all 0.3s;
   padding: 13px;
-  margin-bottom: 15px;
   width: 100%;
   box-sizing: border-box;
   outline: 0;
@@ -765,7 +764,6 @@ textarea.feedback-input {
   padding-top: 10px;
   padding-bottom: 10px;
   transition: all 0.3s;
-  margin-top: -4px;
   font-weight: 700;
 }
 [type="submit"]:hover {
@@ -778,16 +776,30 @@ textarea.feedback-input {
   font-weight: 600px;
 }
 #comments h4 {
-  padding-bottom: 10px;
   font-size: 23px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 0px;
 }
-#comments i {
-  background-image: url("https://www.pngkit.com/png/full/925-9259399_pattern-patterns-background-tumblr-doddle-black-free-memphis.png");
+
+#comments div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
 }
+
+#comments button {
+  padding: 5px;
+  color: #e9e8f9;
+  background-color: #365f32;
+}
+
+input#file-input {
+  border: #000000;
+  padding: 10px 0px;
+  width: 100%;
+}
+
 .pages-flex-feedback {
   display: flex;
   justify-content: center;
@@ -804,6 +816,10 @@ textarea.feedback-input {
 }
 h4 span {
   font-size: 15px;
+}
+
+.upload {
+  margin: 15px 0px;
 }
 
 .feedback-header {
