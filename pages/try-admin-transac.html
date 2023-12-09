@@ -333,156 +333,139 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Sample transaction data only, you may connect this to the php code
-        const ongoingActivities = [
-            { date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'ongoing', ViewDetails: 'Ongoing Details'},
+    // Sample transaction data only, you may connect this to the php code
+    const ongoingActivities = [
+    { date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'ongoing', ViewDetails: 'Ongoing Details'},
             // see code below to add more rows to this table
             // date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'ongoing', ViewDetails: 'Ongoing Details'},
-        ];
+    ];
 
-        const pendingActivities = [
-            { date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'pending', ViewDetails: 'Pending Details'},
+    const pendingActivities = [
+    { date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'pending', ViewDetails: 'Pending Details'},
             // see code below to add more rows to this table
             // date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'ongoing', ViewDetails: 'Pending Details'},
-        ];
+    ];
 
-        const cancelActivities = [
-            { date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'for processing', ViewDetails: 'Cancel Details'},
+    const cancelActivities = [
+    { date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'for processing', ViewDetails: 'Cancel Details'},
             // see code below to add more rows to this table
             // date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'ongoing', ViewDetails: 'Past Details'},
-        ];
+    ];
 
-        const pastActivities = [
-            { date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'completed', ViewDetails: 'Past Details'},
+    const pastActivities = [
+    { date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'completed', ViewDetails: 'Past Details'},
             // see code below to add more rows to this table
             // date: 'YYYY-MM-DD', Pickup: 'Place 1', destination: 'Place 2', bus: '#', seat: '#', status: 'ongoing', ViewDetails: 'Past Details'},
-        ];
+    ];
 
-
-        // Function to display activities in the corresponding tables
-        function displayActivities(tableId, activities) {
-            const tableBody = document.querySelector(`#${tableId} tbody`);
+    // Function to display activities in the corresponding tables
+    function displayActivities(tableId, activities) {
+        const tableBody = document.querySelector(`#${tableId} tbody`);
 
         // Clear existing rows
-            tableBody.innerHTML = '';
+        tableBody.innerHTML = '';
 
         // Loop through activities and append rows to the table
-            activities.forEach(activity => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${activity.date}</td>
-                    <td>${activity.Pickup}</td>
-                    <td>${activity.destination}</td>
-                    <td>${activity.bus}</td>
-                    <td>${activity.seat}</td>
-                    <td>${activity.status}</td>
-                    <td><button style="background-color: #4CAF50; color: white; padding: 5px; border: none; order-radius: 5px; cursor: pointer; position: ;" onclick="openOngoingPopup('${activity.ViewDetails}', '${activity.status}')">View Details</button></td>
-                `;
-                tableBody.appendChild(row); // to add a new table row (<tr>)
-            });
-        }
-
-        // Initial display of ongoing, past, & upcoming activities
-        displayActivities('ongoingTable', ongoingActivities);
-        displayActivities('pendingTable', pendingActivities);
-        displayActivities('cancelTable', cancelActivities);
-        displayActivities('pastTable', pastActivities);
-
-        // Function to open the pop-up container for ongoing & past activity
-        window.openOngoingPopup = function(details, status) {
-            const popupContainer = document.getElementById('popupContainer');
-            const popupContent = document.getElementById('popupContent');
-            const approveButton = document.getElementById('approveButton'); 
-            const rejectButton = document.getElementById('rejectButton'); 
-        // Receipt Content code below
-            const receiptContent = `
-                <p><strong>Date:</strong> ${details.date}</p>
-                <p><strong>Pick up:</strong> ${details.Pickup}</p>
-                <p><strong>Destination:</strong> ${details.destination}</p>
-                <p><strong>Bus #:</strong> ${details.bus}</p>
-                <p><strong>Seat #:</strong> ${details.seat}</p>
-                <p><strong>Status:</strong> ${details.status}</p>
+        activities.forEach(activity => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${activity.date}</td>
+                <td>${activity.Pickup}</td>
+                <td>${activity.destination}</td>
+                <td>${activity.bus}</td>
+                <td>${activity.seat}</td>
+                <td>${activity.status}</td>
+                <td><button style="background-color: #4CAF50; color: white; padding: 5px; border: none; order-radius: 5px; cursor: pointer; position: ;" onclick="openOngoingPopup('${activity.ViewDetails}', '${activity.status}', '${tableId}')">View Details</button></td>
             `;
-            popupContent.innerHTML = receiptContent;
+            tableBody.appendChild(row);
+        });
+    }
 
-            // Code below to hide the "Reject Booking" button inside the pop-up container of ongoingTable or pastTable
-            rejectButton.style.display = status !== 'ongoing' && status !== 'completed' ? 'block' : 'none';
-            
-            // Code below to hide the "Approve Booking" button for ongoingTable or pastTable
-            approveButton.style.display = status !== 'ongoing' && status !== 'completed' ? 'block' : 'none';
+    // Initial display of ongoing, past, & upcoming activities
+    displayActivities('ongoingTable', ongoingActivities);
+    displayActivities('pendingTable', pendingActivities);
+    displayActivities('cancelTable', cancelActivities);
+    displayActivities('pastTable', pastActivities);
 
-            popupContainer.style.display = 'block';
-        };
+    // Function to open the pop-up container for ongoing & past activity
+    window.openOngoingPopup = function (details, status, tableId) {
+        const popupContainer = document.getElementById('popupContainer');
+        const popupContent = document.getElementById('popupContent');
+        const approveButton = document.getElementById('approveButton');
+        const rejectButton = document.getElementById('rejectButton');
+        const currentTableBody = document.querySelector(`#${tableId} tbody`);
 
-        // Function to start the rejection process
-        window.rejectUpcoming = function() {
-                const rejectConfirmationContainer = document.getElementById('rejectConfirmationContainer');
-                rejectConfirmationContainer.style.display = 'block';
-            };
+        // Receipt Content code below
+        const receiptContent = `
+            <p><strong>Date:</strong> ${details.date}</p>
+            <p><strong>Pick up:</strong> ${details.Pickup}</p>
+            <p><strong>Destination:</strong> ${details.destination}</p>
+            <p><strong>Bus #:</strong> ${details.bus}</p>
+            <p><strong>Seat #:</strong> ${details.seat}</p>
+            <p><strong>Status:</strong> ${details.status}</p>
+        `;
+        popupContent.innerHTML = receiptContent;
 
-/////////////////////// START OF REJECT BUTTON
-        // Function to confirm the rejection and update the status (PENDING TABLE)
-        window.confirmReject = function() {
-            const tableBody = document.querySelector('#pendingTable tbody');
-            const rejectButton = document.getElementById('rejectButton');
+        // Code below to hide the "Reject Booking" button inside the pop-up container of ongoingTable or pastTable
+        rejectButton.style.display = status !== 'ongoing' && status !== 'completed' ? 'block' : 'none';
 
-        // Code to update the status from "pending" to "rejected" in the pending activity table
-            const row = tableBody.firstElementChild; 
-            if (row) {
-                row.children[5].textContent = 'rejected'; 
-            }
-                alert('Booking Request Rejected! An automated email will be sent to the user.');
-                closePopup(); // Code to close the pop-up after rejecting
-     
-            const tableBody2 = document.querySelector('#cancelTable tbody');
-            const rejectButton2 = document.getElementById('rejectButton');
+        // Code below to hide the "Approve Booking" button for ongoingTable or pastTable
+        approveButton.style.display = status !== 'ongoing' && status !== 'completed' ? 'block' : 'none';
 
-        // Code to update the status from "for processing" to "rejected" in the for cancellation activity table
-            const row2 = tableBody2.firstElementChild; 
-            if (row2) {
-                row2.children[5].textContent = 'rejected cancel'; 
-            }
-                alert('Cancellation Request Rejected! An automated email will be sent to the user.');
-                closePopup(); // Code to close the pop-up after rejecting
-            };
-/////////////////////// END OF REJECT BUTTON
+        popupContainer.style.display = 'block';
+        popupContainer.setAttribute('data-table-id', tableId);
+    };
 
-/////////////////////// START OF APPROVE BUTTON
-        window.approve = function() {
-        const tableBody3 = document.querySelector('#pendingTable tbody');
-        const approveButton3 = document.getElementById('approveButton');
-        // Code to update the status from "pending" to "approved" in the pending activity table
-        const row3 = tableBody3.firstElementChild;
-        if (row3) {
-            row3.children[5].textContent = 'approved';
+    // Function to start the rejection process
+    window.rejectUpcoming = function () {
+        const rejectConfirmationContainer = document.getElementById('rejectConfirmationContainer');
+        rejectConfirmationContainer.style.display = 'block';
+    };
+
+    // Function to confirm the rejection and update the status (PENDING TABLE)
+    window.confirmReject = function () {
+        const popupContainer = document.getElementById('popupContainer');
+        const currentTableId = popupContainer.getAttribute('data-table-id');
+        const currentTableBody = document.querySelector(`#${currentTableId} tbody`);
+
+        // Code to update the status from "pending" to "rejected" in the current table
+        const row = currentTableBody.firstElementChild;
+        if (row) {
+            row.children[5].textContent = `rejected${currentTableId === 'cancelTable' ? ' cancel' : ''}`;
         }
-        alert('Booking Request Approved! An automated email will be sent to the user.');
-        closePopup(); // Code to close the pop-up after approving
 
-        const tableBody4 = document.querySelector('#cancelTable tbody');
-        const approveButton4 = document.getElementById('approveButton');
+        alert('Request Rejected! An automated email will be sent to the user.');
+        closePopup(); // Code to close the pop-up after rejecting
+    };
 
-        // Code to update the status from "pending" to "canceled" in the for cancellation activity table
-        const row4 = tableBody4.firstElementChild;
-        if (row4) {
-            row4.children[5].textContent = 'canceled';
+    // Function to confirm the approval and update the status (PENDING TABLE)
+    window.approve = function () {
+        const popupContainer = document.getElementById('popupContainer');
+        const currentTableId = popupContainer.getAttribute('data-table-id');
+        const currentTableBody = document.querySelector(`#${currentTableId} tbody`);
+
+        // Code to update the status from "pending" to "approved" in the current table
+        const row = currentTableBody.firstElementChild;
+        if (row) {
+            row.children[5].textContent = 'approved';
         }
-        alert('Cancellation Request Approved! An automated email will be sent to the user.');
+
+        alert('Request Approved! An automated email will be sent to the user.');
         closePopup(); // Code to close the pop-up after approving
     };
-/////////////////////// END OF APPROVE BUTTON
 
-// Function to close the pop-up container
-window.closePopup = function() {
-            const popupContainer = document.getElementById('popupContainer');
-            const rejectConfirmationContainer = document.getElementById('rejectConfirmationContainer');
-            popupContainer.style.display = 'none';
-            rejectConfirmationContainer.style.display = 'none';
-        };
+    // Function to close the pop-up container
+    window.closePopup = function () {
+        const popupContainer = document.getElementById('popupContainer');
+        const rejectConfirmationContainer = document.getElementById('rejectConfirmationContainer');
+        popupContainer.style.display = 'none';
+        rejectConfirmationContainer.style.display = 'none';
+    };
+});
+
 
        
-    }
-    );
+   
 </script>
 
 
