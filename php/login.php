@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 // validate if there is an existing account with the login credentials
-$stmt = $conn->prepare("SELECT user_id, username, firstname, lastname, number, email, password FROM user_accounts WHERE username=?");
+$stmt = $conn->prepare("SELECT * FROM user_accounts WHERE username=?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -28,7 +28,12 @@ if ($result->num_rows === 1) {
         $_SESSION['number'] = $row["number"];
         $_SESSION['email'] = $row["email"];
 
-        header("Location: ../index.html");
+        if($row["user_type"] === "admin"){
+            header("Location: ../admin-pages/admin-landing-page.php");
+        }
+        else{
+            header("Location: ../index.php");
+        }
         exit();
     } else {
         // Password is incorrect

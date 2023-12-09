@@ -38,6 +38,15 @@ $result = $stmt->get_result();
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 
+    //TOTAL FARE
+    $sql = "UPDATE booking_form SET total_price = '$total_price' WHERE booking_id = $booking_id";
+    if ($conn->query($sql) === TRUE) {
+        echo "Record inserted successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+
     //PROOF OF PAYMENT
     $file = $_FILES['image'];
     $filename = $file['name'];
@@ -142,7 +151,7 @@ $result = $stmt->get_result();
       <input type="radio" name="slider" id="close-btn" />
       <ul class="nav-links">
         <label for="close-btn" class="navbtn close-btn"><i class="fa fa-times"></i></label>
-        <li><a href="../index.html">HOME</a></li>
+        <li><a href="../index.php">HOME</a></li>
         <li><a href="booking-payment.php" id="active-page">BOOKING</a></li>
         <li><a href="../pages/transaction.php">TRANSACTIONS</a></li>
         <li><a href="../pages/about-us.html">ABOUT US</a></li>

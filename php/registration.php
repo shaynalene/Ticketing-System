@@ -17,11 +17,13 @@ if ($password !== $confirm_password) {
 }
 
 $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+$user_type = "user";
+$account_status = "active";
 
 //insert the data to database
-$sql = "INSERT INTO user_accounts (username, firstname, lastname, number, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO user_accounts (username, firstname, lastname, number, email, password, user_type, account_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sssiss", $username, $firstname, $lastname, $number, $email, $hashed_password);
+$stmt->bind_param("sssissss", $username, $firstname, $lastname, $number, $email, $hashed_password, $user_type, $account_status);
 $stmt->execute();
 header("Location: ../pages/login-page.html");
 $stmt->close();
