@@ -1,10 +1,19 @@
+<?php
+session_start();
+include "../php/server.php";
+if (!isset($_SESSION["user_id"])) {
+  header("Location: login-page.html");
+  exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BTS | Bus Ticketing System</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -38,18 +47,18 @@
               <a href="index.php" id="active-page">HOME</a>
             </li>
             <li>
-              <a href="../Ticketing-System/pages/booking-form1.php">BOOKING</a>
+              <a href="../pages/booking-form1.php">BOOKING</a>
             </li>
             <li>
-              <a href="../Ticketing-System/pages/transaction.php">TRANSACTIONS</a>
+              <a href="../pages/transaction.php">TRANSACTIONS</a>
             </li>
             <li>
-              <a href="../Ticketing-System/pages/about-us.html">ABOUT US</a>
+              <a href="../pages/about-us.html">ABOUT US</a>
             </li>
             <li><a href="#">FEEDBACK</a></li>
             <div class="login">
               <a
-                href="../Ticketing-System/pages/profile-page.php"
+                href="../pages/profile-page.php"
                 id="login-button"
                 >Your Account</a
               >
@@ -90,7 +99,7 @@
           <tbody>
             <!--
           <?php
-          /*include "../Ticketing-System/php/server.php";
+          include "../Ticketing-System/php/server.php";
           $sql = "SELECT pick_up, drop_off, price FROM destinations";
           $result = $conn->query($sql);
           if ($result->num_rows > 0) {
@@ -107,7 +116,7 @@
               }
           } else {
               echo "<tr><td colspan='3'>No records found</td></tr>";
-          }*/
+          }
           ?>
           -->
             <tr>
@@ -147,5 +156,5 @@
       </div>
     </div>
   </body>
-  <script src="script.js"></script>
+  <script src="../script.js"></script>
 </html>
