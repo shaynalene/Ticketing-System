@@ -74,7 +74,7 @@ include "../Ticketing-System/php/server.php";
           <div class="title-header">ONLINE VIEWBOARD</div>
           <!-- HIDE UNLESS ITS ON ADMIN SIDE !! TO BE EDITED -->
         </div>
-        <div id="lastEditDate">UPDATED AS OF: 00/00/00 00:00 AM/PM</div>
+        <!--<div id="lastEditDate">UPDATED AS OF: 00/00/00 00:00 AM/PM</div>-->
       </div>
       <div class="table-wrapper">
         <table id="editableTable" class="fl-table">
@@ -84,41 +84,30 @@ include "../Ticketing-System/php/server.php";
               <th>DROP OFF</th>
               <th>PRICE</th>
               <th>BUS NO.</th>
-              <!--<th>TRAVEL DATE</th>-->
+              <th>TRAVEL DATE</th>
+              <th>TRAVEL TIME</th>
               <th>STATUS</th>
             </tr>
           </thead>
           <tbody>
-            <!--
           <?php
-          /*include "../Ticketing-System/php/server.php";
-          $sql = "SELECT pick_up, drop_off, price FROM destinations";
-          $result = $conn->query($sql);
-          if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                  echo "<tr>
-                          <td>{$row['pick_up']}</td>
-                          <td>{$row['drop_off']}</td>
-                          <td>{$row['price']}</td>
-                          <td>##</td>
-                          <td>00/00/00</td>
-                          <td>00:00:00 AM/PM</td>
-                          <td>ACTIVE</td>
+            $sql = "SELECT * FROM bus_schedule";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>
+                        <td>{$row['pick_up']}</td>
+                        <td>{$row['drop_off']}</td>
+                        <td>{$row['price']}</td>
+                        <td>bus_number</td>
+                        <td>seat_number</td>
+                        <td>status</td>
+                        <td><button id=\"modifyButton\" class=\"editButtonLP\">Book</button></td>
                         </tr>";
-              }
-          } else {
-              echo "<tr><td colspan='3'>No records found</td></tr>";
-          }*/
+                }
+            }
           ?>
-          -->
-            <tr>
-              <td contenteditable="false">PLACE</td>
-              <td contenteditable="false">###</td>
-              <td contenteditable="false">##</td>
-              <td contenteditable="false">00/00/00</td>
-              <!--<td contenteditable="false">00:00:00 AM/PM</td>-->
-              <td contenteditable="false">ACTIVE</td>
-            </tr>
           </tbody>
         </table>
       </div>

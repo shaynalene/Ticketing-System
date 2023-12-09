@@ -1,10 +1,67 @@
+<?php
+session_start();
+include "../php/server.php";
+
+// Check if the user is logged in
+if (!isset($_SESSION["user_id"])) {
+  header("Location: login-page.html");
+  exit();
+}
+
+//get data from session
+$email = $_SESSION['email'];
+$username = $_SESSION['username'];
+$firstname = $_SESSION['firstname'];
+$lastname = $_SESSION['lastname'];
+$number = $_SESSION['number'];
+$name = $firstname . ' ' . ' ' . $lastname;
+
+//if add button is clicked
+if (isset($_POST['save'])){
+  $pick_up = $_POST["pickup"];
+  $drop_off = $_POST["dropoff"];
+  $price = $_POST["price"];
+
+  $sql = "INSERT INTO bus_schedule (pick_up, drop_off, price) VALUES (?, ?, ?)";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param('ssi', $pick_up, $drop_off, $price);
+  $stmt->execute();
+  $stmt->close();
+}
+
+//if edit button is clicked
+if (isset($_POST['edit'])){
+  $schedule_id = $_POST["schedule_id"];
+  $pick_up = $_POST["pick_up"];
+  $drop_off = $_POST["drop_off"];
+  $price = $_POST["price"];
+
+  $sql = "UPDATE bus_schedule SET pick_up = ?, drop_off = ?, price = ? WHERE schedule_id = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param('ssii', $pick_up, $drop_off, $price, $schedule_id);
+  $stmt->execute();
+  $stmt->close();
+}
+
+//if remove button is clicked
+if (isset($_POST['remove'])){
+  $schedule_id = $_POST["schedule_id"];
+
+  $sql = "DELETE FROM bus_schedule WHERE schedule_id = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param('i', $schedule_id);
+  $stmt->execute();
+  $stmt->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BTS | Bus Ticketing System</title>
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="../style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -12,7 +69,7 @@
     <link
       rel="shortcut icon"
       type="image/jpg"
-      href="../Ticketing-System/img/bts-logo.png"
+      href="../img/bts-logo.png"
     />
   </head>
   <body class="pages-flex-feedback">
@@ -23,7 +80,7 @@
           <div class="logo">
             <a href="#"
               ><img
-                src="../Ticketing-System/img/bts-logo-nav.png"
+                src="../img/bts-logo-nav.png"
                 alt="BTS"
                 class="logo-pic"
             /></a>
@@ -70,9 +127,8 @@
           <button id="addButton" class="editButtonLP" onclick="addRecord()">
             Add Trip
           </button>
-          <!-- HIDE UNLESS ITS ON ADMIN SIDE !! TO BE EDITED -->
         </div>
-        <div id="lastEditDate">UPDATED AS OF: 00/00/00 00:00 AM/PM</div>
+        <!--<div id="lastEditDate">UPDATED AS OF: 00/00/00 00:00 AM/PM</div>-->
       </div>
       <div class="table-wrapper">
         <table id="editableTable" class="fl-table">
@@ -83,54 +139,29 @@
               <th>PRICE</th>
               <th>BUS NO.</th>
               <th>TRAVEL DATE</th>
-              <th>ARRIVAL TIME</th>
+              <th>TRAVEL TIME</th>
               <th>STATUS</th>
-              <th>--</th>
             </tr>
           </thead>
           <tbody>
-            <!--
           <?php
-          /*include "../Ticketing-System/php/server.php";
-          $sql = "SELECT pick_up, drop_off, price FROM destinations";
-          $result = $conn->query($sql);
-          if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                  echo "<tr>
-                          <td>{$row['pick_up']}</td>
-                          <td>{$row['drop_off']}</td>
-                          <td>{$row['price']}</td>
-                          <td>##</td>
-                          <td>00/00/00</td>
-                          <td>00:00:00 AM/PM</td>
-                          <td>ACTIVE</td>
+            $sql = "SELECT * FROM bus_schedule";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>
+                        <td>{$row['pick_up']}</td>
+                        <td>{$row['drop_off']}</td>
+                        <td>{$row['price']}</td>
+                        <td>bus_number</td>
+                        <td>seat_number</td>
+                        <td>status</td>
+                        <td><button id=\"modifyButton\" class=\"editButtonLP\" onclick=\"displayRecord('{$row['schedule_id']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['price']}')\">Edit</button></td>
                         </tr>";
-              }
-          } else {
-              echo "<tr><td colspan='3'>No records found</td></tr>";
-          }*/
-
-          
-          ?>
-          -->
-            <tr>
-              <td contenteditable="false">PLACE</td>
-              <td contenteditable="false">PLACE</td>
-              <td contenteditable="false">##</td>
-              <td contenteditable="false">##</td>
-              <td contenteditable="false">00/00/00</td>
-              <td contenteditable="false">00:00:00 AM/PM</td>
-              <td contenteditable="false">ACTIVE</td>
-              <td contenteditable="false">
-                <button
-                  id="modifyButton"
-                  class="editButtonLP"
-                  onclick="displayRecord();"
-                >
-                  VIEW
-                </button>
-              </td>
-            </tr>
+                }
+            }
+            ?>
           </tbody>
         </table>
 
@@ -206,5 +237,5 @@
       </div>
     </div>
   </body>
-  <script src="/script.js"></script>
+  <script src="../script.js"></script>
 </html>

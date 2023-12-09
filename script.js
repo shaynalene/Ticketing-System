@@ -8,6 +8,7 @@ function updateLastEditDate() {
 
 function addRecord() {
   document.getElementById("addpopupContent").innerHTML = `
+  <form method="POST" action="">
       <div class="details">
       <div class="detail-value">
       <span class="question">Pickup:</span>
@@ -47,7 +48,7 @@ function addRecord() {
       <div class="detail-value">
       <button type="submit" name="save" class="addRecordBtn">ADD RECORD</button>
       </div>
- 
+      </form>
   </div>
   `;
 
@@ -56,24 +57,28 @@ function addRecord() {
   updateLastEditDate();
 }
 
-function displayRecord() {
+function displayRecord(schedule_id, pick_up, drop_off, price) {
   document.getElementById("editpopupContent").innerHTML = `
+  <form method="POST" action="">
+    <input type ="hidden" name="schedule_id" id="schedule_id" value="${schedule_id}">
+      <input type ="hidden" name="pick_up" id="pick_up" value="${pick_up}">
+      <input type ="hidden" name="drop_off" id="drop_off" value="${drop_off}"> 
+      <input type ="hidden" name="price" id="price" value="${price}">  
       <div class="details">
-
-      <div class="details">
+      
       <div class="detail-value">
       <span class="question">Pickup:</span>
-      <input type="text" name="pickup" value="" required>
+      <input type="text" name="pickup" value="${pick_up}" required>
       </div>
 
       <div class="detail-value">
       <span class="question">Drop Off:</span>
-      <input type="text" name="dropoff" value="" required>
+      <input type="text" name="dropoff" value="${drop_off}" required>
       </div>
 
       <div class="detail-value">
       <span class="question">Price:</span>
-      <input type="text" name="price" value="" required>
+      <input type="text" name="price" value="${price}" required>
       </div>
 
       <div class="detail-value">
@@ -97,10 +102,12 @@ function displayRecord() {
       </div>
  
       <div class="detail-value">
-      <button type="submit" name="edit" class="addRecordBtn">EDIT</button>
-      <button type="submit" name="remove" class="addRecordBtn">REMOVE</button>
+      <form method="post" action="">
+        <button type="submit" name="edit" class="addRecordBtn">EDIT</button>
+        <button type="submit" name="remove" class="addRecordBtn">REMOVE</button>
+      </form>
       </div>
-
+  </form>
   </div>
 
   `;

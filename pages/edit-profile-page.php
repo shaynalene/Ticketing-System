@@ -23,11 +23,12 @@ if (isset($_POST['save'])){
   $newnumber = $_POST["number"];
   $newemail = $_POST["email"];
   $newpassword = $_POST['password'];
+  $new_hashed_password = password_hash($newpassword, PASSWORD_BCRYPT);
   $user_id = $_SESSION["user_id"];
 
   $sql = "UPDATE user_accounts SET username = ?, firstname = ?, lastname = ?, number = ?, email = ?, password = ? WHERE user_id = ?";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param('sssissi', $newusername, $newfirstname, $newlastname, $newnumber, $newemail, $newpassword, $user_id);
+  $stmt->bind_param('sssissi', $newusername, $newfirstname, $newlastname, $newnumber, $newemail, $new_hashed_password, $user_id);
   $stmt->execute();
   $stmt->close();
 
