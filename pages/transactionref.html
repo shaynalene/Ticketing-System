@@ -197,7 +197,10 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
             <td>bus_number</td>
             <td>seat_number</td>
             <td>{$row['status']}</td>
-            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td> 
+            <!-- REMOVE TEMPORARILY FOR PHP 
+            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>                       
+            -->
+            <td><button onclick="displayReceipt()">View Details</button></td>
           </tr>
           "; } } ?>
         </tbody>
@@ -222,27 +225,24 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
         <tbody>
           <?php
             include "../php/server.php";
-            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price, bus_number FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Upcoming' AND BF.user_id='$user_id' ORDER BY date";
-            $result = $conn->query($sql);
-            
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>
-                        <td>{$row['date']}</td>
-                        <td>{$row['pick_up']}</td>
-                        <td>{$row['drop_off']}</td>
-                        <td>{$row['bus_number']}</td>
-                        <td>seat_number</td>
-                        <td>{$row['status']}</td>
-                        <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
-                        </tr>";
-                }
-            }
-            ?>
-            </tbody>
-        </table>
-
-        <!-- TESTING --->
+            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Upcoming' AND BF.user_id='$user_id' ORDER BY date";
+            $result = $conn->query($sql); if ($result->num_rows > 0) { while
+          ($row = $result->fetch_assoc()) { echo "
+          <tr>
+            <td>{$row['date']}</td>
+            <td>{$row['pick_up']}</td>
+            <td>{$row['drop_off']}</td>
+            <td>bus_number</td>
+            <td>seat_number</td>
+            <td>{$row['status']}</td>
+            <!-- REMOVE TEMPORARILY FOR PHP 
+            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>                       
+            -->
+            <td><button onclick="displayReceipt()">View Details</button></td>
+          </tr>
+          "; } } ?>
+        </tbody>
+      </table>
 
       <!-- TESTING --->
     </div>
@@ -265,25 +265,24 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
         <tbody>
           <?php
             include "../php/server.php";
-            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price, bus_number FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Past' OR status='CancelRequest' AND BF.user_id='$user_id' ORDER BY date";
-            $result = $conn->query($sql);
-            
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>
-                        <td>{$row['date']}</td>
-                        <td>{$row['pick_up']}</td>
-                        <td>{$row['drop_off']}</td>
-                        <td>{$row['bus_number']}</td>
-                        <td>seat_number</td>
-                        <td>{$row['status']}</td>
-                        <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
-                        </tr>";
-                }
-            }
-            ?>
-            </tbody>
-        </table>
+            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Past' OR status='CancelRequest' AND BF.user_id='$user_id' ORDER BY date";
+            $result = $conn->query($sql); if ($result->num_rows > 0) { while
+          ($row = $result->fetch_assoc()) { echo "
+          <tr>
+            <td>{$row['date']}</td>
+            <td>{$row['pick_up']}</td>
+            <td>{$row['drop_off']}</td>
+            <td>bus_number</td>
+            <td>seat_number</td>
+            <td>{$row['status']}</td>
+            <!-- REMOVE TEMPORARILY FOR PHP 
+            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>                       
+            -->
+            <td><button onclick="displayReceipt()">View Details</button></td>
+          </tr>
+          "; } } ?>
+        </tbody>
+      </table>
     </div>
 
     <!-- POP-UP CONTAINER -->
@@ -335,17 +334,23 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
     <!-- End of Transaction History (BODY)-------------------------------------------------------->
 
     <script>
-      function displayReceipt(booking_id, customer_name, number, pick_up, drop_off, date, time, passenger_number, status, total_price, bus_number) {
+      function displayReceipt(
+        booking_id,
+        customer_name,
+        number,
+        pick_up,
+        drop_off,
+        date,
+        time,
+        passenger_number,
+        status,
+        total_price
+      ) {
         document.getElementById("popupContent").innerHTML = `
             <div class="details-ctr">
             <div class="details-indiv">
             <span class="question">Transaction Number:</span>
             <span class="answer">${booking_id}</span>
-            </div>
-
-            <div class="details-indiv">
-            <span class="question">Bus Number:</span>
-            <span class="answer">${bus_number}</span>
             </div>
 
             <div class="details-indiv">
@@ -393,11 +398,13 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
         `;
 
         document.getElementById("popupContainer").style.display = "block";
+        /* REMOVE TEMPORARILY FOR PHP
         if (status == "Upcoming") {
           document.getElementById("cancelButton").style.display = "block";
         } else {
           document.getElementById("cancelButton").style.display = "none";
         }
+        */
 
         document
           .getElementById("cancelButton")

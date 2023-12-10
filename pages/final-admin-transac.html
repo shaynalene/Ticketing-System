@@ -172,7 +172,7 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
 
     <!-- ONGOING ACTIVITY TABLE -->
     <div class="container">
-      <h3 style="color: #365f32">ONGOING ACTIVITY</h3>
+      <h3 style="color: #365f32">ONGOING/APPROVED ACTIVITY</h3>
       <table id="ongoingTable">
         <thead>
           <tr>
@@ -197,17 +197,20 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
             <td>bus_number</td>
             <td>seat_number</td>
             <td>{$row['status']}</td>
-            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td> 
+            <!-- REMOVE TEMPORARILY FOR PHP 
+            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>                       
+            -->
+            <td><button onclick="displayReceipt()">View Details</button></td>
           </tr>
           "; } } ?>
         </tbody>
       </table>
     </div>
 
-    <!-- UPCOMING ACTIVITY TABLE -->
+    <!-- PENDING BOOKINGS TABLE -->
     <div class="container">
-      <h3 style="color: #365f32">UPCOMING ACTIVITY</h3>
-      <table id="upcomingTable">
+      <h3 style="color: #365f32">PENDING BOOKINGS</h3>
+      <table id="pendingTable">
         <thead>
           <tr>
             <th>Date</th>
@@ -222,30 +225,67 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
         <tbody>
           <?php
             include "../php/server.php";
-            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price, bus_number FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Upcoming' AND BF.user_id='$user_id' ORDER BY date";
-            $result = $conn->query($sql);
-            
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>
-                        <td>{$row['date']}</td>
-                        <td>{$row['pick_up']}</td>
-                        <td>{$row['drop_off']}</td>
-                        <td>{$row['bus_number']}</td>
-                        <td>seat_number</td>
-                        <td>{$row['status']}</td>
-                        <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
-                        </tr>";
-                }
-            }
-            ?>
-            </tbody>
-        </table>
-
-        <!-- TESTING --->
+            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Upcoming' AND BF.user_id='$user_id' ORDER BY date";
+            $result = $conn->query($sql); if ($result->num_rows > 0) { while
+          ($row = $result->fetch_assoc()) { echo "
+          <tr>
+            <td>{$row['date']}</td>
+            <td>{$row['pick_up']}</td>
+            <td>{$row['drop_off']}</td>
+            <td>bus_number</td>
+            <td>seat_number</td>
+            <td>{$row['status']}</td>
+            <!-- REMOVE TEMPORARILY FOR PHP 
+            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>                       
+            -->
+            <td><button onclick="displayReceipt()">View Details</button></td>
+          </tr>
+          "; } } ?>
+        </tbody>
+      </table>
 
       <!-- TESTING --->
     </div>
+
+ <!-- FOR CANCELLATION TABLE -->
+ <div class="container">
+    <h3 style="color: #365f32">FOR CANCELLATION</h3>
+    <table id="cancelTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Pick up</th>
+          <th>Destination</th>
+          <th>Bus #</th>
+          <th>Seat #</th>
+          <th>Status</th>
+          <th>View Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          include "../php/server.php";
+          $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Upcoming' AND BF.user_id='$user_id' ORDER BY date";
+          $result = $conn->query($sql); if ($result->num_rows > 0) { while
+        ($row = $result->fetch_assoc()) { echo "
+        <tr>
+          <td>{$row['date']}</td>
+          <td>{$row['pick_up']}</td>
+          <td>{$row['drop_off']}</td>
+          <td>bus_number</td>
+          <td>seat_number</td>
+          <td>{$row['status']}</td>
+          <!-- REMOVE TEMPORARILY FOR PHP 
+          <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>                       
+          -->
+          <td><button onclick="displayReceipt()">View Details</button></td>
+        </tr>
+        "; } } ?>
+      </tbody>
+    </table>
+
+    <!-- TESTING --->
+  </div>
 
     <!-- PAST ACTIVITY TABLE -->
     <div class="container">
@@ -265,87 +305,109 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
         <tbody>
           <?php
             include "../php/server.php";
-            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price, bus_number FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Past' OR status='CancelRequest' AND BF.user_id='$user_id' ORDER BY date";
-            $result = $conn->query($sql);
-            
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>
-                        <td>{$row['date']}</td>
-                        <td>{$row['pick_up']}</td>
-                        <td>{$row['drop_off']}</td>
-                        <td>{$row['bus_number']}</td>
-                        <td>seat_number</td>
-                        <td>{$row['status']}</td>
-                        <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
-                        </tr>";
-                }
-            }
-            ?>
-            </tbody>
-        </table>
+            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Past' OR status='CancelRequest' AND BF.user_id='$user_id' ORDER BY date";
+            $result = $conn->query($sql); if ($result->num_rows > 0) { while
+          ($row = $result->fetch_assoc()) { echo "
+          <tr>
+            <td>{$row['date']}</td>
+            <td>{$row['pick_up']}</td>
+            <td>{$row['drop_off']}</td>
+            <td>bus_number</td>
+            <td>seat_number</td>
+            <td>{$row['status']}</td>
+            <!-- REMOVE TEMPORARILY FOR PHP 
+            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>                       
+            -->
+            <td><button onclick="displayReceipt()">View Details</button></td>
+          </tr>
+          "; } } ?>
+        </tbody>
+      </table>
     </div>
 
     <!-- POP-UP CONTAINER -->
-    <!-- NOTE: The Receipt Details codes below are just based from the previous "booking-receipt" page. Just modified some of its content. -->
-    <div class="popup-container" id="popupContainer">
-      <h3>Receipt Details</h3>
-      <br />
-      <div class="details" id="popupContent"></div>
-      <button
-        style="
-          background-color: #4caf50;
-          color: white;
-          padding: 10px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          z-index: 1001;
-        "
-        onclick="closePopup()"
-      >
-        Close
-      </button>
-      <button
-        id="cancelButton"
-        style="
-          background-color: #e74c3c;
-          color: white;
-          padding: 10px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          position: absolute;
-          bottom: 20px;
-          left: 50%;
-          transform: translateX(-50%);
-          z-index: 1001;
-        "
-      >
-        Cancel Booking
-      </button>
-    </div>
-
+<!-- NOTE: The Receipt Details codes below are just based on the previous "booking-receipt" page. Just modified some of its content. -->
+<div class="popup-container" id="popupContainer">
+    <h3>Receipt Details</h3>
+    <br />
+    <div class="details" id="popupContent"></div>
+    <button
+      style="
+        background-color: #4caf50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1001;
+      "
+      onclick="closePopup()"
+    >
+      Close
+    </button>
+    <button
+      id="cancelButton"
+      style="
+        background-color: #e74c3c;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        position: absolute;
+        bottom: 20px;
+        left: 30%;
+        transform: translateX(-50%);
+        z-index: 1001;
+      "
+    >
+      Reject Request
+    </button>
+    <button
+      id="approveButton"
+      style="
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        position: absolute;
+        bottom: 20px;
+        left: 65%;
+        transform: translateX(-50%);
+        z-index: 1001;
+      "
+    >
+      Approve Request
+    </button>
+  </div>
     <!-- Cancel Confirmation Container -->
     <div id="cancelConfirmationContainer"></div>
 
     <!-- End of Transaction History (BODY)-------------------------------------------------------->
 
     <script>
-      function displayReceipt(booking_id, customer_name, number, pick_up, drop_off, date, time, passenger_number, status, total_price, bus_number) {
+      function displayReceipt(
+        booking_id,
+        customer_name,
+        number,
+        pick_up,
+        drop_off,
+        date,
+        time,
+        passenger_number,
+        status,
+        total_price
+      ) {
         document.getElementById("popupContent").innerHTML = `
             <div class="details-ctr">
             <div class="details-indiv">
             <span class="question">Transaction Number:</span>
             <span class="answer">${booking_id}</span>
-            </div>
-
-            <div class="details-indiv">
-            <span class="question">Bus Number:</span>
-            <span class="answer">${bus_number}</span>
             </div>
 
             <div class="details-indiv">
@@ -393,11 +455,29 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
         `;
 
         document.getElementById("popupContainer").style.display = "block";
+        // Check if the table is cancelTable or pendingTable
+        const isCancelTable = document.activeElement.closest("#cancelTable") !== null;
+        const isPendingTable = document.activeElement.closest("#pendingTable") !== null;
+
+        // Show/hide the cancel and approve buttons based on the table
+        const cancelButton = document.getElementById("cancelButton");
+        const approveButton = document.getElementById("approveButton");
+
+        if (isCancelTable || isPendingTable) {
+          cancelButton.style.display = "block";
+          approveButton.style.display = "block";
+        } else {
+          cancelButton.style.display = "none";
+          approveButton.style.display = "none";
+        }
+        
+        /* REMOVE TEMPORARILY FOR PHP
         if (status == "Upcoming") {
           document.getElementById("cancelButton").style.display = "block";
         } else {
           document.getElementById("cancelButton").style.display = "none";
         }
+        */
 
         document
           .getElementById("cancelButton")
@@ -421,13 +501,13 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
           "cancelConfirmationContainer"
         );
         document.getElementById("cancelConfirmationContainer").innerHTML = `
-        <h3>Confirm Cancellation</h3>
-        <p>Are you sure you want to cancel this booking?</p>
+        <h3>Confirm Rejection of Request</h3>
+        <p>Are you sure you want to reject this request?</p>
         <form method="POST" action="">
         <input type ="hidden" name="variable" id="variable" value="${booking_id}"> 
-        <button id="cancel" name="cancel" onclick="confirmCancellation(${booking_id})">Yes, Cancel</button>
+        <button id="cancel" name="cancel" onclick="confirmCancellation(${booking_id})">Yes, Reject</button>
         </form>
-        <button style="background-color: #4CAF50; color: white;" onclick="closePopup()">No, Keep Booking</button>
+        <button style="background-color: #4CAF50; color: white;" onclick="closePopup()">No, Go Back</button>
         `;
         var selected_booking = booking_id;
 
@@ -438,10 +518,23 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
       function confirmCancellation(booking_id) {
         const cancelButton = document.getElementById("cancelButton");
         alert(
-          "Upcoming activity canceled! Kindly check your registered email for the complete cancellation and refund process of your booking."
+          "Request rejected! For more details, an email will be sent to the user"
         );
         closePopup(); // Code to close the pop-up after canceling
       }
+
+    // Function to handle the approval action
+    function approveBooking(booking_id) {
+      // Add your code here for approving the booking
+      alert("Request approved! For more details, an email will be sent to the user");
+      closePopup(); // Code to close the pop-up after approval
+    }
+
+    document.getElementById("approveButton").addEventListener("click", function () {
+      // You may need to pass the necessary parameters to approveBooking function
+      approveBooking(/* Pass the necessary parameters */);
+    });
+</script>
     </script>
   </body>
 </html>
