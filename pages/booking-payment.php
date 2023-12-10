@@ -53,8 +53,8 @@ $result = $stmt->get_result();
     $filename = $file['name'];
     $image = file_get_contents($file['tmp_name']);
 
-    $stmt = $conn->prepare("INSERT INTO payment_proof (filename, image) VALUES (?, ?)");
-    $stmt->bind_param('ss', $filename, $image);
+    $stmt = $conn->prepare("INSERT INTO payment_proof (reference_no, filename, image) VALUES (?, ?, ?)");
+    $stmt->bind_param('iss', $ref_number, $filename, $image);
     $stmt->execute();
     $stmt->close();
 

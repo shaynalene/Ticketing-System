@@ -46,7 +46,7 @@ else{
     // EMAIL CONTENTS
     $mail->isHTML(true);                                
     $mail->Subject = 'Bus Ticketing System Login Details';
-    $mail->Body    = 'Hi, ' . $firstname . " " . $lastname . '! ' . '<br>' . '<br>' . 'You have successfully registered an account. To continue, click the link below: ' . '<br>' . 'http://localhost/Ticketing-System/index.php';
+    $mail->Body    = 'Hi, ' . $firstname . " " . $lastname . '! ' . '<br>' . '<br>' . 'You have successfully registered an account. To continue, click the link below: ' . '<br>' . 'http://localhost/Ticketing-System/pages/login-usr-page.html';
     $mail->send();
     echo '<script type="text/javascript">
             window.location = "../pages/login-usr-page.html";

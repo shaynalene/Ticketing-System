@@ -22,10 +22,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   for ($i = 0; $i < count($selectedValues) + 1; $i++) {
     //lipat sa database
+    $booking_id = $_SESSION['booking_id'];
     $status = "reserved";
-    $sql = "UPDATE seat_reservation SET status=? WHERE bus_seat = ?";
+    $sql = "UPDATE seat_reservation SET status=?, booking_id=? WHERE bus_seat = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ss', $status, ${'selectedValue_' . $i}); 
+    $stmt->bind_param('sis', $status, $booking_id, ${'selectedValue_' . $i}); 
     $stmt->execute();
     $stmt->close();
   }

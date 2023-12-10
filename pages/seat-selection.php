@@ -8,6 +8,16 @@ if (empty($_SESSION["user_id"])) {
     exit();
 }
 
+//to reset the seat_reservation database
+/*$status = "vacant";
+    $booking_id = "";
+    $reserved = "reserved";
+    $sql = "UPDATE seat_reservation SET status=?, booking_id=? WHERE status = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sis', $status, $booking_id, $reserved); 
+    $stmt->execute();
+    $stmt->close();*/
+
 // Fetch seat statuses from the database
 $sql = "SELECT bus_seat, status FROM seat_reservation";
 $result = $conn->query($sql);
@@ -59,8 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
       width: 100px;
       height: 40px;
       margin: 5px;
-      background-color: red;
-      color: white;
+      background-color: yellow;
     }
     .reserved{
       width: 100px;
@@ -71,6 +80,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
     }
   </style>
   </head>
+  <script>
+    var passengerCount = <?php echo $_SESSION['passenger_count']; ?>;
+  </script>
   <body class="pages-flex-feedback">
     <!-- NAVIGATION BAR -->
     <div class="navbar-ctr">
@@ -127,6 +139,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
 
     <table border="1">
         <?php
+        //$passenger_number = $_SESSION['passenger_count'];
+
         $rows = ['A', 'B', 'C', 'D', 'E', 'F'];
         $cols = [1, 2, 3, 4];
 
@@ -176,12 +190,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
   </body>
   <script>
     function buttonClick(row, col) {
+    var button = row + col;
+    var seatButton = document.getElementById(button);
+
+    // Check if the seat is already selected
+    if (seatButton.classList.contains('selected')) {
+      seatButton.classList.remove('selected');
+      seatButton.classList.add('seatButton');
+    } else {
+      // Check if the total selected seats are less than or equal to passenger_count
+      var selectedSeats = document.querySelectorAll('.selected');
+      if (selectedSeats.length < passengerCount) {
+        seatButton.classList.remove('seatButton');
+        seatButton.classList.add('selected');
+        console.log(button);
+      } else {
+        alert('You can only select ' + passengerCount + ' seats.');
+      }
+    }
+  }
+    /*function buttonClick(row, col) {
       //alert('Button clicked: Row ' + row + ', Column ' + col);
       var button = row+col;
       document.getElementById(button).classList.remove('seatButton');
       document.getElementById(button).classList.add('selected');
       console.log(button);
-    }
+    }*/
 
     function resetSeats() {
       var buttons = document.querySelectorAll('.selected');
@@ -194,32 +228,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
     }
 
     function confirm(){
-      alert('Confirm');
-      var buttons = document.querySelectorAll('.selected');
-      var selectedValues = [];
-      
-      for (var i = 0; i < buttons.length; i++) {
-        var selected = buttons[i].id;
-        selectedValues.push(selected);
-        console.log(selected);
+      var selectedSeats = document.querySelectorAll('.selected');
+      if (selectedSeats.length < passengerCount){
+        alert('Please select exactly ' + passengerCount + ' seats.');
       }
-
-      // Send selectedValues array to PHP using AJAX
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', '../php/seat.php', true); // Specify the correct PHP script filename
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          // Handle the response from the server if needed
-          console.log(xhr.responseText);
+      else{
+        //alert('Confirm');
+        var buttons = document.querySelectorAll('.selected');
+        var selectedValues = [];
+        
+        for (var i = 0; i < buttons.length; i++) {
+          var selected = buttons[i].id;
+          selectedValues.push(selected);
+          console.log(selected);
         }
-      };
 
-      // Convert the array to a JSON string for easy handling on the server
-      var jsonData = JSON.stringify({ selectedValues: selectedValues });
+        // Send selectedValues array to PHP using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../php/seat.php', true); // Specify the correct PHP script filename
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            // Handle the response from the server if needed
+            console.log(xhr.responseText);
+          }
+        };
 
-      // Send the data to the server
-      xhr.send('jsonData=' + encodeURIComponent(jsonData));
+        // Convert the array to a JSON string for easy handling on the server
+        var jsonData = JSON.stringify({ selectedValues: selectedValues });
+
+        // Send the data to the server
+        xhr.send('jsonData=' + encodeURIComponent(jsonData));
+
+        window.location = "../pages/booking-payment.php";
+      }
     }
   </script>
 </html>

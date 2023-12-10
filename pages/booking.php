@@ -26,11 +26,12 @@ if (isset($_POST['confirm'])){
     $date = $_POST["date"];
     $time = $_POST["departure_time"];
     $passenger_number= $_POST["passenger_count"];
-    $status = "Upcoming";
+    $status = "For Approval";
 
     $total_price = $price * $passenger_number;
 
     $_SESSION['total_price'] = $total_price;
+    $_SESSION['passenger_count'] = $passenger_number;
   
     $sql = "INSERT INTO booking_form (user_id, bus_number, pick_up, drop_off, date, time, passenger_number, status, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
@@ -41,7 +42,7 @@ if (isset($_POST['confirm'])){
     $stmt->close();
 
     //redirect to next page
-    header("Location: ../pages/booking-payment.php");
+    header("Location: ../pages/seat-selection.php");
 }
 ?>
 

@@ -12,18 +12,86 @@ if (empty($_SESSION["user_id"])) {
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
 $number = $_SESSION['number'];
+$email = $_SESSION['email'];
 $name = $firstname . ' ' . $lastname;
 $user_id = $_SESSION["user_id"];  
 
 //cancel button is clicked
 if (isset($_POST['cancel'])){
-    $status = "Cancel Request";
+    $status = "Booking Cancelled";
 
     $selected_booking = $_POST["variable"];
 
     $sql = "UPDATE booking_form SET status=? WHERE user_id = ? AND booking_id = ?";
     $stmt = $conn->prepare($sql); $stmt->bind_param('sii', $status, $user_id,
-$selected_booking); $stmt->execute(); $stmt->close(); } ?>
+    $selected_booking); $stmt->execute(); $stmt->close(); 
+
+    //GENERATE EMAIL
+    include "../php/generate-email.php";
+    try {
+      // Server settings
+      $mail->SMTPDebug = 0;                      
+      $mail->isSMTP();                                            
+      $mail->Host       = 'smtp.gmail.com';                    
+      $mail->SMTPAuth   = true;                              
+      $mail->Username   = 'bus.ticketing.system.co@gmail.com';                    
+      $mail->Password   = 'obiy hpfs bkhy achs';                           
+      $mail->SMTPSecure = 'tls';         
+      $mail->Port       = 587;                                    
+      
+      // EMAIL DETAILS
+      $mail->setFrom('bus.ticketing.system.co@gmail.com', 'Bus Ticketing System Co');
+      $mail->addAddress($email, $name);     
+      
+      // EMAIL CONTENTS
+      $mail->isHTML(true);                                
+      $mail->Subject = 'Booking Cancelled';
+      $mail->Body    = 'Hi, ' . $firstname . " " . $lastname . '. ' . 'Your booking has been cancelled.';
+      $mail->addAttachment('../img/bts-logo.png', 'ticket.png');
+      $mail->send();
+    }
+    catch (Exception $e) {}
+    header("Location: ../pages/admin-transaction.php");
+
+} 
+
+//approve button is clicked
+if (isset($_POST['approve'])){
+    $status = "Booking Approved";
+
+    $selected_booking = $_POST["variable"];
+
+    $sql = "UPDATE booking_form SET status=? WHERE user_id = ? AND booking_id = ?";
+    $stmt = $conn->prepare($sql); $stmt->bind_param('sii', $status, $user_id,
+    $selected_booking); $stmt->execute(); $stmt->close(); 
+    //GENERATE EMAIL
+    include "../php/generate-email.php";
+    try {
+      // Server settings
+      $mail->SMTPDebug = 0;                      
+      $mail->isSMTP();                                            
+      $mail->Host       = 'smtp.gmail.com';                    
+      $mail->SMTPAuth   = true;                              
+      $mail->Username   = 'bus.ticketing.system.co@gmail.com';                    
+      $mail->Password   = 'obiy hpfs bkhy achs';                           
+      $mail->SMTPSecure = 'tls';         
+      $mail->Port       = 587;                                    
+      
+      // EMAIL DETAILS
+      $mail->setFrom('bus.ticketing.system.co@gmail.com', 'Bus Ticketing System Co');
+      $mail->addAddress($email, $name);     
+      
+      // EMAIL CONTENTS
+      $mail->isHTML(true);                                
+      $mail->Subject = 'Booking Approved';
+      $mail->Body    = 'Hi, ' . $firstname . " " . $lastname . '. ' . 'Your booking has been approved. View your ticket bellow.' .  '<br>' .  '<br>' . 'Thank you for trusting BTS!';
+      $mail->addAttachment('../img/bts-logo.png', 'ticket.png');
+      $mail->send();
+    }
+    catch (Exception $e) {}
+    header("Location: ../pages/admin-transaction.php");
+} 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -220,8 +288,89 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
 
     <!-- UPCOMING ACTIVITY TABLE -->
     <div class="container">
-      <h3 style="color: #365f32">UPCOMING ACTIVITY</h3>
+      <h3 style="color: #365f32">PENDING BOOKINGS FOR APPROVAL</h3>
       <table id="upcomingTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Pick up</th>
+            <th>Destination</th>
+            <th>Bus #</th>
+            <th>Seat #</th>
+            <th>Proof of Payment</th>
+            <th>Status</th>
+            <th>View Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+            include "../php/server.php";
+            $sql = "SELECT
+                BF.user_id,
+                firstname,
+                lastname,
+                number,
+                BF.booking_id,
+                pick_up,
+                drop_off,
+                date,
+                time,
+                passenger_number,
+                BF.status,
+                total_price,
+                bus_number,
+                bus_seat,
+                reference_no
+                image
+            FROM
+                booking_form BF
+            INNER JOIN
+                user_accounts UA ON BF.user_id = UA.user_id
+            INNER JOIN
+                seat_reservation SR ON BF.booking_id = SR.booking_id
+            INNER JOIN 
+                payment_proof PP ON reference_no = reference_number
+            WHERE
+                (BF.status = 'For Approval')
+                AND BF.user_id = '$user_id'
+                AND BF.booking_id = SR.booking_id
+            GROUP BY
+                BF.booking_id,
+                BF.user_id,
+                bus_seat 
+            ORDER BY
+                status,
+                date;
+            ";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>
+                        <td>{$row['date']}</td>
+                        <td>{$row['pick_up']}</td>
+                        <td>{$row['drop_off']}</td>
+                        <td>{$row['bus_number']}</td>
+                        <td>{$row['bus_seat']}</td>
+                        <td>{$row['image']}</td>
+                        <td>{$row['status']}</td>
+                        <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
+                        </tr>";
+                }
+            }
+          ?>
+            </tbody>
+        </table>
+
+        <!-- TESTING --->
+
+      <!-- TESTING --->
+    </div>
+
+    <!-- PAST ACTIVITY TABLE -->
+    <div class="container">
+      <h3 style="color: #365f32">FOR CANCELLATION</h3>
+      <table id="pastTable">
         <thead>
           <tr>
             <th>Date</th>
@@ -258,7 +407,7 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
             INNER JOIN
                 seat_reservation SR ON BF.booking_id = SR.booking_id
             WHERE
-                (BF.status = 'Cancel Request' OR BF.status = 'For Approval')
+                (BF.status = 'Cancel Request')
                 AND BF.user_id = '$user_id'
                 AND BF.booking_id = SR.booking_id
             GROUP BY
@@ -268,34 +417,30 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
             ORDER BY
                 status,
                 date;
-            ";           
+            ";
             $result = $conn->query($sql);
             
             if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>
-                        <td>{$row['date']}</td>
-                        <td>{$row['pick_up']}</td>
-                        <td>{$row['drop_off']}</td>
-                        <td>{$row['bus_number']}</td>
-                        <td>{$row['bus_seat']}</td>
-                        <td>{$row['status']}</td>
-                        <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
-                        </tr>";
-                }
-            }
-          ?>
+              while ($row = $result->fetch_assoc()) {
+                  echo "<tr>
+                      <td>{$row['date']}</td>
+                      <td>{$row['pick_up']}</td>
+                      <td>{$row['drop_off']}</td>
+                      <td>{$row['bus_number']}</td>
+                      <td>{$row['bus_seat']}</td>
+                      <td>{$row['status']}</td>
+                      <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
+                      </tr>";
+              }
+          }
+            ?>
             </tbody>
         </table>
-
-        <!-- TESTING --->
-
-      <!-- TESTING --->
     </div>
 
     <!-- PAST ACTIVITY TABLE -->
     <div class="container">
-      <h3 style="color: #365f32">PAST ACTIVITY</h3>
+      <h3 style="color: #365f32">PAST AND APPROVED BOOKINGS</h3>
       <table id="pastTable">
         <thead>
           <tr>
@@ -312,39 +457,39 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
           <?php
             include "../php/server.php";
             $sql = "SELECT
-              BF.user_id,
-              firstname,
-              lastname,
-              number,
-              BF.booking_id,
-              pick_up,
-              drop_off,
-              date,
-              time,
-              passenger_number,
-              BF.status,
-              total_price,
-              bus_number,
-              bus_seat
-          FROM
-              booking_form BF
-          INNER JOIN
-              user_accounts UA ON BF.user_id = UA.user_id
-          INNER JOIN
-              seat_reservation SR ON BF.booking_id = SR.booking_id
-          WHERE
-              (BF.status = 'Booking Cancelled' OR BF.status = 'Booking Approved')
-              AND BF.user_id = '$user_id'
-              AND BF.booking_id = SR.booking_id
-          GROUP BY
-              BF.booking_id,
-              BF.user_id,
-              bus_seat 
-          ORDER BY
-              status,
-              date;
-          ";            
-          $result = $conn->query($sql);
+                BF.user_id,
+                firstname,
+                lastname,
+                number,
+                BF.booking_id,
+                pick_up,
+                drop_off,
+                date,
+                time,
+                passenger_number,
+                BF.status,
+                total_price,
+                bus_number,
+                bus_seat
+            FROM
+                booking_form BF
+            INNER JOIN
+                user_accounts UA ON BF.user_id = UA.user_id
+            INNER JOIN
+                seat_reservation SR ON BF.booking_id = SR.booking_id
+            WHERE
+                (BF.status = 'Booking Cancelled' OR BF.status = 'Booking Approved')
+                AND BF.user_id = '$user_id'
+                AND BF.booking_id = SR.booking_id
+            GROUP BY
+                BF.booking_id,
+                BF.user_id,
+                bus_seat 
+            ORDER BY
+                status,
+                date;
+            ";
+            $result = $conn->query($sql);
             
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
@@ -403,6 +548,24 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
         "
       >
         Cancel Booking
+      </button>
+      <button
+        id="approveButton"
+        style="
+          background-color: #4caf50;
+          color: white;
+          padding: 10px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          position: absolute;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 1001;
+        "
+      >
+        Approve Booking
       </button>
     </div>
 
@@ -470,17 +633,31 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
         `;
 
         document.getElementById("popupContainer").style.display = "block";
-        if (status == "For Approval") {
+        if (status == "Cancel Request") {
           document.getElementById("cancelButton").style.display = "block";
         } else {
           document.getElementById("cancelButton").style.display = "none";
         }
-
         document
           .getElementById("cancelButton")
           .addEventListener("click", function () {
             cancelUpcoming(booking_id);
           });
+
+        if (status == "For Approval" || status == "Upcoming") {
+          document.getElementById("approveButton").style.display = "block";
+        } else {
+          document.getElementById("approveButton").style.display = "none";
+        }
+
+        document
+          .getElementById("approveButton")
+          .addEventListener("click", function () {
+            approveBooking(booking_id);
+          });
+
+
+          
       }
 
       window.closePopup = function () {
@@ -491,6 +668,32 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
         popupContainer.style.display = "none";
         cancelConfirmationContainer.style.display = "none";
       };
+
+      //approve
+      function approveBooking(booking_id) {
+        const cancelConfirmationContainer = document.getElementById(
+          "cancelConfirmationContainer"
+        );
+        document.getElementById("cancelConfirmationContainer").innerHTML = `
+        <h3>Confirm Booking</h3>
+        <p>Are you sure you want to approve this booking?</p>
+        <form method="POST" action="">
+        <input type ="hidden" name="variable" id="variable" value="${booking_id}"> 
+        <button id="approve" name="approve" onclick="confirmBooking(${booking_id})">Yes, Approve</button>
+        </form>
+        <button style="background-color: #4CAF50; color: white;" onclick="closePopup()">No</button>
+        `;
+        var selected_booking = booking_id;
+
+        cancelConfirmationContainer.style.display = "block";
+      }
+
+      // Function to confirm the booking and update the status
+      function confirmBooking(booking_id) {
+        const cancelButton = document.getElementById("cancelButton");
+        alert("Booking Approved");
+        closePopup(); // Code to close the pop-up after canceling
+      }
 
       // Function to start the cancellation process
       function cancelUpcoming(booking_id) {
@@ -515,7 +718,7 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
       function confirmCancellation(booking_id) {
         const cancelButton = document.getElementById("cancelButton");
         alert(
-          "Please wait for cancellation approval."
+          "Upcoming activity canceled! Kindly check your registered email for the complete cancellation and refund process of your booking."
         );
         closePopup(); // Code to close the pop-up after canceling
       }
