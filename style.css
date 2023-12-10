@@ -328,6 +328,7 @@ input[type="text"].ipt-style,
   font-weight: 400;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .rgs-header {
@@ -808,12 +809,13 @@ input#file-input {
   flex-flow: column;
 }
 .main-content-feedback {
-  flex: 0 85vh;
+  flex: 0 80vh;
   width: 100%;
   padding: 3em;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #e9e8f9;
 }
 h4 span {
   font-size: 15px;
@@ -928,4 +930,42 @@ label.label.required {
 .recordtitle {
   color: #365f32;
   font-size: 30px;
+}
+
+.profilechange-container {
+  background-color: #f2f2f2;
+  padding: 2em;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column wrap;
+  gap: 1.5em;
+}
+
+.profile-header {
+  font-size: 2rem;
+  color: #365f32;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  text-align: center;
+}
+
+.form-buttons button.logoutbtn:hover {
+  background-color: #dd4b39;
+}
+
+button[type="submit"] {
+  width: auto;
+}
+
+.details-indiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.details-ctr {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
 }

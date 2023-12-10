@@ -197,7 +197,10 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
             <td>bus_number</td>
             <td>seat_number</td>
             <td>{$row['status']}</td>
-            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td> 
+            <!-- REMOVE TEMPORARILY FOR PHP 
+            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>                       
+            -->
+            <td><button onclick="displayReceipt()">View Details</button></td>
           </tr>
           "; } } ?>
         </tbody>
@@ -232,7 +235,10 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
             <td>bus_number</td>
             <td>seat_number</td>
             <td>{$row['status']}</td>
-            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>
+            <!-- REMOVE TEMPORARILY FOR PHP 
+            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>                       
+            -->
+            <td><button onclick="displayReceipt()">View Details</button></td>
           </tr>
           "; } } ?>
         </tbody>
@@ -269,7 +275,10 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
             <td>bus_number</td>
             <td>seat_number</td>
             <td>{$row['status']}</td>
-            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>
+            <!-- REMOVE TEMPORARILY FOR PHP 
+            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>                       
+            -->
+            <td><button onclick="displayReceipt()">View Details</button></td>
           </tr>
           "; } } ?>
         </tbody>
@@ -389,11 +398,13 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
         `;
 
         document.getElementById("popupContainer").style.display = "block";
+        /* REMOVE TEMPORARILY FOR PHP
         if (status == "Upcoming") {
           document.getElementById("cancelButton").style.display = "block";
         } else {
           document.getElementById("cancelButton").style.display = "none";
         }
+        */
 
         document
           .getElementById("cancelButton")
