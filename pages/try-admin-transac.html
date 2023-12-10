@@ -85,17 +85,17 @@
        /* Style for the reject confirmation container */
         #rejectConfirmationContainer {
             display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            width: 300px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            z-index: 1001;
-            text-align: center;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        width: 300px;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        z-index: 1001;
+        text-align: center;
         }
 
         #rejectConfirmationContainer h3 {
@@ -105,37 +105,50 @@
 
         #rejectConfirmationContainer button {
             background-color: #e74c3c;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .actionButton {
+        color: white;
         padding: 10px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        position: absolute;
-        bottom: 20px;
-        z-index: 1001;
-    }
+        margin-top: 10px;
+        }
+ /* Updated style for equal spaces in receipt details */
+ .details table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-    #approveButton {
-        background-color: #4CAF50;
-        color: white;
-        left: calc(50% + 70px);
-        transform: translateX(-50%);
-    }
+        .details td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-    #rejectButton {
-        background-color: #e74c3c;
-        color: white;
-        left: calc(50% - 70px);
-        transform: translateX(-50%);
-    }
+        /* Updated style for action buttons */
+        .actionButton {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            bottom: 20px;
+            z-index: 1001;
+        }
+
+        #approveButton {
+            background-color: #4CAF50;
+            color: white;
+            left: calc(50% + 70px);
+            transform: translateX(-50%);
+        }
+
+        #rejectButton {
+            background-color: #e74c3c;
+            color: white;
+            left: calc(50% - 70px);
+            transform: translateX(-50%);
+        }
 
     </style>
 
@@ -281,33 +294,45 @@
     <h3>Receipt Details</h3>
     <br>
     <div class="details">
-        <span class="question">Transaction Number:</span>
-        <span class="answer"><?php echo $tNumber ?></span>
-        <br><br>
-        <span class="question">Customer's Name:</span>
-        <span class="answer"><?php echo $name ?></span>
-        <br><br>
-        <span class="question">Contact Number:</span>
-        <span class="answer"><?php echo $number ?></span>
-        <br><br>
-        <span class="question">Pick-up Terminal:</span>
-        <span class="answer"><?php echo $pick_up ?></span>
-        <br><br>
-        <span class="question">Drop-off Destination:</span>
-        <span class="answer"><?php echo $drop_off ?></span>
-        <br><br>
-        <span class="question">Departure Date:</span>
-        <span class="answer"><?php echo $date ?></span>
-        <br><br>
-        <span class="question">Departure Time:</span>
-        <span class="answer"><?php echo $time ?></span>
-        <br><br>
-        <span class="question">Number of Passengers:</span>
-        <span class="answer"><?php echo $passenger_number ?></span>
-        <br><br>
-        <span class="question">Trip Fare:</span>
-        <span class="answer"><?php echo $tripFare ?></span>
-        <br><br>
+        <table>
+
+        </table>
+        <tr>
+            <td><span class="question">Transaction Number:</span></td>
+            <td><span class="answer"><?php echo $tNumber ?></span></td>
+        </tr>
+        <tr>
+            <td><span class="question">Customer's Name:</span></td>
+            <td><span class="answer"><??php echo $name ?></span></td>
+        </tr>
+        <tr>
+            <td><span class="question">Contact Number:</span></td>
+            <td><span class="answer"><?php echo $number ?></span></td>
+        </tr>
+        <tr>
+            <td><span class="question">Pick-up Terminal:</span></td>
+            <td><span class="answer"><?php echo $pick_up ?></span></td>
+        </tr>
+        <tr>
+            <td><span class="question">Drop-off Destination:</span></td>
+            <td><span class="answer"><?php echo $drop_off ?></span></td>
+        </tr>
+        <tr>
+            <td><span class="question">Departure Date:</span></td>
+            <td><span class="answer"><?php echo $date ?></span></td>
+        </tr>
+        <tr>
+            <td><span class="question">Departure Time:</span></td>
+            <td><span class="answer"><?php echo $time ?></span></td>
+        </tr>
+        <tr>
+            <td><span class="question">Number of Passengers:</span></td>
+            <td><span class="answer"><?php echo $passenger_number ?></span></td>
+        </tr>
+        <tr>
+            <td><span class="question">Trip Fare:</span></td>
+            <td><span class="answer"><?php echo $tripFare ?></span></td>
+        </tr>
     </div>
     <hr>
     <div id="popupContent">
