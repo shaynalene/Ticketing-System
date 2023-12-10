@@ -225,7 +225,7 @@ if (isset($_POST['cancel'])){
             <tbody>
             <?php
             include "../php/server.php";
-            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Upcoming' AND BF.user_id='$user_id' ORDER BY date";
+            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price, bus_number FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Upcoming' AND BF.user_id='$user_id' ORDER BY date";
             $result = $conn->query($sql);
             
             if ($result->num_rows > 0) {
@@ -234,10 +234,10 @@ if (isset($_POST['cancel'])){
                         <td>{$row['date']}</td>
                         <td>{$row['pick_up']}</td>
                         <td>{$row['drop_off']}</td>
-                        <td>bus_number</td>
+                        <td>{$row['bus_number']}</td>
                         <td>seat_number</td>
                         <td>{$row['status']}</td>
-                        <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>
+                        <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
                         </tr>";
                 }
             }
@@ -267,7 +267,7 @@ if (isset($_POST['cancel'])){
             <tbody>
             <?php
             include "../php/server.php";
-            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Past' OR status='CancelRequest' AND BF.user_id='$user_id' ORDER BY date";
+            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price, bus_number FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Past' OR status='CancelRequest' AND BF.user_id='$user_id' ORDER BY date";
             $result = $conn->query($sql);
             
             if ($result->num_rows > 0) {
@@ -276,10 +276,10 @@ if (isset($_POST['cancel'])){
                         <td>{$row['date']}</td>
                         <td>{$row['pick_up']}</td>
                         <td>{$row['drop_off']}</td>
-                        <td>bus_number</td>
+                        <td>{$row['bus_number']}</td>
                         <td>seat_number</td>
                         <td>{$row['status']}</td>
-                        <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}')\">View Details</button></td>
+                        <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
                         </tr>";
                 }
             }
@@ -308,36 +308,39 @@ if (isset($_POST['cancel'])){
 <!-- End of Transaction History (BODY)-------------------------------------------------------->
 
 <script>
-    function displayReceipt(booking_id, customer_name, number, pick_up, drop_off, date, time, passenger_number, status, total_price) {
+    function displayReceipt(booking_id, customer_name, number, pick_up, drop_off, date, time, passenger_number, status, total_price, bus_number) {
         document.getElementById('popupContent').innerHTML = `
             <div class="details">
             <span class="question">Transaction Number:</span>
             <span class="answer">${booking_id}</span>
-            <br><br>
+            <br>
+            <span class="question">Bus Number:</span>
+            <span class="answer">${bus_number}</span>
+            <br>
             <span class="question">Customer's Name:</span>
             <span class="answer">${customer_name}</span>
-            <br><br>
+            <br>
             <span class="question">Contact Number:</span>
             <span class="answer">${number}</span>
-            <br><br>
+            <br>
             <span class="question">Pick-up Terminal:</span>
             <span class="answer">${pick_up}</span>
-            <br><br>
+            <br>
             <span class="question">Drop-off Destination:</span>
             <span class="answer">${drop_off}</span>
-            <br><br>
+            <br>
             <span class="question">Departure Date:</span>
             <span class="answer">${date}</span>
-            <br><br>
+            <br>
             <span class="question">Departure Time:</span>
             <span class="answer">${time}</span>
-            <br><br>
+            <br>
             <span class="question">Number of Passengers:</span>
             <span class="answer">${passenger_number}</span>
-            <br><br>
+            <br>
             <span class="question">Trip Fare:</span>
             <span class="answer">${total_price}</span>
-            <br><br>
+            <br>
         </div>
         <hr>
         `;

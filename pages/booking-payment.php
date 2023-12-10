@@ -7,9 +7,9 @@ $email = $_SESSION['email'];
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
 $name = $firstname . ' ' . ' ' . $lastname;
-$pick_up = $_SESSION['pick-up'];
-$drop_off = $_SESSION['drop-off'];
-$passenger_number = $_SESSION['passenger-count'];
+//$pick_up = $_SESSION['pick-up'];
+//$drop_off = $_SESSION['drop-off'];
+//$passenger_number = $_SESSION['passenger-count'];
 $username = $_SESSION['username'];
 $total_price = $_SESSION['total_price'];
 
