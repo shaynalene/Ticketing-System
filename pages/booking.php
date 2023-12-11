@@ -63,6 +63,23 @@ if (isset($_POST['confirm'])){
       type="image/jpg"
       href="../img/bts-logo.png"
     />
+
+
+    <style>
+#next{
+  padding: 5px;
+  width: 100%;
+}
+
+#confirmBTN{
+  padding: 5px;
+  width: 100%;
+  background-color: #4caf50;
+}
+
+
+    </style>
+
   </head>
   <body class="pages-flex-feedback">
     <!-- NAVIGATION BAR -->

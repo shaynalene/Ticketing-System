@@ -118,6 +118,36 @@ if (isset($_POST['remove'])){
       type="image/jpg"
       href="../img/bts-logo.png"
     />
+    <style>
+      .detail-value input[type="number"]{
+        width:auto;
+        padding: 0.5em;
+      }
+      input[type="number"], select {
+        width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+      }
+      .detail-value input[type="date"]{
+        width:auto;
+      }
+      input[type="date"], select {
+        width: 100%;
+    padding: 9px 23px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+      }
+      button[type="submit"].addRecordBtn{
+        width: 100%;      
+      }
+    </style>
   </head>
   <body class="pages-flex-feedback">
     <!-- NAVIGATION BAR -->

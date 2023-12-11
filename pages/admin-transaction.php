@@ -18,14 +18,19 @@ $user_id = $_SESSION["user_id"];
 
 //cancel button is clicked
 if (isset($_POST['cancel'])){
-    $status = "Booking Cancelled";
-
+    $bus_number = $_POST["bus_number"];
     $selected_booking = $_POST["variable"];
-
+    $seat_status = "vacant";
+    $booking = "";
+    $status = "Booking Cancelled";
     $sql = "UPDATE booking_form SET status=? WHERE booking_id = ?";
-    $stmt = $conn->prepare($sql); $stmt->bind_param('si', $status, $selected_booking); 
+    $stmt = $conn->prepare($sql); 
+    $stmt->bind_param('si', $status, $selected_booking); 
     $stmt->execute(); 
-    $stmt->close(); 
+    
+    $sql = "UPDATE seat_reservation SET status= '$seat_status', booking_id = '$booking' WHERE booking_id = $selected_booking AND bus_no = $bus_number";
+    $conn->query($sql);
+    
 
     //GENERATE EMAIL
     include "../php/generate-email.php";
@@ -45,9 +50,30 @@ if (isset($_POST['cancel'])){
       $mail->addAddress($email, $name);     
       
       // EMAIL CONTENTS
+      //BOOKING CANCELLED EMAIL
       $mail->isHTML(true);                                
-      $mail->Subject = 'Booking Cancelled';
-      $mail->Body    = 'Hi, ' . $firstname . " " . $lastname . '. ' . 'Your booking has been cancelled.';
+      $mail->Subject = 'Booking Cancellation and Refund Process';
+      $mail->Body    = 'Dear Customer,' . '<br>' .
+
+      'I trust this email finds you well. We are writing to confirm the cancellation of your recent booking with us. We understand that circumstances can change, and we appreciate your prompt communication regarding the cancellation.'
+      . '<br>' .
+      'As part of our cancellation process, we are initiating the refund for your booking. However, please note that a cancellation fee has been applied to your refund amount in accordance with our terms and conditions. The deduction is made to cover administrative and processing costs associated with cancellations.'
+      . '<br>' .
+      'To ensure the swift processing of your refund, we kindly request you to provide us with your bank account details. Please share the following information at your earliest convenience:' . '<br>'.
+
+        '1. Account Holder Name:
+        2. Bank Name:
+        3. Account Number:
+        4. Routing Number (if applicable):
+        5. Swift Code (for international transactions):' . '<br>'.
+        
+        'Your refund amount, after deducting the cancellation fee, will be promptly processed upon receiving the necessary information.' . '<br>'.
+        
+        'You can reply directly to this email with the required details. If you have any questions or concerns, feel free to reach out to our customer support team at 888-888-888.' . '<br>' .
+        'We understand that cancellations can be inconvenient, and we appreciate your understanding of our cancellation policy. Thank you for choosing our services, and we hope to have the opportunity to serve you again in the future.'
+. '<br>' .
+'Best regards,
+BTS TEAM';
       $mail->addAttachment('../img/bts-logo.png', 'ticket.png');
       $mail->send();
     }
@@ -111,9 +137,13 @@ if ($result->num_rows > 0) {
       $mail->addAddress($email, $name);     
       
       // EMAIL CONTENTS
+      //BOOKING APPROVED EMAIL
       $mail->isHTML(true);                                
       $mail->Subject = 'Booking Approved';
-      $mail->Body    = 'Hi, ' . $firstname . " " . $lastname . '. ' . 'Your booking has been approved. View your ticket bellow.' .  '<br>' .  '<br>' . 'Thank you for trusting BTS!';
+      $mail->Body    = 'Hi, ' . $firstname . " " . $lastname . '. ' 
+                      . 'Your booking has been approved. View your ticket in the transactions page.' 
+                      .  '<br>' .  '<br>' 
+                      . 'Thank you for trusting BTS!';
       $mail->addAttachment('../img/bts-logo.png', 'ticket.png');
       $mail->send();
     }
@@ -492,14 +522,11 @@ if ($result->num_rows > 0) {
                 passenger_number,
                 BF.status,
                 total_price,
-                bus_number,
-                bus_seat
+                bus_number
             FROM
                 booking_form BF
             INNER JOIN
                 user_accounts UA ON BF.user_id = UA.user_id
-            INNER JOIN
-                seat_reservation SR ON BF.booking_id = SR.booking_id
             WHERE
                 (BF.status = 'Booking Cancelled' OR BF.status = 'Booking Approved')
             GROUP BY
@@ -661,7 +688,7 @@ if ($result->num_rows > 0) {
         document
           .getElementById("cancelButton")
           .addEventListener("click", function () {
-            cancelUpcoming(booking_id);
+            cancelUpcoming(booking_id, bus_number);
           });
 
         if (status == "For Approval" || status == "Upcoming") {
@@ -709,14 +736,14 @@ if ($result->num_rows > 0) {
       }
 
       // Function to confirm the booking and update the status
-      function confirmBooking(booking_id) {
+      function confirmBooking(booking_id, bus_number) {
         const cancelButton = document.getElementById("cancelButton");
         alert("Booking Approved");
         closePopup(); // Code to close the pop-up after canceling
       }
 
       // Function to start the cancellation process
-      function cancelUpcoming(booking_id) {
+      function cancelUpcoming(booking_id, bus_number) {
         const cancelConfirmationContainer = document.getElementById(
           "cancelConfirmationContainer"
         );
@@ -725,6 +752,7 @@ if ($result->num_rows > 0) {
         <p>Are you sure you want to cancel this booking?</p>
         <form method="POST" action="">
         <input type ="hidden" name="variable" id="variable" value="${booking_id}"> 
+        <input type ="hidden" name="bus_number" id="bus_number" value="${bus_number}"> 
         <button id="cancel" name="cancel" onclick="confirmCancellation(${booking_id})">Yes, Cancel</button>
         </form>
         <button style="background-color: #4CAF50; color: white;" onclick="closePopup()">No, Keep Booking</button>

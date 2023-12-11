@@ -17,6 +17,41 @@ $number = $_SESSION['number'];
 
 //replace the data in the database
 if (isset($_POST['save'])){
+
+  //GENERATE EMAIL
+  include "../php/generate-email.php";
+  try {
+    // Server settings
+    $mail->SMTPDebug = 0;                      
+    $mail->isSMTP();                                            
+    $mail->Host       = 'smtp.gmail.com';                    
+    $mail->SMTPAuth   = true;                              
+    $mail->Username   = 'bus.ticketing.system.co@gmail.com';                    
+    $mail->Password   = 'obiy hpfs bkhy achs';                           
+    $mail->SMTPSecure = 'tls';         
+    $mail->Port       = 587;                                    
+    
+    // EMAIL DETAILS
+    $mail->setFrom('bus.ticketing.system.co@gmail.com', 'Bus Ticketing System Co');
+    $mail->addAddress($email, $name);     
+    
+    // EMAIL CONTENTS
+    //BOOKING CANCELLED EMAIL
+    $mail->isHTML(true);                                
+    $mail->Subject = 'Account Detail Changes';
+    $mail->Body    = 'Dear Customer,' 
+    . '<br>' .
+    'We have noticed that you made changes from your account details. If this was you, you can safely ignore this email. Should you encounter any problems in accessing your account, please reach out through our email or social media. Thank you for choosing our services.'
+    . '<br>' .
+    'Best regards,' 
+    . '<br>' .
+    'BTS TEAM';
+    $mail->addAttachment('../img/bts-logo.png', 'ticket.png');
+    $mail->send();
+  }
+  catch (Exception $e) {}
+
+  //update 
   $newusername = $_POST["username"];
   $newfirstname = $_POST["firstname"];
   $newlastname = $_POST["lastname"];
@@ -39,7 +74,7 @@ if (isset($_POST['save'])){
   $_SESSION['number'] = $newnumber;
   $_SESSION['email'] = $newemail;
   $_SESSION['password'] = $newpassword;
-  header("Location: profile-page2.php");
+  header("Location: profile-page.php");
   $conn->close();
   exit();
 }

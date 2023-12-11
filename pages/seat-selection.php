@@ -59,6 +59,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
       href="../img/bts-logo.png"
     />
     <style>
+      .title-header{
+        color:#365f32;
+      }
     .seatButton {
       width: 100px;
       height: 40px;
@@ -79,6 +82,77 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
       background-color: red;
       color: white;
     }
+    .main-content-seat{
+  flex: 0 80vh;
+  width: 100%;
+  padding: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e9e8f9;
+  flex-flow: column;
+  gap: 1em;
+}
+.button-ctr-seat{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+}
+
+.seat-btn{
+  background-color: #e5cc77;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  
+}
+.main-seat-ctr{
+  display:flex;
+  gap:2em;
+}
+.main-seat-ctr-2{
+  display:flex;
+  flex-flow:column;
+  gap:2em;
+}
+.main-legend-ctr{
+  display:flex;
+  flex-flow:column;
+  gap:2em;
+}
+.main-legend-ctr{
+  display:flex;
+  flex-flow:column;
+  gap:2em;
+}
+.color-box {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px; 
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+}
+#green-btn{
+  background-color: #4caf50;
+}
+
+.seat-design{
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap:1em;
+}
+.seat-design-2{
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap:1em;
+}
   </style>
   </head>
   <script>
@@ -132,12 +206,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
     </div>
 
     <!-- SEAT SELECTION -->
+    <div class="main-content-seat">
+      <div class="title-header">SEAT SELECTION</div><br>
     <!--<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <button type="submit" name="reset">RESET IN DATABASE</button>
     </form>-->
-    <button onclick="resetSeats()">UNSELECT</button>
-    <button onclick="confirm()" name="confirm">CONFIRM</button>
+<!-- Legend -->
+<div class="main-seat-ctr">
+  <!--
+<div class="legend">
+    <h3>Legend:</h3>
+    <!-- Window Seats
+    <div class="legend-item">
+        <div class="color-box" style="background-color: rgb(194, 144, 194);"></div>
+        <h4>Window Seats</h4>
+    </div>
+    <!-- Front Seats
+    <div class="legend-item">
+        <div class="color-box" style="background-color: yellow;"></div>
+        <h4>Front Seats</h4>
+    </div>
+    <!-- Back Seats
+    <div class="legend-item">
+        <div class="color-box" style="background-color: rgb(78, 146, 255);"></div>
+        <h4>Back Seats</h4>
+    </div>
+    <!-- Aisle (Not Available) 
+    <div class="legend-item">
+        <div class="color-box" style="background-color: black;"></div>
+        <h4>Aisle (Not Available)</h4>
+    </div>
+    <br><br>
+    <hr><br>
+    <!-- Insert backend code here (bus number and bus seat based from the booking form) -->
+    <h4>Available Seat(s) from Bus # </h4><br>
+    <h4><?php echo $_SESSION['passenger_count'];?></h4><br>
+    <hr><br>
+    <h4>Number of Seats to select: </h4><br>
+    <h4><?php echo $bus_number?></h4><br>
 
+    <br><br>
+    
+</div>
+<div class="main-seat-ctr-2">
+  <div class="seat-design">
+  <div class="">WINDOW</div>
+  <div class="seat-design-2">
+  <div class="">-------------------- FRONT --------------------</div>
     <table border="1">
         <?php
         //$passenger_number = $_SESSION['passenger_count'];
@@ -165,6 +280,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
         }
         ?>
     </table>
+    <div class="">-------------------- BACK --------------------</div>
+    </div>
+    <div class="">WINDOW</div>
+    </div>
+    <div class ="button-ctr-seat">
+    <button onclick="resetSeats()" class="seat-btn">UNSELECT</button>
+    <button onclick="confirm()" name="confirm" class="seat-btn"  id="green-btn">CONFIRM</button>
+    </div>
+    </div>
+    </div>
+
+    </div>
 
     <!-- FOOTER -->
     <div class="footer">
