@@ -22,9 +22,10 @@ if (isset($_POST['cancel'])){
 
     $selected_booking = $_POST["variable"];
 
-    $sql = "UPDATE booking_form SET status=? WHERE user_id = ? AND booking_id = ?";
-    $stmt = $conn->prepare($sql); $stmt->bind_param('sii', $status, $user_id,
-    $selected_booking); $stmt->execute(); $stmt->close(); 
+    $sql = "UPDATE booking_form SET status=? WHERE booking_id = ?";
+    $stmt = $conn->prepare($sql); $stmt->bind_param('si', $status, $selected_booking); 
+    $stmt->execute(); 
+    $stmt->close(); 
 
     //GENERATE EMAIL
     include "../php/generate-email.php";
@@ -61,9 +62,37 @@ if (isset($_POST['approve'])){
 
     $selected_booking = $_POST["variable"];
 
-    $sql = "UPDATE booking_form SET status=? WHERE user_id = ? AND booking_id = ?";
-    $stmt = $conn->prepare($sql); $stmt->bind_param('sii', $status, $user_id,
-    $selected_booking); $stmt->execute(); $stmt->close(); 
+    $sql = "UPDATE booking_form SET status=? WHERE  booking_id = ?";
+    $stmt = $conn->prepare($sql); $stmt->bind_param('si', $status, $selected_booking);
+    $stmt->execute(); 
+    $stmt->close(); 
+
+    //seats
+$stmt = $conn->prepare("SELECT * FROM seat_reservation WHERE bus_no=? AND booking_id =?");
+$stmt->bind_param("ii", $bus_number, $selected_booking);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    // Fetch the row from the result
+    $row = $result->fetch_assoc();
+
+    // Check if "bus_seat" is set and is a string
+    if (isset($row["bus_seat"]) && is_string($row["bus_seat"])) {
+        $bus_seat_length = strlen($row["bus_seat"]);
+
+        for ($i = 0; $i < $bus_seat_length; $i++) {
+            ${'seat_' . ($i + 1)} = $row["bus_seat"][$i];
+        }
+
+        for ($i = 0; $i < $bus_seat_length; $i++) {
+            echo ${'seat_' . ($i + 1)};
+        }
+    }
+}
+
+
+    
     //GENERATE EMAIL
     include "../php/generate-email.php";
     try {
@@ -229,13 +258,13 @@ if (isset($_POST['approve'])){
           <label for="close-btn" class="navbtn close-btn"
             ><i class="fa fa-times"></i
           ></label>
-          <li><a href="../index.php">HOME</a></li>
-          <li><a href="../pages/booking.php">BOOKING</a></li>
-          <li><a href="transaction.php" id="active-page">TRANSACTIONS</a></li>
-          <li><a href="about-us.html">ABOUT US</a></li>
-          <li><a href="#">FEEDBACK</a></li>
+          <li><a href="../pages/admin-landing-page.php">HOME</a></li>
+          <!--<li><a href="../pages/booking.php">BOOKING</a></li>-->
+          <li><a href="" id="active-page">TRANSACTIONS</a></li>
+          <li><a href="../pages/admin-useraccounts.php">USERS</a></li>
+          <li><a href="../pages/admin-feedback.html">FEEDBACK</a></li>
           <div class="login">
-            <a href="profile-page2.php" id="login-button">Account</a>
+            <a href="profile-page.php" id="login-button">Account</a>
           </div>
         </ul>
         <label for="menu-btn" class="navbtn menu-btn"
@@ -296,7 +325,7 @@ if (isset($_POST['approve'])){
             <th>Pick up</th>
             <th>Destination</th>
             <th>Bus #</th>
-            <th>Seat #</th>
+            <th>Passenger #</th>
             <th>Proof of Payment</th>
             <th>Status</th>
             <th>View Details</th>
@@ -332,12 +361,9 @@ if (isset($_POST['approve'])){
                 payment_proof PP ON reference_no = reference_number
             WHERE
                 (BF.status = 'For Approval')
-                AND BF.user_id = '$user_id'
-                AND BF.booking_id = SR.booking_id
             GROUP BY
                 BF.booking_id,
-                BF.user_id,
-                bus_seat 
+                BF.user_id
             ORDER BY
                 status,
                 date;
@@ -351,7 +377,7 @@ if (isset($_POST['approve'])){
                         <td>{$row['pick_up']}</td>
                         <td>{$row['drop_off']}</td>
                         <td>{$row['bus_number']}</td>
-                        <td>{$row['bus_seat']}</td>
+                        <td>{$row['passenger_number']}</td>
                         <td>{$row['image']}</td>
                         <td>{$row['status']}</td>
                         <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
@@ -377,7 +403,7 @@ if (isset($_POST['approve'])){
             <th>Pick up</th>
             <th>Destination</th>
             <th>Bus #</th>
-            <th>Seat #</th>
+            <th>Passenger #</th>
             <th>Status</th>
             <th>View Details</th>
           </tr>
@@ -408,12 +434,9 @@ if (isset($_POST['approve'])){
                 seat_reservation SR ON BF.booking_id = SR.booking_id
             WHERE
                 (BF.status = 'Cancel Request')
-                AND BF.user_id = '$user_id'
-                AND BF.booking_id = SR.booking_id
             GROUP BY
                 BF.booking_id,
-                BF.user_id,
-                bus_seat 
+                BF.user_id
             ORDER BY
                 status,
                 date;
@@ -427,7 +450,7 @@ if (isset($_POST['approve'])){
                       <td>{$row['pick_up']}</td>
                       <td>{$row['drop_off']}</td>
                       <td>{$row['bus_number']}</td>
-                      <td>{$row['bus_seat']}</td>
+                      <td>{$row['passenger_number']}</td>
                       <td>{$row['status']}</td>
                       <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
                       </tr>";
@@ -448,7 +471,7 @@ if (isset($_POST['approve'])){
             <th>Pick up</th>
             <th>Destination</th>
             <th>Bus #</th>
-            <th>Seat #</th>
+            <th>Passenger #</th>
             <th>Status</th>
             <th>View Details</th>
           </tr>
@@ -479,12 +502,9 @@ if (isset($_POST['approve'])){
                 seat_reservation SR ON BF.booking_id = SR.booking_id
             WHERE
                 (BF.status = 'Booking Cancelled' OR BF.status = 'Booking Approved')
-                AND BF.user_id = '$user_id'
-                AND BF.booking_id = SR.booking_id
             GROUP BY
                 BF.booking_id,
-                BF.user_id,
-                bus_seat 
+                BF.user_id
             ORDER BY
                 status,
                 date;
@@ -498,7 +518,7 @@ if (isset($_POST['approve'])){
                       <td>{$row['pick_up']}</td>
                       <td>{$row['drop_off']}</td>
                       <td>{$row['bus_number']}</td>
-                      <td>{$row['bus_seat']}</td>
+                      <td>{$row['passenger_number']}</td>
                       <td>{$row['status']}</td>
                       <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
                       </tr>";

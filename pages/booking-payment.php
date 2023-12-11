@@ -153,12 +153,12 @@ $result = $stmt->get_result();
       <ul class="nav-links">
         <label for="close-btn" class="navbtn close-btn"><i class="fa fa-times"></i></label>
         <li><a href="../index.php">HOME</a></li>
-        <li><a href="booking-payment.php" id="active-page">BOOKING</a></li>
-        <li><a href="../pages/transaction.php">TRANSACTIONS</a></li>
+        <li><a href="" id="active-page">BOOKING</a></li>
+        <li><a href="../pages/user-transaction.php">TRANSACTIONS</a></li>
         <li><a href="../pages/about-us.html">ABOUT US</a></li>
-        <li><a href="#">FEEDBACK</a></li>
+        <li><a href="../pages/user-feedback.html">FEEDBACK</a></li>
         <div class="login">
-          <a href="../pages/profile-page2.php" id="login-button">Account</a>
+          <a href="../pages/profile-page.php" id="login-button">Account</a>
         </div>
       </ul>
       <label for="menu-btn" class="navbtn menu-btn"><i class="fa fa-bars"></i></label>

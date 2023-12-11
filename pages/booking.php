@@ -32,6 +32,7 @@ if (isset($_POST['confirm'])){
 
     $_SESSION['total_price'] = $total_price;
     $_SESSION['passenger_count'] = $passenger_number;
+    $_SESSION['bus_number'] = $bus_number;
   
     $sql = "INSERT INTO booking_form (user_id, bus_number, pick_up, drop_off, date, time, passenger_number, status, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
@@ -83,23 +84,23 @@ if (isset($_POST['confirm'])){
               ><i class="fa fa-times"></i
             ></label>
             <li>
-              <a href="index.php">HOME</a>
+              <a href="../index.php">HOME</a>
             </li>
             <li>
-              <a href="../pages/booking-form1.php" id="active-page">BOOKING</a>
+              <a href="../pages/booking.php" id="active-page">BOOKING</a>
             </li>
             <li>
-              <a href="#">TRANSACTIONS</a>
+              <a href="../pages/user-transaction.php">TRANSACTIONS</a>
             </li>
             <li>
-              <a href="../pages/useraccounts.html">USERS</a>
+              <a href="../pages/about-us.html">ABOUT US</a>
             </li>
-            <li><a href="#">FEEDBACK</a></li>
+            <li><a href="../pages/user-feedback.html">FEEDBACK</a></li>
             <div class="login">
               <a
                 href="../pages/profile-page.php"
                 id="login-button"
-                >Your Account</a
+                >Account</a
               >
             </div>
           </ul>
@@ -127,7 +128,6 @@ if (isset($_POST['confirm'])){
               <th>PRICE</th>
               <th>BUS NO.</th>
               <th>TRAVEL DATE</th>
-              <th>-</th>
               <th>BOOK</th>
             </tr>
           </thead>
@@ -144,7 +144,6 @@ if (isset($_POST['confirm'])){
                         <td>{$row['price']}</td>
                         <td>{$row['bus_number']}</td>
                         <td>{$row['date']}</td>
-                        <td>{$row['schedule_id']}</td>
                         <td><button id='modifyButton' class='editButtonLP' name='book' onclick=\"booking('{$row['schedule_id']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['price']}', '{$row['bus_number']}', '{$row['date']}')\">Book</button></td>
                     </tr>";
                 }

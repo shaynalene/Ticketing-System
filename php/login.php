@@ -104,7 +104,7 @@ if (isset($_POST['login'])){
             $_SESSION['email'] = $row["email"];
 
             if($row["user_type"] === "admin"){
-                header("Location: ../pages/landingpageadmin.php");
+                header("Location: ../pages/admin-landing-page.php");
             }
             else{
                 header("Location: ../index.php");

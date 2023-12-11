@@ -1,8 +1,8 @@
 <?php
 
-$servername = "bts.mysql.database.azure.com";
-$username = "busticketingsystem";
-$password = "Adminako123!";
+$servername = "127.0.0.1";
+$username = "root";
+$password = "";
 $dbname = "ticket_system";
 
 // Create connection

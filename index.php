@@ -46,15 +46,15 @@ include "../Ticketing-System/php/server.php";
               <a href="../Ticketing-System/pages/booking.php">BOOKING</a>
             </li>
             <li>
-              <a href="../Ticketing-System/pages/transaction.php">TRANSACTIONS</a>
+              <a href="../Ticketing-System/pages/user-transaction.php">TRANSACTIONS</a>
             </li>
             <li>
               <a href="../Ticketing-System/pages/about-us.html">ABOUT US</a>
             </li>
-            <li><a href="../Ticketing-System/pages/feedback-user.html">FEEDBACK</a></li>
+            <li><a href="../Ticketing-System/pages/user-feedback.html">FEEDBACK</a></li>
             <div class="login">
               <a
-                href="../Ticketing-System/pages/profile-page2.php"
+                href="../Ticketing-System/pages/profile-page.php"
                 id="login-button"
                 >Account</a
               >
@@ -85,8 +85,6 @@ include "../Ticketing-System/php/server.php";
               <th>PRICE</th>
               <th>BUS NO.</th>
               <th>TRAVEL DATE</th>
-              <th>TRAVEL TIME</th>
-              <th>STATUS</th>
             </tr>
           </thead>
           <tbody>
@@ -102,8 +100,6 @@ include "../Ticketing-System/php/server.php";
                         <td>{$row['price']}</td>
                         <td>{$row['bus_number']}</td>
                         <td>{$row['date']}</td>
-                        <td>{$row['time']}</td>
-                        <td><button id=\"modifyButton\" class=\"editButtonLP\">Book</button></td>
                         </tr>";
                 }
             }

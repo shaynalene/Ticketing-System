@@ -19,7 +19,8 @@ if (empty($_SESSION["user_id"])) {
     $stmt->close();*/
 
 // Fetch seat statuses from the database
-$sql = "SELECT bus_seat, status FROM seat_reservation";
+$bus_number = $_SESSION['bus_number'];
+$sql = "SELECT bus_seat, status FROM seat_reservation WHERE bus_no = $bus_number";
 $result = $conn->query($sql);
 
 // Create an associative array to store seat statuses
@@ -103,18 +104,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
               ><i class="fa fa-times"></i
             ></label>
             <li>
-              <a href="index.php" id="active-page">HOME</a>
+              <a href="../index.php" id="active-page">HOME</a>
             </li>
             <li>
-              <a href="../pages/booking-form1.php">BOOKING</a>
+              <a href="../pages/booking.php">BOOKING</a>
             </li>
             <li>
-              <a href="#">TRANSACTIONS</a>
+              <a href="../pages/user-transaction.php">TRANSACTIONS</a>
             </li>
             <li>
-              <a href="../pages/useraccounts.html">USERS</a>
+              <a href="../pages/about-us.html">ABOUT US</a>
             </li>
-            <li><a href="#">FEEDBACK</a></li>
+            <li><a href="../pages/user-feedback.html">FEEDBACK</a></li>
             <div class="login">
               <a
                 href="../pages/profile-page.php"
@@ -152,7 +153,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
                 $buttonClass = 'seatButton';
 
                 // Check if the seat is reserved
-                if (isset($seatStatuses[$seatId]) && $seatStatuses[$seatId] === 'reserved') {
+                $bus_number = $_SESSION['bus_number'];
+                if (isset($seatStatuses[$seatId]) &&  $seatStatuses[$seatId] === 'reserved') {
                     $buttonClass = 'reserved';
                 }
 
