@@ -47,7 +47,6 @@ function addRecord() {
   //updateLastEditDate();
 }
 
-
 function booking(schedule_id, pick_up, drop_off, price, bus_number, date) {
   //alert('success');
   document.getElementById("addpopupContent").innerHTML = `
@@ -108,16 +107,34 @@ function booking(schedule_id, pick_up, drop_off, price, bus_number, date) {
     </form>
   `;
 
-  document.getElementById("next").onclick = function() {
+  document.getElementById("next").onclick = function () {
     var departureTime = document.getElementById("departure-time").value;
     var passengerCount = document.getElementById("passenger-count").value;
-    displayBooking(schedule_id, pick_up, drop_off, price, bus_number, date, departureTime, passengerCount);
+    displayBooking(
+      schedule_id,
+      pick_up,
+      drop_off,
+      price,
+      bus_number,
+      date,
+      departureTime,
+      passengerCount
+    );
   };
 
   document.getElementById("addpopupContainer").style.display = "block";
 }
 
-function displayBooking(schedule_id, pick_up, drop_off, price, bus_number, date, departure_time, passenger_count) {
+function displayBooking(
+  schedule_id,
+  pick_up,
+  drop_off,
+  price,
+  bus_number,
+  date,
+  departure_time,
+  passenger_count
+) {
   document.getElementById("addpopupContent").innerHTML = `
     <form method="POST" action="">
       <input type="hidden" name="schedule_id" id="schedule_id" value="${schedule_id}">
@@ -161,8 +178,15 @@ function displayBooking(schedule_id, pick_up, drop_off, price, bus_number, date,
   document.getElementById("addpopupContainer").style.display = "block";
 }
 
-
-function displayRecord(schedule_id, pick_up, drop_off, price, bus_number, date, time) {
+function displayRecord(
+  schedule_id,
+  pick_up,
+  drop_off,
+  price,
+  bus_number,
+  date,
+  time
+) {
   document.getElementById("editpopupContent").innerHTML = `
   <form method="POST" action="">
     <input type ="hidden" name="schedule_id" id="schedule_id" value="${schedule_id}">
@@ -222,7 +246,16 @@ window.closePopup = function () {
 
 /* START USER ACCOUNTS PAGE */
 
-function displayUserAccount(user_id, user_type, username, firstname, lastname, number, email, account_status) {
+function displayUserAccount(
+  user_id,
+  user_type,
+  username,
+  firstname,
+  lastname,
+  number,
+  email,
+  account_status
+) {
   document.getElementById("editpopupContent").innerHTML = `
   <form method="POST" action="">
     <input type ="hidden" name="user_type" id="user_type" value="${user_type}">
@@ -326,6 +359,59 @@ function timeStamp() {
   return date.join("/") + ", " + time.join(":") + " " + suffix;
 }
 
+/* STAR RATING
+
+var currentRating = 0; // Default rating
+
+// Event listener for star clicks
+document
+  .getElementById("star-rating")
+  .addEventListener("click", function (event) {
+    if (event.target.classList.contains("star")) {
+      currentRating = parseInt(event.target.getAttribute("data-rating"));
+      highlightStars(currentRating);
+    }
+  });
+
+function highlightStars(rating) {
+  // Highlight stars up to the selected rating
+  var stars = document.querySelectorAll(".star");
+  stars.forEach(function (star) {
+    var starRating = parseInt(star.getAttribute("data-rating"));
+    star.classList.toggle("selected", starRating <= rating);
+  });
+}
+
+*/
+
+var badWords = ["badword1", "badword2", "badword3", "wtf"];
+
+function filterBadWords(comment) {
+  // Convert the comment to lowercase for case-insensitive matching
+  var lowerComment = comment.toLowerCase();
+
+  // Check if the comment contains any bad words
+  var containsBadWord = badWords.some(function (word) {
+    return lowerComment.includes(word);
+  });
+
+  if (containsBadWord) {
+    // Modify the comment or reject it based on your requirements
+    alert(
+      "This comment contains inappropriate content. Your comment will automatically be filtered and may be subjected for deletion."
+    );
+  }
+
+  // Replace bad words with asterisks
+  badWords.forEach(function (word) {
+    var regex = new RegExp("\\b" + word + "\\b", "ig");
+    comment = comment.replace(regex, "*".repeat(word.length));
+  });
+
+  // If no bad words found, return the original comment
+  return comment;
+}
+
 function postComment(event) {
   var submitBtn = document.getElementById("submit-btn");
 
@@ -342,15 +428,31 @@ function postComment(event) {
   if (name && comment) {
     var mediaData = null;
 
+    comment = filterBadWords(comment); // filters comments
+
     if (file) {
       var reader = new FileReader();
       reader.onloadend = function () {
         mediaData = reader.result;
-        saveCommentToDatabase(name, comment, email, time, mediaData);
+        saveCommentToDatabase(
+          name,
+          comment,
+          email,
+          time,
+          mediaData
+          //currentRating
+        );
       };
       reader.readAsDataURL(file);
     } else {
-      saveCommentToDatabase(name, comment, email, time, mediaData);
+      saveCommentToDatabase(
+        name,
+        comment,
+        email,
+        time,
+        mediaData
+        //currentRating
+      );
     }
 
     clearFormFields(); // Clear form fields after successful submission
@@ -369,20 +471,21 @@ function clearFormFields() {
 }
 
 function saveCommentToDatabase(name, comment, email, time, mediaData) {
-  console.log("saving to database comment...");
-  // Save the data to the database
+  //rating) {
+  // Save the data to the database, including the rating
   var newCommentRef = ref.push({
     name: name,
     comment: comment,
     time: time,
     email: email,
     mediaData: mediaData,
+    //rating: rating,
   });
 
   // Retrieve the key after the comment is added
   var commentKey = newCommentRef.key;
 
-  // Display the comment
+  // Display the comment and rating
   addComment(commentKey, name, email, comment, time, mediaData);
 }
 
@@ -398,11 +501,20 @@ ref.once("value").then(function (snapshot) {
       comment.comment,
       comment.time,
       comment.mediaData
+      //comment.rating
     );
   });
 });
 
-function addComment(commentKey, name, email, comment, timeStamp, mediaData) {
+function addComment(
+  commentKey,
+  name,
+  email,
+  comment,
+  timeStamp,
+  mediaData
+  //rating
+) {
   var comments = document.getElementById("comments");
   var newComment = document.createElement("div");
 
@@ -413,6 +525,7 @@ function addComment(commentKey, name, email, comment, timeStamp, mediaData) {
     timeStamp +
     "</span></h4><p>" +
     comment +
+    //rating;
     "</p>";
 
   // Display the image or video based on the mediaData

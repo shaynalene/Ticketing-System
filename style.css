@@ -969,3 +969,20 @@ button[type="submit"] {
   flex-direction: column;
   gap: 1.5em;
 }
+
+button#submit-btn {
+  width: 100%;
+}
+
+.star {
+  color: #365f32;
+  font-size: 30px;
+}
+
+.star.selected {
+  color: #d1a000;
+}
+
+#star-rating {
+  margin: 15px 0px;
+}
