@@ -163,11 +163,11 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
           ></label>
           <li><a href="../index.php">HOME</a></li>
           <li><a href="../pages/booking.php">BOOKING</a></li>
-          <li><a href="transaction.php" id="active-page">TRANSACTIONS</a></li>
-          <li><a href="about-us.html">ABOUT US</a></li>
-          <li><a href="#">FEEDBACK</a></li>
+          <li><a href="" id="active-page">TRANSACTIONS</a></li>
+          <li><a href="../pages/about-us.html">ABOUT US</a></li>
+          <li><a href="../pages/user-feedback.html">FEEDBACK</a></li>
           <div class="login">
-            <a href="profile-page2.php" id="login-button">Account</a>
+            <a href="profile-page.php" id="login-button">Account</a>
           </div>
         </ul>
         <label for="menu-btn" class="navbtn menu-btn"
@@ -263,8 +263,7 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
                 AND BF.booking_id = SR.booking_id
             GROUP BY
                 BF.booking_id,
-                BF.user_id,
-                bus_seat 
+                BF.user_id
             ORDER BY
                 status,
                 date;
@@ -295,7 +294,7 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
 
     <!-- PAST ACTIVITY TABLE -->
     <div class="container">
-      <h3 style="color: #365f32">PAST ACTIVITY</h3>
+      <h3 style="color: #365f32">CONFIRMED BOOKINGS</h3>
       <table id="pastTable">
         <thead>
           <tr>
@@ -338,8 +337,7 @@ $selected_booking); $stmt->execute(); $stmt->close(); } ?>
               AND BF.booking_id = SR.booking_id
           GROUP BY
               BF.booking_id,
-              BF.user_id,
-              bus_seat 
+              BF.user_id
           ORDER BY
               status,
               date;

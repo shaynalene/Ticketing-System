@@ -76,21 +76,21 @@ if (isset($_POST['remove'])){
               ><i class="fa fa-times"></i
             ></label>
             <li>
-              <a href="index.php">HOME</a>
+              <a href="../pages/admin-landing-page.php">HOME</a>
+            </li>
+            <!--<li>
+              <a href="../pages/booking.php">BOOKING</a>
+            </li>-->
+            <li>
+              <a href="../pages/admin-transaction.php">TRANSACTIONS</a>
             </li>
             <li>
-              <a href="../Ticketing-System/pages/booking-form1.php">BOOKING</a>
+            <a href="../pages/admin-useraccounts.php">USERS</a>
             </li>
-            <li>
-              <a href="#">TRANSACTIONS</a>
-            </li>
-            <li>
-              <a href="../Ticketing-System/pages/about-us.html">ABOUT US</a>
-            </li>
-            <li><a href="#">FEEDBACK</a></li>
+            <li><a href="../pages/admin-feedback.html">FEEDBACK</a></li>
             <div class="login">
               <a
-                href="../Ticketing-System/pages/profile-page.php"
+                href="../pages/profile-page.php"
                 id="login-button"
                 >Your Account</a
               >

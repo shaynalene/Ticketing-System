@@ -27,9 +27,45 @@ if (isset($_POST['save'])){
 
   $sql = "INSERT INTO bus_schedule (pick_up, drop_off, price, bus_number, date/*, time*/) VALUES (?, ?, ?, ?, ?/*, ?*/)";
   $stmt = $conn->prepare($sql);
-$stmt->bind_param('ssiis', $pick_up, $drop_off, $price, $bus_number, $date/*, $time*/);
+  $stmt->bind_param('ssiis', $pick_up, $drop_off, $price, $bus_number, $date/*, $time*/);
   $stmt->execute();
   $stmt->close();
+
+    $stmt = $conn->prepare("SELECT * FROM seat_reservation WHERE bus_no=?");
+    $stmt->bind_param("i", $bus_number);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 0) {
+      $sql = "INSERT INTO seat_reservation (bus_no, bus_seat, status, booking_id)
+      VALUES
+      ($bus_number, 'A1', 'vacant', ''),
+      ($bus_number, 'A2', 'vacant', ''),
+      ($bus_number, 'A3', 'vacant', ''),
+      ($bus_number, 'A4', 'vacant', ''),
+      ($bus_number, 'B1', 'vacant', ''),
+      ($bus_number, 'B2', 'vacant', ''),
+      ($bus_number, 'B3', 'vacant', ''),
+      ($bus_number, 'B4', 'vacant', ''),
+      ($bus_number, 'C1', 'vacant', ''),
+      ($bus_number, 'C2', 'vacant', ''),
+      ($bus_number, 'C3', 'vacant', ''),
+      ($bus_number, 'C4', 'vacant', ''),
+      ($bus_number, 'D1', 'vacant', ''),
+      ($bus_number, 'D2', 'vacant', ''),
+      ($bus_number, 'D3', 'vacant', ''),
+      ($bus_number, 'D4', 'vacant', ''),
+      ($bus_number, 'E1', 'vacant', ''),
+      ($bus_number, 'E2', 'vacant', ''),
+      ($bus_number, 'E3', 'vacant', ''),
+      ($bus_number, 'E4', 'vacant', ''),
+      ($bus_number, 'F1', 'vacant', ''),
+      ($bus_number, 'F2', 'vacant', ''),
+      ($bus_number, 'F3', 'vacant', ''),
+      ($bus_number, 'F4', 'vacant', '')
+      ;";
+      $conn->query($sql);
+    }
 }
 
 //if edit button is clicked
@@ -58,6 +94,11 @@ if (isset($_POST['remove'])){
   $stmt->bind_param('i', $schedule_id);
   $stmt->execute();
   $stmt->close();
+
+  $bus_number = $_POST["bus_number"];
+
+  $sql = "DELETE FROM seat_reservation WHERE bus_no = $bus_number";
+  $result = $conn->query($sql);
 }
 ?>
 
@@ -77,6 +118,36 @@ if (isset($_POST['remove'])){
       type="image/jpg"
       href="../img/bts-logo.png"
     />
+    <style>
+      .detail-value input[type="number"]{
+        width:auto;
+        padding: 0.5em;
+      }
+      input[type="number"], select {
+        width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+      }
+      .detail-value input[type="date"]{
+        width:auto;
+      }
+      input[type="date"], select {
+        width: 100%;
+    padding: 9px 23px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+      }
+      button[type="submit"].addRecordBtn{
+        width: 100%;      
+      }
+    </style>
   </head>
   <body class="pages-flex-feedback">
     <!-- NAVIGATION BAR -->
@@ -98,23 +169,23 @@ if (isset($_POST['remove'])){
               ><i class="fa fa-times"></i
             ></label>
             <li>
-              <a href="index.php" id="active-page">HOME</a>
+              <a href="" id="active-page">HOME</a>
+            </li>
+            <!--<li>
+              <a href="../pages/booking.php">BOOKING</a>
+            </li>-->
+            <li>
+              <a href="../pages/admin-transaction.php">TRANSACTIONS</a>
             </li>
             <li>
-              <a href="../pages/booking-form1.php">BOOKING</a>
+              <a href="../pages/admin-useraccounts.php">USERS</a>
             </li>
-            <li>
-              <a href="#">TRANSACTIONS</a>
-            </li>
-            <li>
-              <a href="../pages/useraccounts.html">USERS</a>
-            </li>
-            <li><a href="#">FEEDBACK</a></li>
+            <li><a href="../pages/admin-feedback.html">FEEDBACK</a></li>
             <div class="login">
               <a
                 href="../pages/profile-page.php"
                 id="login-button"
-                >Your Account</a
+                >Account</a
               >
             </div>
           </ul>

@@ -72,6 +72,7 @@ function booking(schedule_id, pick_up, drop_off, price, bus_number, date) {
           <span class="question">Travel Date:</span>
           <input type="text" name="date" value="${date}" required readonly>
         </div>
+        <br><hr><br>
 
         <label for="departure-time">Choose Preferred Time:</label>
         <select name="departure-time" id="departure-time" required>
@@ -160,6 +161,7 @@ function displayBooking(
           <span class="question">Travel Date:</span>
           <input type="text" name="date" value="${date}" required readonly>
         </div>
+        <br><hr><br>
 
         <label for="departure-time">Choose Preferred Time:</label>
         <input type="text" name="departure_time" value="${departure_time}" required readonly>
@@ -168,7 +170,7 @@ function displayBooking(
         <input type="text" name="passenger_count" value="${passenger_count}" required readonly>
 
         <div class="detail-value">
-          <button name="confirm" type="submit" style="background-color: #e5cc77">
+          <button name="confirm" id="confirmBTN" type="submit">
             Confirm
           </button>
         </div>

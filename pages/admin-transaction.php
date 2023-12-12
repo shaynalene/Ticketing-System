@@ -18,13 +18,19 @@ $user_id = $_SESSION["user_id"];
 
 //cancel button is clicked
 if (isset($_POST['cancel'])){
-    $status = "Booking Cancelled";
-
+    $bus_number = $_POST["bus_number"];
     $selected_booking = $_POST["variable"];
-
-    $sql = "UPDATE booking_form SET status=? WHERE user_id = ? AND booking_id = ?";
-    $stmt = $conn->prepare($sql); $stmt->bind_param('sii', $status, $user_id,
-    $selected_booking); $stmt->execute(); $stmt->close(); 
+    $seat_status = "vacant";
+    $booking = "";
+    $status = "Booking Cancelled";
+    $sql = "UPDATE booking_form SET status=? WHERE booking_id = ?";
+    $stmt = $conn->prepare($sql); 
+    $stmt->bind_param('si', $status, $selected_booking); 
+    $stmt->execute(); 
+    
+    $sql = "UPDATE seat_reservation SET status= '$seat_status', booking_id = '$booking' WHERE booking_id = $selected_booking AND bus_no = $bus_number";
+    $conn->query($sql);
+    
 
     //GENERATE EMAIL
     include "../php/generate-email.php";
@@ -44,9 +50,30 @@ if (isset($_POST['cancel'])){
       $mail->addAddress($email, $name);     
       
       // EMAIL CONTENTS
+      //BOOKING CANCELLED EMAIL
       $mail->isHTML(true);                                
-      $mail->Subject = 'Booking Cancelled';
-      $mail->Body    = 'Hi, ' . $firstname . " " . $lastname . '. ' . 'Your booking has been cancelled.';
+      $mail->Subject = 'Booking Cancellation and Refund Process';
+      $mail->Body    = 'Dear Customer,' . '<br>' .
+
+      'I trust this email finds you well. We are writing to confirm the cancellation of your recent booking with us. We understand that circumstances can change, and we appreciate your prompt communication regarding the cancellation.'
+      . '<br>' .
+      'As part of our cancellation process, we are initiating the refund for your booking. However, please note that a cancellation fee has been applied to your refund amount in accordance with our terms and conditions. The deduction is made to cover administrative and processing costs associated with cancellations.'
+      . '<br>' .
+      'To ensure the swift processing of your refund, we kindly request you to provide us with your bank account details. Please share the following information at your earliest convenience:' . '<br>'.
+
+        '1. Account Holder Name:
+        2. Bank Name:
+        3. Account Number:
+        4. Routing Number (if applicable):
+        5. Swift Code (for international transactions):' . '<br>'.
+        
+        'Your refund amount, after deducting the cancellation fee, will be promptly processed upon receiving the necessary information.' . '<br>'.
+        
+        'You can reply directly to this email with the required details. If you have any questions or concerns, feel free to reach out to our customer support team at 888-888-888.' . '<br>' .
+        'We understand that cancellations can be inconvenient, and we appreciate your understanding of our cancellation policy. Thank you for choosing our services, and we hope to have the opportunity to serve you again in the future.'
+. '<br>' .
+'Best regards,
+BTS TEAM';
       $mail->addAttachment('../img/bts-logo.png', 'ticket.png');
       $mail->send();
     }
@@ -61,9 +88,37 @@ if (isset($_POST['approve'])){
 
     $selected_booking = $_POST["variable"];
 
-    $sql = "UPDATE booking_form SET status=? WHERE user_id = ? AND booking_id = ?";
-    $stmt = $conn->prepare($sql); $stmt->bind_param('sii', $status, $user_id,
-    $selected_booking); $stmt->execute(); $stmt->close(); 
+    $sql = "UPDATE booking_form SET status=? WHERE  booking_id = ?";
+    $stmt = $conn->prepare($sql); $stmt->bind_param('si', $status, $selected_booking);
+    $stmt->execute(); 
+    $stmt->close(); 
+
+    //seats
+$stmt = $conn->prepare("SELECT * FROM seat_reservation WHERE bus_no=? AND booking_id =?");
+$stmt->bind_param("ii", $bus_number, $selected_booking);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    // Fetch the row from the result
+    $row = $result->fetch_assoc();
+
+    // Check if "bus_seat" is set and is a string
+    if (isset($row["bus_seat"]) && is_string($row["bus_seat"])) {
+        $bus_seat_length = strlen($row["bus_seat"]);
+
+        for ($i = 0; $i < $bus_seat_length; $i++) {
+            ${'seat_' . ($i + 1)} = $row["bus_seat"][$i];
+        }
+
+        for ($i = 0; $i < $bus_seat_length; $i++) {
+            echo ${'seat_' . ($i + 1)};
+        }
+    }
+}
+
+
+    
     //GENERATE EMAIL
     include "../php/generate-email.php";
     try {
@@ -82,9 +137,13 @@ if (isset($_POST['approve'])){
       $mail->addAddress($email, $name);     
       
       // EMAIL CONTENTS
+      //BOOKING APPROVED EMAIL
       $mail->isHTML(true);                                
       $mail->Subject = 'Booking Approved';
-      $mail->Body    = 'Hi, ' . $firstname . " " . $lastname . '. ' . 'Your booking has been approved. View your ticket bellow.' .  '<br>' .  '<br>' . 'Thank you for trusting BTS!';
+      $mail->Body    = 'Hi, ' . $firstname . " " . $lastname . '. ' 
+                      . 'Your booking has been approved. View your ticket in the transactions page.' 
+                      .  '<br>' .  '<br>' 
+                      . 'Thank you for trusting BTS!';
       $mail->addAttachment('../img/bts-logo.png', 'ticket.png');
       $mail->send();
     }
@@ -229,13 +288,13 @@ if (isset($_POST['approve'])){
           <label for="close-btn" class="navbtn close-btn"
             ><i class="fa fa-times"></i
           ></label>
-          <li><a href="../index.php">HOME</a></li>
-          <li><a href="../pages/booking.php">BOOKING</a></li>
-          <li><a href="transaction.php" id="active-page">TRANSACTIONS</a></li>
-          <li><a href="about-us.html">ABOUT US</a></li>
-          <li><a href="#">FEEDBACK</a></li>
+          <li><a href="../pages/admin-landing-page.php">HOME</a></li>
+          <!--<li><a href="../pages/booking.php">BOOKING</a></li>-->
+          <li><a href="" id="active-page">TRANSACTIONS</a></li>
+          <li><a href="../pages/admin-useraccounts.php">USERS</a></li>
+          <li><a href="../pages/admin-feedback.html">FEEDBACK</a></li>
           <div class="login">
-            <a href="profile-page2.php" id="login-button">Account</a>
+            <a href="profile-page.php" id="login-button">Account</a>
           </div>
         </ul>
         <label for="menu-btn" class="navbtn menu-btn"
@@ -296,7 +355,7 @@ if (isset($_POST['approve'])){
             <th>Pick up</th>
             <th>Destination</th>
             <th>Bus #</th>
-            <th>Seat #</th>
+            <th>Passenger #</th>
             <th>Proof of Payment</th>
             <th>Status</th>
             <th>View Details</th>
@@ -332,12 +391,9 @@ if (isset($_POST['approve'])){
                 payment_proof PP ON reference_no = reference_number
             WHERE
                 (BF.status = 'For Approval')
-                AND BF.user_id = '$user_id'
-                AND BF.booking_id = SR.booking_id
             GROUP BY
                 BF.booking_id,
-                BF.user_id,
-                bus_seat 
+                BF.user_id
             ORDER BY
                 status,
                 date;
@@ -351,7 +407,7 @@ if (isset($_POST['approve'])){
                         <td>{$row['pick_up']}</td>
                         <td>{$row['drop_off']}</td>
                         <td>{$row['bus_number']}</td>
-                        <td>{$row['bus_seat']}</td>
+                        <td>{$row['passenger_number']}</td>
                         <td>{$row['image']}</td>
                         <td>{$row['status']}</td>
                         <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
@@ -377,7 +433,7 @@ if (isset($_POST['approve'])){
             <th>Pick up</th>
             <th>Destination</th>
             <th>Bus #</th>
-            <th>Seat #</th>
+            <th>Passenger #</th>
             <th>Status</th>
             <th>View Details</th>
           </tr>
@@ -408,12 +464,9 @@ if (isset($_POST['approve'])){
                 seat_reservation SR ON BF.booking_id = SR.booking_id
             WHERE
                 (BF.status = 'Cancel Request')
-                AND BF.user_id = '$user_id'
-                AND BF.booking_id = SR.booking_id
             GROUP BY
                 BF.booking_id,
-                BF.user_id,
-                bus_seat 
+                BF.user_id
             ORDER BY
                 status,
                 date;
@@ -427,7 +480,7 @@ if (isset($_POST['approve'])){
                       <td>{$row['pick_up']}</td>
                       <td>{$row['drop_off']}</td>
                       <td>{$row['bus_number']}</td>
-                      <td>{$row['bus_seat']}</td>
+                      <td>{$row['passenger_number']}</td>
                       <td>{$row['status']}</td>
                       <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
                       </tr>";
@@ -448,7 +501,7 @@ if (isset($_POST['approve'])){
             <th>Pick up</th>
             <th>Destination</th>
             <th>Bus #</th>
-            <th>Seat #</th>
+            <th>Passenger #</th>
             <th>Status</th>
             <th>View Details</th>
           </tr>
@@ -469,22 +522,16 @@ if (isset($_POST['approve'])){
                 passenger_number,
                 BF.status,
                 total_price,
-                bus_number,
-                bus_seat
+                bus_number
             FROM
                 booking_form BF
             INNER JOIN
                 user_accounts UA ON BF.user_id = UA.user_id
-            INNER JOIN
-                seat_reservation SR ON BF.booking_id = SR.booking_id
             WHERE
                 (BF.status = 'Booking Cancelled' OR BF.status = 'Booking Approved')
-                AND BF.user_id = '$user_id'
-                AND BF.booking_id = SR.booking_id
             GROUP BY
                 BF.booking_id,
-                BF.user_id,
-                bus_seat 
+                BF.user_id
             ORDER BY
                 status,
                 date;
@@ -498,7 +545,7 @@ if (isset($_POST['approve'])){
                       <td>{$row['pick_up']}</td>
                       <td>{$row['drop_off']}</td>
                       <td>{$row['bus_number']}</td>
-                      <td>{$row['bus_seat']}</td>
+                      <td>{$row['passenger_number']}</td>
                       <td>{$row['status']}</td>
                       <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', '{$row['bus_number']}')\">View Details</button></td>
                       </tr>";
@@ -641,7 +688,7 @@ if (isset($_POST['approve'])){
         document
           .getElementById("cancelButton")
           .addEventListener("click", function () {
-            cancelUpcoming(booking_id);
+            cancelUpcoming(booking_id, bus_number);
           });
 
         if (status == "For Approval" || status == "Upcoming") {
@@ -689,14 +736,14 @@ if (isset($_POST['approve'])){
       }
 
       // Function to confirm the booking and update the status
-      function confirmBooking(booking_id) {
+      function confirmBooking(booking_id, bus_number) {
         const cancelButton = document.getElementById("cancelButton");
         alert("Booking Approved");
         closePopup(); // Code to close the pop-up after canceling
       }
 
       // Function to start the cancellation process
-      function cancelUpcoming(booking_id) {
+      function cancelUpcoming(booking_id, bus_number) {
         const cancelConfirmationContainer = document.getElementById(
           "cancelConfirmationContainer"
         );
@@ -705,6 +752,7 @@ if (isset($_POST['approve'])){
         <p>Are you sure you want to cancel this booking?</p>
         <form method="POST" action="">
         <input type ="hidden" name="variable" id="variable" value="${booking_id}"> 
+        <input type ="hidden" name="bus_number" id="bus_number" value="${bus_number}"> 
         <button id="cancel" name="cancel" onclick="confirmCancellation(${booking_id})">Yes, Cancel</button>
         </form>
         <button style="background-color: #4CAF50; color: white;" onclick="closePopup()">No, Keep Booking</button>
