@@ -26,7 +26,7 @@ if ($result->num_rows === 1) {
     $firstname = $row["firstname"];
     $lastname = $row["lastname"];
     
-    /*
+    
     //send the forgot password email   
     include "../php/generate-email.php";
     try {
@@ -68,7 +68,7 @@ if ($result->num_rows === 1) {
     alert("An email was sent to your registered email.");
     window.location.href = "../pages/login-usr-page.html";
     </script>';
-    */
+    
 
 }
 else {

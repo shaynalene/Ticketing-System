@@ -14,7 +14,7 @@ $username = $_SESSION['username'];
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
 $number = $_SESSION['number'];
-$name = $firstname . ' ' . ' ' . $lastname;
+$name = $firstname . ' ' . $lastname;
 
 //if add button is clicked
 if (isset($_POST['save'])){
@@ -172,9 +172,6 @@ if (isset($_POST['remove'])){
             <li>
               <a href="" id="active-page">HOME</a>
             </li>
-            <!--<li>
-              <a href="../pages/booking.php">BOOKING</a>
-            </li>-->
             <li>
               <a href="../pages/admin-transaction.php">TRANSACTIONS</a>
             </li>

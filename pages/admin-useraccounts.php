@@ -78,9 +78,6 @@ if (isset($_POST['remove'])){
             <li>
               <a href="../pages/admin-landing-page.php">HOME</a>
             </li>
-            <!--<li>
-              <a href="../pages/booking.php">BOOKING</a>
-            </li>-->
             <li>
               <a href="../pages/admin-transaction.php">TRANSACTIONS</a>
             </li>

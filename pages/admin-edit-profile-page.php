@@ -13,6 +13,7 @@ $username = $_SESSION['username'];
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
 $number = $_SESSION['number'];
+$name = $firstname . " " . $lastname;
 //$password = $_SESSION['password'];
 
 //replace the data in the database
@@ -51,7 +52,7 @@ if (isset($_POST['save'])){
   }
   catch (Exception $e) {}
 
-  //update 
+  //UPDATE THE DATABASE
   $newusername = $_POST["username"];
   $newfirstname = $_POST["firstname"];
   $newlastname = $_POST["lastname"];
@@ -86,11 +87,9 @@ if (isset($_POST['save'])){
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BTS | Bus Ticketing System</title>
-  <link rel="stylesheet" href="../style.css" />
-  <link rel="stylesheet" href="../profile.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <link rel="stylesheet" href="../profile.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
   <link rel="shortcut icon" type="image/jpg" href="../img/bts-logo.png" />
 </head>
 <body>
@@ -106,11 +105,18 @@ if (isset($_POST['save'])){
       <input type="radio" name="slider" id="close-btn" />
       <ul class="nav-links">
         <label for="close-btn" class="navbtn close-btn"><i class="fa fa-times"></i></label>
-        <li><a href="../index.php">HOME</a></li>
-        <!--<li><a href="../pages/booking.php">BOOKING</a></li>-->
-        <li><a href="../pages/admin-transaction.php">TRANSACTIONS</a></li>
-        <li><a href="../pages/about-us.html">ABOUT US</a></li>
-        <li><a href="../pages/admin-feedback.html">FEEDBACK</a></li>
+        <li>
+          <a href="../index.php">HOME</a>
+        </li>
+        <li>
+          <a href="../pages/admin-transaction.php">TRANSACTIONS</a>
+        </li>
+        <li>
+          <a href="../pages/about-us.html">ABOUT US</a>
+        </li>
+        <li>
+          <a href="../pages/admin-feedback.html">FEEDBACK</a>
+        </li>
         <div class="login">
           <a href="admin-profile-page.php" id="login-button">Account</a>
         </div>
@@ -120,7 +126,7 @@ if (isset($_POST['save'])){
   </nav>
 
   <div class="account-page">
-    <h1><?php echo $username ?></h1>
+    <h1>EDIT ACCOUNT DETAILS</h1>
   </div>
   <div class="confirmTable">
     <div class="details"><br>
@@ -140,14 +146,9 @@ if (isset($_POST['save'])){
         <span class="question">Email:</span>
         <input type="text" name="email" value="<?php echo $email ? htmlspecialchars($email) : ''; ?>" required>
         <br><br>
-        <!--<span class="question">Password:</span>
-        <input type="text" name="password" value="<?php echo $password ? htmlspecialchars($password) : ''; ?>" required>
-        <br><br>-->
         <button type="submit" name="save">SAVE</button>
       </form>
     </div>
   </div>
-
-    <!-- FOOTER -->
   </body>
 </html>

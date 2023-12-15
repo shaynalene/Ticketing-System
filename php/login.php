@@ -40,14 +40,6 @@ if (isset($_POST['forgot'])){
         // EMAIL DETAILS
         $mail->setFrom('bus.ticketing.system.co@gmail.com', 'Bus Ticketing System Co');
         $mail->addAddress($email, $name);     // Add a recipient
-        //$mail->addAddress('ellen@example.com');               // Name is optional
-        //$mail->addReplyTo('info@example.com', 'Information');
-        //$mail->addCC('cc@example.com');
-        //$mail->addBCC('bcc@example.com');
-        
-        // Attachments
-        //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-        //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
         
         // EMAIL CONTENTS
         $mail->isHTML(true);                                
@@ -61,8 +53,6 @@ if (isset($_POST['forgot'])){
         echo '<script>alert("An email was sent to your registered email.");
                 window.location = "../pages/login-usr-page.html";
         </script>';
-        //header("Location: ../pages/login-usr-page.html");
-        //exit(); // Make sure to exit after setting the header
     }
     else {
         //no account was found

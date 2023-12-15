@@ -28,18 +28,6 @@ $seatStatuses = [];
 while ($row = $result->fetch_assoc()) {
     $seatStatuses[$row['bus_seat']] = $row['status'];
 }
-
-/*
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_SESSION["reset_clicked"])) {
-  $_SESSION["reset_clicked"] = true;
-    $status = "vacant";
-    $reserved = "reserved";
-    $sql = "UPDATE seat_reservation SET status=? WHERE status = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ss', $status, $reserved); 
-    $stmt->execute();
-    $stmt->close();
-}*/
 ?>
 
 <!DOCTYPE html>
@@ -208,45 +196,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
     <!-- SEAT SELECTION -->
     <div class="main-content-seat">
       <div class="title-header">SEAT SELECTION</div>
-    <!--<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <button type="submit" name="reset">RESET IN DATABASE</button>
-    </form>-->
 <!-- Legend -->
 <div class="main-seat-ctr">
-  <!--
-<div class="legend">
-    <h3>Legend:</h3>
-    <!-- Window Seats
-    <div class="legend-item">
-        <div class="color-box" style="background-color: rgb(194, 144, 194);"></div>
-        <h4>Window Seats</h4>
-    </div>
-    <!-- Front Seats
-    <div class="legend-item">
-        <div class="color-box" style="background-color: yellow;"></div>
-        <h4>Front Seats</h4>
-    </div>
-    <!-- Back Seats
-    <div class="legend-item">
-        <div class="color-box" style="background-color: rgb(78, 146, 255);"></div>
-        <h4>Back Seats</h4>
-    </div>
-    <!-- Aisle (Not Available) 
-    <div class="legend-item">
-        <div class="color-box" style="background-color: black;"></div>
-        <h4>Aisle (Not Available)</h4>
-    </div>
-    <br><br>
-    <hr><br>
-    <!-- Insert backend code here (bus number and bus seat based from the booking form) -->
     <h4>Number of Seats to select: </h4>
     <h4><?php echo $_SESSION['passenger_count'];?></h4>
     <hr><br>
     <h4>Available Seat(s) from Bus # </h4>
     <h4><?php echo $bus_number?></h4>
-
     <br>
-    
 </div>
 <div class="main-seat-ctr-2">
   <div class="seat-design">
@@ -255,8 +212,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
   <div class="">-------------------- FRONT --------------------</div>
     <table border="1">
         <?php
-        echo $date;
-        //$passenger_number = $_SESSION['passenger_count'];
 
         $rows = ['A', 'B', 'C', 'D', 'E', 'F'];
         $cols = [1, 2, 3, 4];
@@ -273,10 +228,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
                 if (isset($seatStatuses[$seatId]) &&  $seatStatuses[$seatId] === 'reserved') {
                     $buttonClass = 'reserved';
                 }
-
                 echo "<td><button onclick=\"buttonClick('$row', $col)\" name=\"$row$col\" id=\"$row$col\" class=\"$buttonClass\">$row$col</button></td>";
             }
-
             echo "</tr>";
         }
         ?>
@@ -291,7 +244,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
     </div>
     </div>
     </div>
-
     </div>
 
     <!-- FOOTER -->
@@ -339,13 +291,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
       }
     }
   }
-    /*function buttonClick(row, col) {
-      //alert('Button clicked: Row ' + row + ', Column ' + col);
-      var button = row+col;
-      document.getElementById(button).classList.remove('seatButton');
-      document.getElementById(button).classList.add('selected');
-      console.log(button);
-    }*/
 
     function resetSeats() {
       var buttons = document.querySelectorAll('.selected');
@@ -363,7 +308,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
         alert('Please select exactly ' + passengerCount + ' seats.');
       }
       else{
-        //alert('Confirm');
         var buttons = document.querySelectorAll('.selected');
         var selectedValues = [];
         

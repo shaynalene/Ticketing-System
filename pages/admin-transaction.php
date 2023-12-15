@@ -291,7 +291,6 @@ if ($result->num_rows > 0) {
             ><i class="fa fa-times"></i
           ></label>
           <li><a href="../pages/admin-landing-page.php">HOME</a></li>
-          <!--<li><a href="../pages/booking.php">BOOKING</a></li>-->
           <li><a href="" id="active-page">TRANSACTIONS</a></li>
           <li><a href="../pages/admin-useraccounts.php">USERS</a></li>
           <li><a href="../pages/admin-feedback.html">FEEDBACK</a></li>
@@ -310,43 +309,6 @@ if ($result->num_rows > 0) {
     <!-- Start of Transaction History (BODY)-------------------------------------------------------->
     <br /><br /><br /><br /><br /><br />
     <h1 style="color: #365f32">Transaction History</h1>
-
-
-    <!-- ONGOING ACTIVITY TABLE -->
-    <!--
-    <div class="container">
-      <h3 style="color: #365f32">ONGOING ACTIVITY</h3>
-      <table id="ongoingTable">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Pick up</th>
-            <th>Destination</th>
-            <th>Bus #</th>
-            <th>Seat #</th>
-            <th>Status</th>
-            <th>View Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-            $sql = "SELECT BF.user_id, firstname, lastname, number, booking_id, pick_up, drop_off, date, time, passenger_number, status, total_price, bus_number FROM booking_form BF INNER JOIN user_accounts UA ON BF.user_id=UA.user_id WHERE status='Ongoing' AND BF.user_id='$user_id' ORDER BY date";
-            $result = $conn->query($sql); if ($result->num_rows > 0) { while
-          ($row = $result->fetch_assoc()) { echo "
-          <tr>
-            <td>{$row['date']}</td>
-            <td>{$row['pick_up']}</td>
-            <td>{$row['drop_off']}</td>
-            <td>{$row['bus_number']}</td>
-            <td>seat_number</td>
-            <td>{$row['status']}</td>
-            <td><button onclick=\"displayReceipt('{$row['booking_id']}', '{$row['firstname']} {$row['lastname']}', '{$row['number']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['date']}', '{$row['time']}', '{$row['passenger_number']}', '{$row['status']}', '{$row['total_price']}', {$row['bus_number']})\">View Details</button></td> 
-          </tr>
-          "; } } ?>
-        </tbody>
-      </table>
-    </div>
-          -->
 
     <!-- UPCOMING ACTIVITY TABLE -->
     <div class="container">
@@ -376,7 +338,7 @@ if ($result->num_rows > 0) {
                 pick_up,
                 drop_off,
                 date,
-                time,
+                BF.time,
                 passenger_number,
                 BF.status,
                 total_price,
@@ -453,7 +415,7 @@ if ($result->num_rows > 0) {
                 pick_up,
                 drop_off,
                 date,
-                time,
+                BF.time,
                 passenger_number,
                 BF.status,
                 total_price,

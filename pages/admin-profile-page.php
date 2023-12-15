@@ -97,7 +97,6 @@ if (isset($_POST['logout'])){
             ><i class="fa fa-times"></i
           ></label>
           <li><a href="../pages/admin-landing-page.php">HOME</a></li>
-          <!--<li><a href="../pages/booking.php">BOOKING</a></li>-->
           <li><a href="" id="active-page">TRANSACTIONS</a></li>
           <li><a href="../pages/admin-useraccounts.php">USERS</a></li>
           <li><a href="../pages/admin-feedback.html">FEEDBACK</a></li>
@@ -116,8 +115,6 @@ if (isset($_POST['logout'])){
     <div class="main-content-feedback">
       <div class="details-container">
         <div class="profilechange-container">
-          <!--<form action="../php/registration.php" method="post" class="register-container">
-        <form action="../php/registration.php" method="post" class="register-container">-->
           <div class="profile-header">PROFILE DETAILS</div>
           <div>
             <div class="rgs-input">
@@ -191,9 +188,6 @@ if (isset($_POST['logout'])){
             </form>
           </div>
         </div>
-        <!--</form>-->
-
-        <!-- Edit Details Button -->
       </div>
     </div>
 

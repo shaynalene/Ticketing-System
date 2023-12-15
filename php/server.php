@@ -13,10 +13,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// You are now connected to the database
-
-// Perform your database operations here
-
 // Close the connection when done
 //$conn->close();
 

@@ -72,7 +72,6 @@ include "../Ticketing-System/php/server.php";
       <div class="header">
         <div class="left-header-lp">
           <div class="title-header">ONLINE VIEWBOARD</div>
-          <!-- HIDE UNLESS ITS ON ADMIN SIDE !! TO BE EDITED -->
         </div>
         <!--<div id="lastEditDate">UPDATED AS OF: 00/00/00 00:00 AM/PM</div>-->
       </div>
