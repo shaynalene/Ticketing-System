@@ -361,32 +361,8 @@ function timeStamp() {
   return date.join("/") + ", " + time.join(":") + " " + suffix;
 }
 
-/* STAR RATING
-
+var badWords = ["fuck", "shit", "wth", "wtf", "shitty", "slut", "nigga"];
 var currentRating = 0; // Default rating
-
-// Event listener for star clicks
-document
-  .getElementById("star-rating")
-  .addEventListener("click", function (event) {
-    if (event.target.classList.contains("star")) {
-      currentRating = parseInt(event.target.getAttribute("data-rating"));
-      highlightStars(currentRating);
-    }
-  });
-
-function highlightStars(rating) {
-  // Highlight stars up to the selected rating
-  var stars = document.querySelectorAll(".star");
-  stars.forEach(function (star) {
-    var starRating = parseInt(star.getAttribute("data-rating"));
-    star.classList.toggle("selected", starRating <= rating);
-  });
-}
-
-*/
-
-var badWords = ["badword1", "badword2", "badword3", "wtf"];
 
 function filterBadWords(comment) {
   // Convert the comment to lowercase for case-insensitive matching
@@ -441,8 +417,8 @@ function postComment(event) {
           comment,
           email,
           time,
-          mediaData
-          //currentRating
+          mediaData,
+          currentRating
         );
       };
       reader.readAsDataURL(file);
@@ -452,8 +428,8 @@ function postComment(event) {
         comment,
         email,
         time,
-        mediaData
-        //currentRating
+        mediaData,
+        currentRating
       );
     }
 
@@ -472,8 +448,7 @@ function clearFormFields() {
   document.getElementById("file-input").value = "";
 }
 
-function saveCommentToDatabase(name, comment, email, time, mediaData) {
-  //rating) {
+function saveCommentToDatabase(name, comment, email, time, mediaData, rating) {
   // Save the data to the database, including the rating
   var newCommentRef = ref.push({
     name: name,
@@ -481,14 +456,18 @@ function saveCommentToDatabase(name, comment, email, time, mediaData) {
     time: time,
     email: email,
     mediaData: mediaData,
-    //rating: rating,
+    rating: rating,
   });
 
   // Retrieve the key after the comment is added
   var commentKey = newCommentRef.key;
 
   // Display the comment and rating
-  addComment(commentKey, name, email, comment, time, mediaData);
+  addComment(commentKey, name, email, comment, time, mediaData, rating);
+
+  // Highlight stars in the displayed comment after adding
+  var addedComment = document.getElementById(commentKey);
+  highlightStars(addedComment, rating);
 }
 
 // Use once method for initial loading
@@ -502,32 +481,62 @@ ref.once("value").then(function (snapshot) {
       comment.email,
       comment.comment,
       comment.time,
-      comment.mediaData
-      //comment.rating
+      comment.mediaData,
+      comment.rating
     );
   });
 });
 
+// Event listener for star clicks in the feedback form
+document
+  .getElementById("star-rating")
+  .addEventListener("click", function (event) {
+    if (event.target.classList.contains("star")) {
+      currentRating = parseInt(event.target.getAttribute("data-rating"));
+      highlightStarsForForm(currentRating);
+    }
+  });
+
+function highlightStarsForForm(rating) {
+  var stars = document.querySelectorAll("#star-rating .star");
+  stars.forEach(function (star) {
+    var starRating = parseInt(star.getAttribute("data-rating"));
+    star.classList.toggle("selected", starRating <= rating);
+  });
+}
+
+// Selects the stars input of the user
+function highlightStars(commentElement, rating) {
+  var stars = commentElement.querySelectorAll(".star");
+  stars.forEach(function (star) {
+    var starRating = parseInt(star.getAttribute("data-rating"));
+    star.classList.toggle("selected", starRating <= rating);
+  });
+}
+
+// Change the function name to avoid conflicts
 function addComment(
   commentKey,
   name,
   email,
   comment,
   timeStamp,
-  mediaData
-  //rating
+  mediaData,
+  rating
 ) {
   var comments = document.getElementById("comments");
   var newComment = document.createElement("div");
 
   newComment.innerHTML =
-    "<hr><h4>" +
+    "<hr><div id='commentheader'><h4>" +
     name +
     " says<span>" +
     timeStamp +
-    "</span></h4><p>" +
+    "</span></h4>" +
+    generateStarRating(rating) +
+    "</div>" + // Display star rating
+    "<p>" +
     comment +
-    //rating;
     "</p>";
 
   // Display the image or video based on the mediaData
@@ -543,6 +552,21 @@ function addComment(
 
   // Insert the new comment at the beginning of the comments container
   comments.insertBefore(newComment, comments.firstChild);
+
+  // Highlight stars in the displayed comment
+  var addedComment = comments.firstChild;
+  highlightStars(addedComment, rating);
+}
+
+// Change the function name to avoid conflicts
+function generateStarRating(rating) {
+  var stars = '<div id="star-rating-comment">';
+  for (var i = 1; i <= 5; i++) {
+    var starClass = i <= rating ? "selected" : "";
+    stars += `<span class="star ${starClass}" data-rating="${i}">&#9733;</span>`;
+  }
+  stars += "</div>";
+  return stars;
 }
 
 function isImage(dataUrl) {
