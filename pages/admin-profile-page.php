@@ -84,32 +84,32 @@ if (isset($_POST['logout'])){
     <!-- NAVIGATION BAR -->
     <div class="navbar-ctr">
       <nav class="navbar">
-        <div class="wrapper">
-          <div class="logo">
-            <a href="#">
-              <img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic" />
-            </a>
-          </div>
-          <input type="radio" name="slider" id="menu-btn" />
-          <input type="radio" name="slider" id="close-btn" />
-          <ul class="nav-links">
-            <label for="close-btn" class="navbtn close-btn"
-              ><i class="fa fa-times"></i
-            ></label>
-            <li><a href="../index.php">HOME</a></li>
-            <li><a href="../pages/booking.php">BOOKING</a></li>
-            <li><a href="../pages/user-transaction.php">TRANSACTIONS</a></li>
-            <li><a href="../pages/about-us.html">ABOUT US</a></li>
-            <li><a href="../pages/user-feedback.html">FEEDBACK</a></li>
-            <div class="login">
-              <a href="profile-page.php" id="login-button">Account</a>
-            </div>
-          </ul>
-          <label for="menu-btn" class="navbtn menu-btn"
-            ><i class="fa fa-bars"></i
-          ></label>
+      <div class="wrapper">
+        <div class="logo">
+          <a href="#">
+            <img src="../img/bts-logo-nav.png" alt="BTS" class="logo-pic" />
+          </a>
         </div>
-      </nav>
+        <input type="radio" name="slider" id="menu-btn" />
+        <input type="radio" name="slider" id="close-btn" />
+        <ul class="nav-links">
+          <label for="close-btn" class="navbtn close-btn"
+            ><i class="fa fa-times"></i
+          ></label>
+          <li><a href="../pages/admin-landing-page.php">HOME</a></li>
+          <!--<li><a href="../pages/booking.php">BOOKING</a></li>-->
+          <li><a href="" id="active-page">TRANSACTIONS</a></li>
+          <li><a href="../pages/admin-useraccounts.php">USERS</a></li>
+          <li><a href="../pages/admin-feedback.html">FEEDBACK</a></li>
+          <div class="login">
+            <a href="admin-profile-page.php" id="login-button">Account</a>
+          </div>
+        </ul>
+        <label for="menu-btn" class="navbtn menu-btn"
+          ><i class="fa fa-bars"></i
+        ></label>
+      </div>
+    </nav>
     </div>
 
     <!-- BODY -->
@@ -169,7 +169,7 @@ if (isset($_POST['logout'])){
               />
             </div>
             <div class="rgs-input">
-              Email
+              Enter Email
               <input
                 class="rgs-ipt-style"
                 type="email"

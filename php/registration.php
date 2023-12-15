@@ -4,6 +4,7 @@ include "server.php";
 $username = $_POST["username"];
 $firstname = $_POST["firstname"];
 $lastname = $_POST["lastname"];
+$name = $firstname . ' ' . $lastname;
 $number = $_POST["phonenumber"];
 $email = $_POST["email"];
 $password = $_POST['password'];

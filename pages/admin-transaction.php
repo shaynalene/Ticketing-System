@@ -94,6 +94,7 @@ if (isset($_POST['approve'])){
     $stmt->close(); 
 
     //seats
+    /*
 $stmt = $conn->prepare("SELECT * FROM seat_reservation WHERE bus_no=? AND booking_id =?");
 $stmt->bind_param("ii", $bus_number, $selected_booking);
 $stmt->execute();
@@ -115,7 +116,7 @@ if ($result->num_rows > 0) {
             echo ${'seat_' . ($i + 1)};
         }
     }
-}
+}*/
 
 
     
@@ -275,7 +276,8 @@ if ($result->num_rows > 0) {
   </head>
   <body>
     <!-- Start of Navigation Bar -------------------------------------------------------->
-    <nav>
+    <div class="navbar-ctr">
+      <nav class="navbar">
       <div class="wrapper">
         <div class="logo">
           <a href="#">
@@ -294,7 +296,7 @@ if ($result->num_rows > 0) {
           <li><a href="../pages/admin-useraccounts.php">USERS</a></li>
           <li><a href="../pages/admin-feedback.html">FEEDBACK</a></li>
           <div class="login">
-            <a href="profile-page.php" id="login-button">Account</a>
+            <a href="admin-profile-page.php" id="login-button">Account</a>
           </div>
         </ul>
         <label for="menu-btn" class="navbtn menu-btn"
@@ -302,6 +304,7 @@ if ($result->num_rows > 0) {
         ></label>
       </div>
     </nav>
+    </div>
     <!-- End of Navigation Bar -------------------------------------------------------->
 
     <!-- Start of Transaction History (BODY)-------------------------------------------------------->

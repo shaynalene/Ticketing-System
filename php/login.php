@@ -28,7 +28,7 @@ if (isset($_POST['forgot'])){
         include "../php/generate-email.php";
         try {
         // Server settings
-        $mail->SMTPDebug = 2;                      
+        $mail->SMTPDebug = 0;                      
         $mail->isSMTP();                                            
         $mail->Host       = 'smtp.gmail.com';                    
         $mail->SMTPAuth   = true;                              
@@ -59,18 +59,19 @@ if (isset($_POST['forgot'])){
 
         //show alert that an email was sent
         echo '<script>alert("An email was sent to your registered email.");
-                //window.location = "../pages/login-usr-page.html";
+                window.location = "../pages/login-usr-page.html";
         </script>';
-        header("Location: ../pages/login-usr-page.html");
+        //header("Location: ../pages/login-usr-page.html");
         //exit(); // Make sure to exit after setting the header
     }
     else {
         //no account was found
         echo    '<script>
                     alert("No account was found!");
+                    window.location = "../pages/login-usr-page.html";
                 </script>';
+                //header("Location: ../pages/login-usr-page.html");
     }
-    //header("Location: ../pages/login-usr-page.html");
     $stmt->close();
     $conn->close();
 }

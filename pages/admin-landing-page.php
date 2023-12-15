@@ -23,11 +23,11 @@ if (isset($_POST['save'])){
   $price = $_POST["price"];
   $bus_number = $_POST["busnumber"];
   $date = $_POST["date"];
-  //$time = $_POST["time"];
+  $time = $_POST["time"];
 
-  $sql = "INSERT INTO bus_schedule (pick_up, drop_off, price, bus_number, date/*, time*/) VALUES (?, ?, ?, ?, ?/*, ?*/)";
+  $sql = "INSERT INTO bus_schedule (pick_up, drop_off, price, bus_number, date, time) VALUES (?, ?, ?, ?, ?, ?)";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param('ssiis', $pick_up, $drop_off, $price, $bus_number, $date/*, $time*/);
+  $stmt->bind_param('ssiiss', $pick_up, $drop_off, $price, $bus_number, $date, $time);
   $stmt->execute();
   $stmt->close();
 
@@ -36,33 +36,34 @@ if (isset($_POST['save'])){
     $stmt->execute();
     $result = $stmt->get_result();
 
+    
     if ($result->num_rows === 0) {
-      $sql = "INSERT INTO seat_reservation (bus_no, bus_seat, status, booking_id)
+      $sql = "INSERT INTO seat_reservation (bus_no, bus_seat, status, booking_id, time)
       VALUES
-      ($bus_number, 'A1', 'vacant', ''),
-      ($bus_number, 'A2', 'vacant', ''),
-      ($bus_number, 'A3', 'vacant', ''),
-      ($bus_number, 'A4', 'vacant', ''),
-      ($bus_number, 'B1', 'vacant', ''),
-      ($bus_number, 'B2', 'vacant', ''),
-      ($bus_number, 'B3', 'vacant', ''),
-      ($bus_number, 'B4', 'vacant', ''),
-      ($bus_number, 'C1', 'vacant', ''),
-      ($bus_number, 'C2', 'vacant', ''),
-      ($bus_number, 'C3', 'vacant', ''),
-      ($bus_number, 'C4', 'vacant', ''),
-      ($bus_number, 'D1', 'vacant', ''),
-      ($bus_number, 'D2', 'vacant', ''),
-      ($bus_number, 'D3', 'vacant', ''),
-      ($bus_number, 'D4', 'vacant', ''),
-      ($bus_number, 'E1', 'vacant', ''),
-      ($bus_number, 'E2', 'vacant', ''),
-      ($bus_number, 'E3', 'vacant', ''),
-      ($bus_number, 'E4', 'vacant', ''),
-      ($bus_number, 'F1', 'vacant', ''),
-      ($bus_number, 'F2', 'vacant', ''),
-      ($bus_number, 'F3', 'vacant', ''),
-      ($bus_number, 'F4', 'vacant', '')
+      ($bus_number, 'A1', 'vacant', '', '$time'),
+      ($bus_number, 'A2', 'vacant', '', '$time'),
+      ($bus_number, 'A3', 'vacant', '', '$time'),
+      ($bus_number, 'A4', 'vacant', '', '$time'),
+      ($bus_number, 'B1', 'vacant', '', '$time'),
+      ($bus_number, 'B2', 'vacant', '', '$time'),
+      ($bus_number, 'B3', 'vacant', '', '$time'),
+      ($bus_number, 'B4', 'vacant', '', '$time'),
+      ($bus_number, 'C1', 'vacant', '', '$time'),
+      ($bus_number, 'C2', 'vacant', '', '$time'),
+      ($bus_number, 'C3', 'vacant', '', '$time'),
+      ($bus_number, 'C4', 'vacant', '', '$time'),
+      ($bus_number, 'D1', 'vacant', '', '$time'),
+      ($bus_number, 'D2', 'vacant', '', '$time'),
+      ($bus_number, 'D3', 'vacant', '', '$time'),
+      ($bus_number, 'D4', 'vacant', '', '$time'),
+      ($bus_number, 'E1', 'vacant', '', '$time'),
+      ($bus_number, 'E2', 'vacant', '', '$time'),
+      ($bus_number, 'E3', 'vacant', '', '$time'),
+      ($bus_number, 'E4', 'vacant', '', '$time'),
+      ($bus_number, 'F1', 'vacant', '', '$time'),
+      ($bus_number, 'F2', 'vacant', '', '$time'),
+      ($bus_number, 'F3', 'vacant', '', '$time'),
+      ($bus_number, 'F4', 'vacant', '', '$time')
       ;";
       $conn->query($sql);
     }
@@ -75,12 +76,12 @@ if (isset($_POST['edit'])){
   $drop_off = $_POST["drop_off"];
   $price = $_POST["price"];
   $bus_number = $_POST["bus_number"];
-  $date = $_POST["date"];
-  //$time = $_POST["time"];
+  $date = $_POST["new-date"];
+  $time = $_POST["new-time"];
 
-  $sql = "UPDATE bus_schedule SET pick_up = ?, drop_off = ?, price = ?, bus_number = ?, date = ?/*, time = ?*/ WHERE schedule_id = ?";
+  $sql = "UPDATE bus_schedule SET pick_up = ?, drop_off = ?, price = ?, bus_number = ?, date = ?, time = ? WHERE schedule_id = ?";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param('ssiisi', $pick_up, $drop_off, $price, $bus_number, $date/*, $time*/, $schedule_id);
+  $stmt->bind_param('ssiissi', $pick_up, $drop_off, $price, $bus_number, $date, $time, $schedule_id);
   $stmt->execute();
   $stmt->close();
 }
@@ -183,7 +184,7 @@ if (isset($_POST['remove'])){
             <li><a href="../pages/admin-feedback.html">FEEDBACK</a></li>
             <div class="login">
               <a
-                href="../pages/profile-page.php"
+                href="../pages/admin-profile-page.php"
                 id="login-button"
                 >Account</a
               >
@@ -216,6 +217,7 @@ if (isset($_POST['remove'])){
               <th>PRICE</th>
               <th>BUS NO.</th>
               <th>TRAVEL DATE</th>
+              <th>TRAVEL TIME</th>
               <th>-</th>
               <th>MODIFY</th>
             </tr>
@@ -227,14 +229,17 @@ if (isset($_POST['remove'])){
             
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<tr>
+                  $timetest = $row['time'];
+                    echo "
+                        <tr>
                         <td>{$row['pick_up']}</td>
                         <td>{$row['drop_off']}</td>
                         <td>{$row['price']}</td>
                         <td>{$row['bus_number']}</td>
                         <td>{$row['date']}</td>
+                        <td>$timetest</td>
                         <td>-</td>
-                        <td><button id=\"modifyButton\" class=\"editButtonLP\" onclick=\"displayRecord('{$row['schedule_id']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['price']}', {$row['bus_number']}, {$row['date']},{$row['time']})\">Edit</button></td>
+                        <td><button id=\"modifyButton\" class=\"editButtonLP\" onclick=\"displayRecord('{$row['schedule_id']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['price']}', {$row['bus_number']}, '{$row['date']}', '$timetest')\">Edit</button></td>
                         </tr>";
                 }
             }

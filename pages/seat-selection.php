@@ -207,7 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
 
     <!-- SEAT SELECTION -->
     <div class="main-content-seat">
-      <div class="title-header">SEAT SELECTION</div><br>
+      <div class="title-header">SEAT SELECTION</div>
     <!--<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <button type="submit" name="reset">RESET IN DATABASE</button>
     </form>-->
@@ -239,13 +239,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
     <br><br>
     <hr><br>
     <!-- Insert backend code here (bus number and bus seat based from the booking form) -->
-    <h4>Available Seat(s) from Bus # </h4><br>
-    <h4><?php echo $_SESSION['passenger_count'];?></h4><br>
+    <h4>Number of Seats to select: </h4>
+    <h4><?php echo $_SESSION['passenger_count'];?></h4>
     <hr><br>
-    <h4>Number of Seats to select: </h4><br>
-    <h4><?php echo $bus_number?></h4><br>
+    <h4>Available Seat(s) from Bus # </h4>
+    <h4><?php echo $bus_number?></h4>
 
-    <br><br>
+    <br>
     
 </div>
 <div class="main-seat-ctr-2">
@@ -255,6 +255,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset"]) && !isset($_S
   <div class="">-------------------- FRONT --------------------</div>
     <table border="1">
         <?php
+        echo $date;
         //$passenger_number = $_SESSION['passenger_count'];
 
         $rows = ['A', 'B', 'C', 'D', 'E', 'F'];

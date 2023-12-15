@@ -90,9 +90,9 @@ if (isset($_POST['remove'])){
             <li><a href="../pages/admin-feedback.html">FEEDBACK</a></li>
             <div class="login">
               <a
-                href="../pages/profile-page.php"
+                href="../pages/admin-profile-page.php"
                 id="login-button"
-                >Your Account</a
+                >Account</a
               >
             </div>
           </ul>

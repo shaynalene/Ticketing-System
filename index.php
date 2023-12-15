@@ -85,6 +85,7 @@ include "../Ticketing-System/php/server.php";
               <th>PRICE</th>
               <th>BUS NO.</th>
               <th>TRAVEL DATE</th>
+              <th>TRAVEL TIME</th>
             </tr>
           </thead>
           <tbody>
@@ -100,6 +101,7 @@ include "../Ticketing-System/php/server.php";
                         <td>{$row['price']}</td>
                         <td>{$row['bus_number']}</td>
                         <td>{$row['date']}</td>
+                        <td>{$row['time']}</td>
                         </tr>";
                 }
             }

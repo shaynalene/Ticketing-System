@@ -24,7 +24,7 @@ if (isset($_POST['confirm'])){
     $drop_off = $_POST["drop_off"];
     $price = $_POST["price"];
     $date = $_POST["date"];
-    $time = $_POST["departure_time"];
+    $time = $_POST["time"];
     $passenger_number= $_POST["passenger_count"];
     $status = "For Approval";
 
@@ -145,6 +145,7 @@ if (isset($_POST['confirm'])){
               <th>PRICE</th>
               <th>BUS NO.</th>
               <th>TRAVEL DATE</th>
+              <th>TRAVEL TIME</th>
               <th>BOOK</th>
             </tr>
           </thead>
@@ -161,7 +162,8 @@ if (isset($_POST['confirm'])){
                         <td>{$row['price']}</td>
                         <td>{$row['bus_number']}</td>
                         <td>{$row['date']}</td>
-                        <td><button id='modifyButton' class='editButtonLP' name='book' onclick=\"booking('{$row['schedule_id']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['price']}', '{$row['bus_number']}', '{$row['date']}')\">Book</button></td>
+                        <td>{$row['time']}</td>
+                        <td><button id='modifyButton' class='editButtonLP' name='book' onclick=\"booking('{$row['schedule_id']}', '{$row['pick_up']}', '{$row['drop_off']}', '{$row['price']}', '{$row['bus_number']}', '{$row['date']}', '{$row['time']}')\">Book</button></td>
                     </tr>";
                 }
             }

@@ -34,6 +34,19 @@ function addRecord() {
       <span class="question">Travel Date:</span>
       <input type="date" name="date" value="" required>
       </div>
+
+      <div class="detail-value">
+        <label for="departure-time">Choose Preferred Time:</label>
+          <select name="time" id="time" required>
+            <option value="" disabled selected>Select Time</option>
+            <option value="4:00:00">4:00 AM</option>
+            <option value="7:00:00">7:00 AM</option>
+            <option value="9:00:00">9:00 AM</option>
+            <option value="13:00:00">1:00 PM</option>
+            <option value="15:00:00">3:00 PM</option>
+            <option value="17:00:00">5:00 PM</option>
+          </select>
+        </div>
  
       <div class="detail-value">
       <button type="submit" name="save" class="addRecordBtn">ADD RECORD</button>
@@ -48,8 +61,8 @@ function addRecord() {
 }
 
 
-function booking(schedule_id, pick_up, drop_off, price, bus_number, date) {
-  //alert('success');
+function booking(schedule_id, pick_up, drop_off, price, bus_number, date, time) {
+  alert(date);
   document.getElementById("addpopupContent").innerHTML = `
     <form method="POST" action="">
       <input type="hidden" name="schedule_id" id="schedule_id" value="${schedule_id}">
@@ -58,6 +71,7 @@ function booking(schedule_id, pick_up, drop_off, price, bus_number, date) {
       <input type="hidden" name="price" id="price" value="${price}"> 
       <input type="hidden" name="bus_number" id="bus_number" value="${bus_number}"> 
       <input type="hidden" name="date" id="date" value="${date}"> 
+      <input type="hidden" name="time" id="time" value="${time}"> 
       <div class="details">
         <div class="detail-value">
           <span class="question">Pickup:</span>
@@ -73,18 +87,11 @@ function booking(schedule_id, pick_up, drop_off, price, bus_number, date) {
           <span class="question">Travel Date:</span>
           <input type="text" name="date" value="${date}" required readonly>
         </div>
-        <br><hr><br>
 
-        <label for="departure-time">Choose Preferred Time:</label>
-        <select name="departure-time" id="departure-time" required>
-          <option value="" disabled selected>Select Time</option>
-          <option value="4:00:00">4:00 AM</option>
-          <option value="7:00:00">7:00 AM</option>
-          <option value="9:00:00">9:00 AM</option>
-          <option value="13:00:00">1:00 PM</option>
-          <option value="15:00:00">3:00 PM</option>
-          <option value="17:00:00">5:00 PM</option>
-        </select>
+        <div class="detail-value">
+          <span class="question">Travel Time:</span>
+          <input type="text" name="time" value="${time}" readonly>
+        </div><br><hr><br>
        
         <label for="passenger-count">Number of Passengers:</label>
         <select name="passenger-count" id="passenger-count" required>
@@ -110,15 +117,17 @@ function booking(schedule_id, pick_up, drop_off, price, bus_number, date) {
   `;
 
   document.getElementById("next").onclick = function() {
-    var departureTime = document.getElementById("departure-time").value;
+    alert(date);
+    //var departureTime = document.getElementById("departure-time").value;
     var passengerCount = document.getElementById("passenger-count").value;
-    displayBooking(schedule_id, pick_up, drop_off, price, bus_number, date, departureTime, passengerCount);
+    displayBooking(schedule_id, pick_up, drop_off, price, bus_number, date, time, passengerCount);
   };
 
   document.getElementById("addpopupContainer").style.display = "block";
 }
 
-function displayBooking(schedule_id, pick_up, drop_off, price, bus_number, date, departure_time, passenger_count) {
+function displayBooking(schedule_id, pick_up, drop_off, price, bus_number, date, time, passenger_count) {
+  alert(date);
   document.getElementById("addpopupContent").innerHTML = `
     <form method="POST" action="">
       <input type="hidden" name="schedule_id" id="schedule_id" value="${schedule_id}">
@@ -127,7 +136,7 @@ function displayBooking(schedule_id, pick_up, drop_off, price, bus_number, date,
       <input type="hidden" name="price" id="price" value="${price}"> 
       <input type="hidden" name="bus_number" id="bus_number" value="${bus_number}"> 
       <input type="hidden" name="date" id="date" value="${date}"> 
-      <input type="hidden" name="departure_time" id="departure_time" value="${departure_time}"> 
+      <input type="hidden" name="time" id="time" value="${time}"> 
       <input type="hidden" name="passenger_count" id="passenger_count" value="${passenger_count}"> 
       <div class="details">
         <div class="detail-value">
@@ -146,8 +155,10 @@ function displayBooking(schedule_id, pick_up, drop_off, price, bus_number, date,
         </div>
         <br><hr><br>
 
-        <label for="departure-time">Choose Preferred Time:</label>
-        <input type="text" name="departure_time" value="${departure_time}" required readonly>
+        <div class="detail-value">
+          <span class="question">Original Travel Time:</span>
+          <input type="text" name="time" value="${time}" readonly>
+        </div>
 
         <label for="passenger-count">Number of Passengers:</label>
         <input type="text" name="passenger_count" value="${passenger_count}" required readonly>
@@ -165,6 +176,7 @@ function displayBooking(schedule_id, pick_up, drop_off, price, bus_number, date,
 
 
 function displayRecord(schedule_id, pick_up, drop_off, price, bus_number, date, time) {
+  var old_date = String(date);
   document.getElementById("editpopupContent").innerHTML = `
   <form method="POST" action="">
     <input type ="hidden" name="schedule_id" id="schedule_id" value="${schedule_id}">
@@ -173,6 +185,7 @@ function displayRecord(schedule_id, pick_up, drop_off, price, bus_number, date, 
       <input type ="hidden" name="price" id="price" value="${price}"> 
       <input type ="hidden" name="bus_number" id="bus_number" value="${bus_number}"> 
       <input type ="hidden" name="date" id="date" value="${date}"> 
+      <input type ="hidden" name="time" id="time" value="${time}"> 
       <div class="details">
       
       <div class="detail-value">
@@ -196,9 +209,32 @@ function displayRecord(schedule_id, pick_up, drop_off, price, bus_number, date, 
       </div>
 
       <div class="detail-value">
-      <span class="question">Travel Date:</span>
-      <input type="date" name="date" value="${date}">
+        <span class="question">Original Travel Date:</span>
+        <input type="text" name="date" value="${old_date}" readonly>
       </div>
+
+      <div class="detail-value">
+        <span class="question">Original Travel Time:</span>
+        <input type="text" name="time" value="${time}" readonly>
+      </div>
+
+      <div class="detail-value">
+      <span class="question">Choose New Travel Date:</span>
+      <input type="new-date" name="new-date">
+      </div>
+
+      <div class="detail-value">
+        <label for="departure-time">Choose New Preferred Time:</label>
+          <select name="new-time" id="new-time">
+            <option value="" disabled selected>Select Time</option>
+            <option value="4:00:00">4:00 AM</option>
+            <option value="7:00:00">7:00 AM</option>
+            <option value="9:00:00">9:00 AM</option>
+            <option value="13:00:00">1:00 PM</option>
+            <option value="15:00:00">3:00 PM</option>
+            <option value="17:00:00">5:00 PM</option>
+          </select>
+        </div>
  
       <div class="detail-value">
         <button type="submit" name="edit" class="addRecordBtn">EDIT</button>
