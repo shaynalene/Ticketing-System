@@ -787,6 +787,7 @@ textarea.feedback-input {
   display: flex;
   flex-direction: column;
   gap: 1.5em;
+  margin-bottom: 2em;
 }
 
 #comments button {
@@ -970,3 +971,32 @@ button[type="submit"] {
   gap: 1.5em;
 }
 
+button#submit-btn {
+  width: 100%;
+}
+
+.star {
+  color: #365f32;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.star.selected {
+  color: #d1a000;
+}
+
+#star-rating {
+  margin: 15px 0px;
+}
+
+div #star-rating-comment {
+  display: flex;
+  flex-direction: row;
+  margin: 0em;
+  gap: 0.5em;
+}
+
+div #commentheader {
+  margin: 0em;
+  gap: 0em;
+}

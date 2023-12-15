@@ -85,10 +85,22 @@
           <textarea type ="text" name="text" class="feedback-input"  id="comment" placeholder="Enter your comment." rows="5" cols="30"> </textarea>
         </div>
         <div class = "upload">
-            <label class='label required' for="file-input">Upload Photo/Video (optional)</label><br>
+            <label class='label required' for="file-input" placeholder="Enter your comment.">Upload Photo/Video (optional)</label><br>
             <label for="file-input">Note: The site only accepts up to 7mb</label>
             <input type="file" name="file" id="file-input" accept="image/*,video/*" />
           </div>
+
+           
+          <div id="star-rating">
+            <label class='label required' for="star">Rating</label><br>
+            <span class="star" data-rating="1">&#9733;</span>
+            <span class="star" data-rating="2">&#9733;</span>
+            <span class="star" data-rating="3">&#9733;</span>
+            <span class="star" data-rating="4">&#9733;</span>
+            <span class="star" data-rating="5">&#9733;</span>
+          </div>
+          
+          
         <button id="submit-btn" class="custom-btn btn-14" type="submit">COMMENT</button>
       </form>  
     </div>
@@ -124,11 +136,6 @@
     </div>
   </body>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<<<<<<< Updated upstream:pages/feedback-user.html
-
     
-=======
-  <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
->>>>>>> Stashed changes:pages/feedback.html
   <script src="../script.js"></script>
 </html>
